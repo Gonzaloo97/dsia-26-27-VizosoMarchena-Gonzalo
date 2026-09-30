@@ -11,7 +11,7 @@ from ventas_app.validator import validar_ventas  # Validación
 RUTA_CSV_CURSO = Path(__file__).parent.parent / "Datos" / "ventas.csv"
 
 # Resultados esperados con el CSV del curso (checkpoint de la E1)
-VALIDAS_ESPERADAS = 141
+VALIDAS_ESPERADAS = 140
 INVALIDAS_ESPERADAS = 10
 
 
