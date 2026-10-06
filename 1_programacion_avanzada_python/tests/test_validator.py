@@ -1,19 +1,15 @@
-"""Tests unitarios del módulo validator."""
+"""Tests unitarios de ventas_app.validator."""
 
-import pandas as pd  # Librería para trabajar con DataFrames
-import pytest  # Framework de testing
+import pandas as pd
+import pytest
 
-from ventas_app.validator import ValidationError, validar_ventas  # Código que se prueba
+from ventas_app.validator import ValidationError, validar_ventas
 
-
-# ------------------------------------------------------------
-# Fixture: datos de prueba en memoria
-# ------------------------------------------------------------
 
 @pytest.fixture
 def ventas_mini():
     """
-    DataFrame pequeño con 3 ventas:
+    3 ventas en memoria:
       - fila 0: válida (2 unidades x 10.0)
       - fila 1: inválida (unidades vacías)
       - fila 2: inválida (precio negativo)
@@ -29,7 +25,7 @@ def ventas_mini():
 
 
 def crear_venta(unidades, precio) -> pd.DataFrame:
-    """Crea un DataFrame con una sola venta, con las unidades y el precio indicados."""
+    """Una sola venta con las unidades y el precio indicados."""
     return pd.DataFrame({
         "fecha": ["2026-01-01"],
         "region": ["Norte"],
@@ -40,59 +36,43 @@ def crear_venta(unidades, precio) -> pd.DataFrame:
     })
 
 
-# ------------------------------------------------------------
-# Parte 1 - Tests con la fixture
-# ------------------------------------------------------------
-
-def test_mini_tiene_una_fila_valida(ventas_mini):
-    """Solo la primera fila cumple las reglas."""
+def test_validar_ventas_mini_una_valida(ventas_mini):
     validos, _ = validar_ventas(ventas_mini)
     assert len(validos) == 1
 
 
-def test_mini_tiene_dos_filas_invalidas(ventas_mini):
-    """La fila con unidades vacías y la fila con precio negativo son inválidas."""
+def test_validar_ventas_mini_dos_invalidas(ventas_mini):
     _, errores = validar_ventas(ventas_mini)
     assert len(errores) == 2
 
 
-def test_importe_se_calcula_en_filas_validas(ventas_mini):
-    """El importe de la fila válida es unidades * precio_unitario = 2 * 10.0."""
+def test_validar_ventas_importe_es_unidades_por_precio(ventas_mini):
     validos, _ = validar_ventas(ventas_mini)
     assert validos["importe"].iloc[0] == 20.0
 
 
-def test_validacion_no_modifica_el_dataframe_original(ventas_mini):
-    """validar_ventas trabaja sobre una copia: el original no gana la columna 'importe'."""
+def test_validar_ventas_no_modifica_el_original(ventas_mini):
     validar_ventas(ventas_mini)
     assert "importe" not in ventas_mini.columns
 
 
-# ------------------------------------------------------------
-# Parte 2 - Casos borde y errores
-# ------------------------------------------------------------
-
-# El mismo test se ejecuta 3 veces, una por cada pareja (precio, filas válidas esperadas)
 @pytest.mark.parametrize("precio, validas_esperadas", [
-    (0, 0),   # precio 0: inválido (tiene que ser > 0)
-    (-1, 0),  # precio negativo: inválido
-    (1, 1),   # precio positivo: válido
+    (0, 0),   # borde: tiene que ser estrictamente mayor que 0
+    (-1, 0),
+    (1, 1),
 ])
-def test_precio_limite(precio, validas_esperadas):
-    """Solo los precios estrictamente mayores que 0 son válidos."""
+def test_validar_ventas_precio_limite(precio, validas_esperadas):
     validos, _ = validar_ventas(crear_venta(unidades=1, precio=precio))
     assert len(validos) == validas_esperadas
 
 
-def test_unidades_texto_es_invalida():
-    """Un texto en 'unidades' (por ejemplo "na") se convierte en NaN y la fila es inválida."""
+def test_validar_ventas_unidades_texto_va_a_errores():
     validos, errores = validar_ventas(crear_venta(unidades="na", precio=10.0))
     assert len(validos) == 0
     assert len(errores) == 1
 
 
-def test_faltan_columnas_lanza_validation_error():
-    """Si falta una columna obligatoria se lanza ValidationError."""
+def test_validar_ventas_sin_columna_obligatoria_lanza_validation_error():
     sin_precio = crear_venta(unidades=1, precio=10.0).drop(columns=["precio_unitario"])
     with pytest.raises(ValidationError):
         validar_ventas(sin_precio)
