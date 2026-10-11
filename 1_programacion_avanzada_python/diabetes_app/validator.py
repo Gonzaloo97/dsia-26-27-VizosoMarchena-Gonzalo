@@ -53,6 +53,17 @@ VALORES_PERMITIDOS = {
 # quedan fuera del análisis de reingresos
 CODIGOS_ALTA_FALLECIMIENTO = {11, 19, 20, 21}
 
+# Códigos que en IDS_mapping.csv significan "desconocido" (NULL, Not Available,
+# Not Mapped, Unknown/Invalid). pandas los lee como números normales, así que no
+# cuentan como nulos: son nulos encubiertos. No invalidan la fila porque estas
+# columnas no son necesarias para el análisis de reingresos; se informan en el
+# JSON de calidad.
+CODIGOS_DESCONOCIDOS = {
+    "admission_type_id": {5, 6, 8},
+    "discharge_disposition_id": {18, 25, 26},
+    "admission_source_id": {9, 15, 17, 20, 21},
+}
+
 
 def comprobar_columnas(frame: pd.DataFrame) -> None:
     """

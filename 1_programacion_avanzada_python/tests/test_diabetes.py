@@ -124,6 +124,23 @@ def test_estancia_media_por_reingreso(encuentros_mini):
     assert estancia["NO"] == 3
 
 
+def test_codigos_desconocidos_cuentan_como_nulos_encubiertos():
+    encuentros = pd.DataFrame([
+        crear_encuentro(encounter_id=1, admission_type_id=1),
+        crear_encuentro(encounter_id=2, admission_type_id=6),   # 6 = NULL en IDS_mapping
+        crear_encuentro(encounter_id=3, admission_type_id=8),   # 8 = Not Mapped
+        crear_encuentro(encounter_id=4, admission_type_id=2),
+    ])
+    resultado = metrics.porcentaje_codigos_desconocidos(encuentros)
+    assert resultado["admission_type_id"] == 50.0
+    assert resultado["discharge_disposition_id"] == 0.0
+
+
+def test_codigo_desconocido_no_invalida_la_fila():
+    validos, _ = validar_encuentros(pd.DataFrame([crear_encuentro(admission_type_id=6)]))
+    assert len(validos) == 1
+
+
 @pytest.mark.integration
 def test_muestra_diabetes_validos_e_invalidos():
     validos, errores = validar_encuentros(load(RUTA_MUESTRA))

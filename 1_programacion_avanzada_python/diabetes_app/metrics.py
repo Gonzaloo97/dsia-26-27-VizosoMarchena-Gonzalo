@@ -2,7 +2,7 @@
 
 import pandas as pd
 
-from diabetes_app.validator import GRUPOS_EDAD
+from diabetes_app.validator import CODIGOS_DESCONOCIDOS, GRUPOS_EDAD
 
 # Valor de 'readmitted' que indica reingreso en menos de 30 días
 # (el indicador de calidad hospitalaria más habitual)
@@ -57,6 +57,15 @@ def porcentaje_nulos(frame: pd.DataFrame) -> dict[str, float]:
     return nulos[nulos > 0].sort_values(ascending=False).to_dict()
 
 
+def porcentaje_codigos_desconocidos(frame: pd.DataFrame) -> dict[str, float]:
+    """Porcentaje de filas con un código "desconocido" (nulo encubierto) en cada columna de IDs."""
+    return {
+        columna: round(float(frame[columna].isin(codigos).mean() * 100), DECIMALES)
+        for columna, codigos in CODIGOS_DESCONOCIDOS.items()
+        if columna in frame.columns
+    }
+
+
 def resumen_calidad(total: pd.DataFrame, validos: pd.DataFrame, errores: pd.DataFrame,
                     incumplimientos: dict[str, int]) -> dict:
     """
@@ -75,6 +84,7 @@ def resumen_calidad(total: pd.DataFrame, validos: pd.DataFrame, errores: pd.Data
         "incumplimientos_por_regla": incumplimientos,
         "porcentaje_nulos_por_columna": nulos,
         "columnas_casi_vacias": [col for col, pct in nulos.items() if pct > UMBRAL_COLUMNA_CASI_VACIA],
+        "porcentaje_nulos_encubiertos": porcentaje_codigos_desconocidos(total),
         "pacientes_unicos": int(validos["patient_nbr"].nunique()),
         "tasa_reingreso_30_global": float(round((validos["readmitted"] == REINGRESO_30_DIAS).mean() * 100, DECIMALES)),
     }
