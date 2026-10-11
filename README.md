@@ -68,6 +68,8 @@ python -m diabetes_app.crear_muestra --input Datos/diabetic_data.csv --output Da
 
 La muestra es reproducible (semilla fija).
 
+También se incluye `Datos/IDS_mapping.csv` (del mismo origen), que traduce a texto los códigos numéricos de `admission_type_id`, `discharge_disposition_id` y `admission_source_id`.
+
 ### Ejecución
 
 ```bash
@@ -79,7 +81,7 @@ El mismo comando funciona con el fichero completo (`--input Datos/diabetic_data.
 **Salidas:**
 
 - `Datos/diabetes_limpio.csv`: encuentros válidos.
-- `Datos/calidad_diabetes.json`: filas totales, válidas e inválidas; incumplimientos por regla; porcentaje de nulos por columna; columnas casi vacías; pacientes únicos y tasa global de reingreso en menos de 30 días.
+- `Datos/calidad_diabetes.json`: filas totales, válidas e inválidas; incumplimientos por regla; porcentaje de nulos por columna; columnas casi vacías; porcentaje de nulos encubiertos (códigos "desconocido" de `IDS_mapping.csv`); pacientes únicos y tasa global de reingreso en menos de 30 días.
 
 ### Reglas de validación
 
@@ -93,6 +95,8 @@ El mismo comando funciona con el fichero completo (`--input Datos/diabetic_data.
 | Pacientes fallecidos | Códigos de alta 11, 19, 20 y 21: se excluyen porque no pueden reingresar |
 
 Los valores `?` del dataset se leen como nulos; `None` en `A1Cresult` / `max_glu_serum` se conserva, porque significa "prueba no realizada".
+
+**Nulos encubiertos:** según `IDS_mapping.csv`, algunos códigos de ID significan "desconocido" (`NULL`, `Not Available`, `Not Mapped`, `Unknown/Invalid`). No invalidan la fila, pero su porcentaje se informa en el JSON de calidad. En el dataset completo afectan al 10,2 % de `admission_type_id`, al 4,6 % de `discharge_disposition_id` y al 6,9 % de `admission_source_id`.
 
 ### Métricas
 
