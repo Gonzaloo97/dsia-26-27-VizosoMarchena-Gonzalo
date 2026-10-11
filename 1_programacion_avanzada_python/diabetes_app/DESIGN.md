@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | Unidad de análisis | Una venta | Un encuentro hospitalario (ingreso) |
 | Carga | CSV / JSON | CSV del formato UCI: `?` como nulo y `None` conservado como texto ("prueba no realizada") |
-| Reglas | 2 columnas positivas | Nulos, rangos numéricos, valores categóricos permitidos, duplicados y exclusión de pacientes fallecidos |
+| Reglas | 2 columnas positivas | Nulos, rangos numéricos, valores categóricos permitidos, duplicados y exclusión de fallecidos y altas a hospicio |
 | Errores | Filas inválidas tal cual | Filas inválidas con columna `motivo` + recuento por regla |
 | Métricas | Importe por región/producto, clientes recurrentes | Distribución de reingresos, reingreso <30 días por edad y por HbA1c, estancia media, pacientes recurrentes |
 | Informe de calidad | Filas e importe total | Filas, incumplimientos por regla, % de nulos por columna, columnas casi vacías, % de nulos encubiertos, tasa de reingreso |
@@ -14,13 +14,14 @@
 ## Principios SOLID aplicados
 
 - **SRP (Responsabilidad única)** — `loader.py`, `validator.py`, `metrics.py` y `cli.py`. Cada módulo tiene un único motivo para cambiar. Por ejemplo, si cambia el criterio clínico de qué encuentro es válido, solo se modifica `validator.py`.
-- **OCP (Abierto/cerrado)** — `validator.py`. Las reglas están definidas como datos (`COLUMNAS_SIN_NULOS`, `RANGOS_NUMERICOS`, `VALORES_PERMITIDOS`, `CODIGOS_ALTA_FALLECIMIENTO`) y `construir_reglas()` las recorre en bucles. Para añadir una regla nueva basta con añadir una entrada a esos diccionarios o listas, sin modificar la lógica de validación.
+- **OCP (Abierto/cerrado)** — `validator.py`. Las reglas están definidas como datos (`COLUMNAS_SIN_NULOS`, `RANGOS_NUMERICOS`, `VALORES_PERMITIDOS`, `CODIGOS_ALTA_FALLECIMIENTO`, `CODIGOS_ALTA_HOSPICIO`) y `construir_reglas()` las recorre en bucles. Para añadir una regla nueva basta con añadir una entrada a esos diccionarios o listas, sin modificar la lógica de validación.
 - **DIP (Inversión de dependencias)** — `loader.py`, `Protocol` `EncounterRepository`. `load()` depende de la interfaz y no de una fuente concreta. `CsvEncounterRepository` se registra en `REPOSITORIOS`; para añadir otra fuente (por ejemplo, una API o un Parquet) se crea una clase nueva con `load()` sin modificar `validator.py`, `metrics.py` ni `cli.py`.
 
 ## Decisiones de dominio
 
 - **`?` es nulo, `None` no lo es.** En `max_glu_serum` y `A1Cresult`, `None` significa que la prueba no se realizó y es información útil. pandas convierte `None` en `NaN` por defecto, así que se desactiva con `keep_default_na=False`.
 - **Se excluyen los pacientes fallecidos** (códigos de alta 11, 19, 20 y 21 según `IDS_mapping.csv`): no pueden reingresar y sesgarían el análisis de reingresos.
+- **Se excluyen las altas a hospicio** (códigos 13 y 14). No implican fallecimiento, pero representan un contexto de cuidados paliativos muy distinto al resto; se excluyen por coherencia con la literatura del dataset (Strack et al., 2014) y con la limpieza del proyecto de Machine Learning que usa el mismo dataset. Es una decisión de alcance, no la corrección de un error.
 - **`weight`, `payer_code` y `medical_specialty` tienen muchos nulos pero no invalidan filas.** No son necesarias para el análisis, así que se informan en el JSON de calidad (`columnas_casi_vacias`) en lugar de descartar el 97 % del dataset.
 - **Nulos encubiertos en las columnas de IDs.** Según `IDS_mapping.csv`, los códigos 5, 6 y 8 de `admission_type_id`, 18, 25 y 26 de `discharge_disposition_id` y 9, 15, 17, 20 y 21 de `admission_source_id` significan "desconocido". pandas los lee como números normales, así que no aparecen como nulos. No invalidan la fila (no son necesarios para el análisis de reingresos), pero se informan en el JSON de calidad (`porcentaje_nulos_encubiertos`). Están definidos como datos en `CODIGOS_DESCONOCIDOS` (OCP).
 - **Varios encuentros por paciente son válidos** (un paciente puede ingresar varias veces). Se informan como métrica (`pacientes_recurrentes`).

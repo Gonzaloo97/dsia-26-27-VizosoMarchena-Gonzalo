@@ -339,9 +339,7 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 32726922,3448494,Caucasian,Female,[60-70),,1,1,7,9,,Family/GeneralPractice,66,1,22,1,0,3,682,496,41,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
 32731494,371646,Caucasian,Female,[70-80),,1,3,7,3,,Family/GeneralPractice,71,0,15,0,0,2,288,496,428,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 32747436,94651758,Caucasian,Female,[60-70),,6,6,17,5,,InternalMedicine,45,0,10,0,0,0,436,386,V12,9,None,None,No,No,No,No,No,No,Down,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
-32760876,11472570,Caucasian,Male,[70-80),,6,14,17,3,,InternalMedicine,101,2,19,0,0,1,557,428,425,9,None,>8,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 32890962,3344895,AfricanAmerican,Female,[70-80),,2,1,1,1,,Urology,54,5,21,0,0,3,414,250.01,584,8,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
-32981130,5252445,AfricanAmerican,Female,[70-80),,1,14,7,3,,,60,0,13,0,0,2,38,584,599,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,<30
 33041952,88949412,Caucasian,Male,[40-50),,3,1,1,4,,Surgery-Cardiovascular/Thoracic,55,3,31,0,0,1,414,428,493,6,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 33045894,90030123,Caucasian,Male,[80-90),,3,1,1,11,,,43,6,34,0,0,0,155,410,427,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 33228510,14649246,,Male,[70-80),,1,1,7,1,,InternalMedicine,53,0,17,0,0,0,414,411,250,9,None,None,Up,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
@@ -915,7 +913,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 67535214,2271798,Caucasian,Male,[60-70),,3,18,1,1,,,25,1,26,0,0,0,433,250,272,5,None,None,No,No,No,No,No,No,Steady,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
 67700586,3767760,Caucasian,Female,[50-60),,1,1,7,4,,InternalMedicine,46,3,9,0,0,0,414,401,250,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 67712838,178236,AfricanAmerican,Male,[90-100),,1,1,7,6,,,45,1,8,0,0,2,550,250.01,403,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
-67718568,8767800,Caucasian,Male,[70-80),,1,13,7,5,,,58,0,20,0,0,0,410,428,426,7,None,None,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,<30
 67720458,23369427,Caucasian,Female,[50-60),,5,1,17,1,,Family/GeneralPractice,18,0,11,2,1,0,250.83,401,786,9,>300,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,<30
 67857558,13377636,AfricanAmerican,Male,[50-60),,1,6,7,3,,,32,2,10,1,0,3,530,578,585,9,None,None,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,>30
 67867242,2657871,AfricanAmerican,Male,[50-60),,1,1,7,9,,InternalMedicine,82,6,29,0,0,0,38,599,788,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,>30
@@ -1014,7 +1011,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 73613550,533970,Caucasian,Male,[50-60),,1,1,7,6,,,62,3,15,0,0,0,402,414,414,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 73653138,17165457,Caucasian,Female,[60-70),,3,6,1,5,,Surgery-Cardiovascular/Thoracic,54,3,16,0,0,0,515,289,518,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,>30
 73688418,53887761,Other,Male,[80-90),,1,1,7,12,,Family/GeneralPractice,73,3,29,0,0,0,198,599,486,9,None,None,Steady,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,NO
-73728216,23740524,Caucasian,Female,[70-80),,5,14,17,12,,,25,1,35,0,0,0,162,198,486,9,>200,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 73733856,19004256,Caucasian,Female,[50-60),,2,1,7,4,,Surgery-General,57,2,10,0,0,0,540,250.01,401,5,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 73762158,11081952,Caucasian,Female,[70-80),,1,3,5,7,,,54,1,21,0,0,1,535,599,428,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 73775256,1538298,AfricanAmerican,Female,[80-90),,1,1,7,4,,InternalMedicine,51,0,14,0,0,2,434,599,428,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,>30
@@ -1151,7 +1147,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 81172290,5419161,Caucasian,Male,[60-70),,6,3,17,7,,,56,2,15,0,0,0,V57,358,244,9,None,None,Steady,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,>30
 81195534,362331,AfricanAmerican,Male,[60-70),,1,1,7,6,,,35,3,21,0,0,0,440,250.01,401,4,None,None,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
 81279684,14378787,Caucasian,Female,[50-60),,3,6,4,7,,PhysicalMedicineandRehabilitation,53,0,23,0,0,2,V57,491,428,9,None,None,No,No,No,No,No,No,Up,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,<30
-81306930,2101410,Caucasian,Female,[70-80),,2,14,6,5,,,41,2,15,0,0,1,444,428,427,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 81359220,4134024,Caucasian,Female,[60-70),,3,1,1,3,,,20,6,18,0,0,0,414,562,V45,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 81364968,23397147,Caucasian,Female,[60-70),,6,25,17,9,,,23,0,30,0,2,3,518,507,496,9,>300,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,>30
 81427524,75526857,Caucasian,Female,[80-90),,1,6,7,2,,,51,0,9,0,0,0,682,250,719,5,None,>7,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,>30
@@ -1203,7 +1198,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 83966946,15741738,,Female,[50-60),,2,1,4,10,SP,Cardiology,87,5,27,0,0,0,414,493,250.03,5,None,>8,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 84061626,337320,AfricanAmerican,Female,[70-80),,1,3,7,13,,Psychiatry,47,0,14,0,0,0,331,294,365,5,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 84067854,23431194,Caucasian,Female,[60-70),,5,1,17,2,HM,Cardiology,25,1,11,4,0,1,511,V42,V45,7,Norm,None,Steady,No,No,No,No,No,Down,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,>30
-84072660,58324410,Caucasian,Male,[60-70),,2,13,7,6,,,42,1,12,0,0,3,491,276,345,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 84075096,43927515,Caucasian,Male,[80-90),,6,22,17,14,,,68,0,23,0,0,1,428,511,788,9,None,None,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,>30
 84084888,35427429,Caucasian,Female,[60-70),,6,3,1,10,,Orthopedics-Reconstructive,82,3,58,4,0,0,722,518,427,6,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,<30
 84129144,6257790,Caucasian,Male,[50-60),,1,1,7,1,,Cardiology,64,4,11,0,0,0,414,428,424,6,None,>7,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
@@ -1324,7 +1318,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 90925734,23369427,Caucasian,Female,[50-60),,5,1,17,2,MC,Family/GeneralPractice,15,0,17,1,1,2,530,250,401,6,>300,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,<30
 91022148,4699944,AfricanAmerican,Female,[50-60),,1,1,6,11,MD,Cardiology,77,5,27,0,0,0,414,295,272,5,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 91028004,23824134,Caucasian,Female,[90-100),,1,3,17,3,MC,,9,0,11,0,1,0,453,250,401,4,Norm,None,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
-91105842,94415517,Caucasian,Male,[80-90),,1,13,7,7,MC,,64,0,13,0,0,0,486,428,250,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,NO
 91106700,24412527,Caucasian,Female,[70-80),,5,3,17,3,MC,Orthopedics-Reconstructive,9,1,15,0,0,0,824,250.01,E888,8,Norm,None,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
 91165722,22813497,Caucasian,Female,[70-80),,1,1,7,4,MC,,50,2,12,0,1,0,486,428,397,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 91187160,6846282,,Male,[70-80),,1,1,6,3,HM,,41,5,15,0,0,0,426,996,414,5,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
@@ -1451,7 +1444,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 97728108,32247360,AfricanAmerican,Female,[30-40),,6,1,7,3,,,63,0,7,0,0,1,786,250.01,401,5,Norm,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,NO
 97765248,15154434,,Female,[80-90),,1,4,6,5,UN,Family/GeneralPractice,62,0,9,0,0,0,250.4,403,426,5,None,Norm,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 97780662,5154912,Caucasian,Male,[70-80),,1,1,6,6,MC,InternalMedicine,50,0,11,0,0,0,728,780,788,5,None,None,Steady,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,>30
-97787244,29869560,Caucasian,Female,[80-90),,1,14,17,8,MC,,16,1,20,0,0,0,183,276,197,9,>300,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 97854126,25630164,Caucasian,Male,[60-70),,1,3,17,6,MC,,17,1,17,0,5,4,491,428,287,9,Norm,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,NO
 97883976,23414517,Caucasian,Male,[30-40),,1,1,7,3,,Family/GeneralPractice,42,3,7,0,0,0,250.6,573,536,6,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,NO
 97890162,3658608,Caucasian,Female,[60-70),,1,1,6,2,BC,InternalMedicine,45,1,14,0,0,0,596,592,412,5,None,None,Steady,No,No,No,Steady,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
@@ -1687,7 +1679,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 109038180,14310171,AfricanAmerican,Female,[60-70),,1,1,6,1,MC,InternalMedicine,50,2,15,0,0,0,427,403,V45,5,None,Norm,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 109047186,8096031,Hispanic,Female,[70-80),,2,1,1,5,HM,Surgery-General,42,5,11,0,0,0,154,250,401,5,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 109054650,989136,Caucasian,Female,[60-70),,2,1,1,1,MC,Surgery-General,30,2,11,0,0,0,433,272,414,5,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
-109153872,24665832,Caucasian,Female,[60-70),,1,14,17,5,MC,Family/GeneralPractice,17,0,23,1,1,3,584,284,511,9,>200,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,NO
 109174896,5558292,,Female,[80-90),,1,1,6,2,UN,InternalMedicine,47,0,9,0,0,1,780,272,250,5,None,None,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
 109182012,24751674,Caucasian,Female,[70-80),,1,1,7,4,MC,Orthopedics-Reconstructive,38,1,33,0,0,0,812,402,428,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 109336278,114725556,Caucasian,Male,[70-80),[100-125),3,1,1,5,MC,,26,1,22,0,0,2,724,427,413,7,None,None,No,No,No,No,No,No,No,Steady,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
@@ -2008,7 +1999,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 128419554,24407892,AfricanAmerican,Female,[70-80),,1,6,7,4,MC,InternalMedicine,44,0,16,0,0,3,428,425,427,9,None,None,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,>30
 128468874,80235450,AfricanAmerican,Male,[40-50),,1,1,7,4,,,24,1,14,0,0,0,486,403,V08,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 128677434,92256390,Caucasian,Female,[80-90),,2,3,7,2,MC,,15,0,14,0,1,0,250.02,276,427,8,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
-128747202,51893856,Caucasian,Female,[70-80),,1,13,7,9,,,50,2,18,0,0,0,599,276,153,6,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
 128757198,25002045,Caucasian,Female,[70-80),,1,3,5,5,MC,InternalMedicine,44,2,9,0,1,0,286,280,599,9,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
 128793564,101258865,Caucasian,Male,[70-80),,3,1,1,4,,,58,6,23,0,0,1,414,411,428,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
 128866614,34479522,Caucasian,Female,[30-40),,6,1,7,10,,,96,3,28,0,0,1,584,403,250,5,>300,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
@@ -2311,7 +2301,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 146437860,23291955,AfricanAmerican,Female,[80-90),,2,1,1,2,MC,InternalMedicine,50,0,10,1,0,2,402,428,250,8,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
 146458560,85378401,Caucasian,Female,[80-90),,5,3,1,3,MC,,42,0,19,0,0,0,733,428,401,6,None,None,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,>30
 146566650,36398304,AfricanAmerican,Male,[60-70),,1,6,7,3,MC,,36,5,18,0,1,0,780,599,403,8,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
-146581842,73133505,Caucasian,Male,[80-90),,2,13,1,11,,InternalMedicine,30,0,19,0,0,2,8,428,403,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 146593374,59065632,AfricanAmerican,Male,[60-70),,1,3,7,4,MC,,66,0,18,0,0,0,492,436,593,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 146596806,23421780,Caucasian,Female,[50-60),,3,1,1,1,MC,Surgery-Vascular,50,3,23,1,2,1,250.4,403,780,6,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,>30
 146661966,37595970,Caucasian,Female,[70-80),,2,3,7,4,MC,Emergency/Trauma,55,0,12,0,0,2,276,780,693,9,None,>8,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
@@ -2319,7 +2308,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 146684766,94863843,Caucasian,Female,[70-80),,5,3,1,5,MC,,38,0,13,0,0,0,682,427,707,9,None,None,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,>30
 146716896,30267936,Caucasian,Female,[10-20),,1,1,7,2,MD,,1,0,7,0,0,0,486,276,780,6,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 146739546,49824810,Caucasian,Male,[50-60),,1,1,7,5,CP,,13,0,10,0,0,0,250.11,403,V15,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
-146739786,97602327,Caucasian,Male,[70-80),,1,14,1,11,MC,,77,3,28,1,0,0,518,491,584,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
 146866284,101763180,Caucasian,Male,[60-70),,1,1,7,3,BC,Surgery-General,40,0,10,0,0,0,435,427,250.4,9,None,None,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,NO
 146866962,30654603,Caucasian,Male,[80-90),,1,3,7,3,MC,Surgery-General,60,0,20,0,0,0,599,427,41,7,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
 146976738,98074170,Caucasian,Male,[70-80),,2,4,1,2,,Nephrology,50,1,13,1,0,1,403,8,250,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,<30
@@ -2348,9 +2336,7 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 147742104,80032671,AfricanAmerican,Male,[40-50),,1,1,7,1,SP,,3,0,8,0,0,0,530,276,786,5,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 147836874,88762302,Caucasian,Male,[50-60),,1,1,7,3,HM,,58,0,19,0,0,0,577,305,70,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
 147839424,83061270,AfricanAmerican,Female,[70-80),,1,6,7,2,,,36,0,12,1,0,0,401,373,250,8,None,None,No,Up,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,>30
-147867162,96777999,Caucasian,Female,[80-90),,1,13,7,4,,,37,0,11,0,0,0,250.8,485,428,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 147873882,93879783,Caucasian,Male,[30-40),,1,1,1,3,,,34,0,10,0,0,0,707,682,272,6,None,None,Steady,No,Steady,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
-147886380,76989033,Caucasian,Female,[60-70),,1,13,1,5,,,39,0,12,1,0,3,733,189,198,9,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,NO
 147897180,86685795,Caucasian,Male,[70-80),,5,1,1,1,HM,,38,0,9,0,0,0,786,401,530,8,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
 147977760,41651631,Caucasian,Male,[70-80),,3,1,1,3,MC,Urology,38,0,10,0,0,1,998,403,V45,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,>30
 147998502,85122270,Caucasian,Female,[80-90),,1,6,1,3,MC,,53,0,17,0,0,1,276,428,250.02,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,>30
@@ -2459,7 +2445,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 151902408,59084784,Hispanic,Female,[30-40),,3,1,1,3,MD,ObstetricsandGynecology,54,3,16,0,0,0,642,648,659,9,None,None,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,NO
 151928826,64805796,Caucasian,Male,[60-70),,2,2,1,2,,Family/GeneralPractice,40,1,28,1,0,0,540,428,403,9,None,None,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
 151929582,104868018,Caucasian,Male,[60-70),,2,6,1,3,BC,,9,0,12,0,0,0,332,682,250,4,None,None,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,>30
-152018766,54037026,Caucasian,Female,[70-80),,2,13,1,9,MC,,37,1,23,0,0,0,162,486,276,9,None,None,No,No,No,No,No,No,No,Steady,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
 152051100,75536901,Caucasian,Male,[60-70),,1,1,7,2,MC,,37,0,13,0,0,0,8,276,780,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 152053866,89583030,Caucasian,Male,[70-80),,2,3,1,7,MC,Emergency/Trauma,73,0,34,0,0,1,486,491,428,9,None,None,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
 152162196,35186508,Caucasian,Female,[60-70),,1,6,7,6,,,45,1,7,0,0,1,996,421,38,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,>30
@@ -2634,7 +2619,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 157830414,89859537,Caucasian,Male,[70-80),,2,1,7,1,MC,Emergency/Trauma,19,2,12,1,0,1,537,537,280,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,<30
 157870386,61152318,Caucasian,Female,[60-70),,1,22,7,10,,,49,1,22,2,0,0,860,850,807,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,<30
 157912242,62287245,AfricanAmerican,Female,[60-70),,1,1,7,7,,,64,1,26,0,0,0,558,428,425,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
-157937706,23456142,Caucasian,Male,[80-90),,2,13,1,3,MC,Cardiology,26,0,14,0,0,0,428,425,276,8,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
 157968498,62637039,Caucasian,Female,[80-90),,2,6,1,2,,InternalMedicine,21,0,13,0,0,0,812,276,250,8,None,None,Steady,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
 157985742,98312310,Caucasian,Female,[50-60),,1,6,7,3,MC,,38,1,16,0,1,0,250.7,785,707,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,>30
 157988112,100344483,Caucasian,Male,[40-50),,1,1,1,7,,,64,0,21,0,0,1,571,284,70,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,>30
@@ -2721,7 +2705,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 160472802,42908625,Caucasian,Male,[60-70),,3,6,1,8,MC,Cardiology,45,1,19,0,0,1,162,496,287,9,None,None,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,<30
 160552464,110463471,Caucasian,Male,[60-70),,2,3,7,11,BC,Family/GeneralPractice,60,6,29,0,0,1,996,996,790,9,None,None,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
 160607142,25104294,AfricanAmerican,Female,[70-80),,1,1,7,3,MC,InternalMedicine,43,4,16,0,0,1,428,425,250,5,None,None,Steady,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
-160611600,53271432,Caucasian,Female,[90-100),,1,14,7,6,CM,,62,0,15,0,0,0,599,276,428,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 160679436,89680383,AfricanAmerican,Male,[40-50),,1,1,7,3,HM,,84,1,17,0,0,1,530,250.12,250.6,9,None,>8,No,No,No,No,No,No,Down,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,<30
 160693752,41763726,Caucasian,Female,[50-60),,1,1,7,2,MC,,39,0,12,0,0,0,790,276,276,8,None,None,Steady,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
 160781586,29302434,Caucasian,Female,[70-80),,2,3,7,4,MC,Emergency/Trauma,52,0,21,1,0,1,682,428,401,5,None,>7,Steady,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,<30
@@ -2776,7 +2759,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 162653040,112783032,AfricanAmerican,Female,[60-70),,1,1,7,6,,,51,0,18,0,0,1,428,V63,584,9,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,<30
 162658824,62732466,AfricanAmerican,Female,[60-70),,1,6,7,7,,,61,0,6,0,0,1,250.8,414,294,5,None,Norm,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
 162662766,114893865,Caucasian,Female,[30-40),,1,1,1,2,,,71,0,18,0,0,0,428,710,425,9,None,Norm,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,>30
-162777576,98336448,Caucasian,Female,[80-90),,2,13,7,7,,Surgery-Maxillofacial,52,3,22,0,0,0,157,38,995,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 162778518,103740318,Caucasian,Female,[60-70),,1,1,1,4,,,68,0,20,0,0,2,491,402,428,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
 163012440,53776458,Caucasian,Female,[70-80),,5,3,1,3,MC,,41,0,21,6,0,0,250.8,162,198,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 163121706,40451508,Caucasian,Female,[30-40),,3,7,1,4,BC,Surgery-General,29,0,19,2,1,7,250.1,996,38,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,<30
@@ -2964,12 +2946,10 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 170117292,24300477,AfricanAmerican,Female,[70-80),,1,1,7,3,MC,InternalMedicine,58,0,13,0,0,1,428,786,285,9,None,>7,Steady,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
 170132778,32287230,Caucasian,Female,[80-90),,1,3,7,6,MC,,81,3,27,0,0,1,557,403,584,9,None,>7,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,<30
 170133228,99555939,Caucasian,Female,[80-90),,2,6,7,3,MC,Emergency/Trauma,63,0,24,0,0,0,780,496,250,9,None,None,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,NO
-170157126,43452153,Caucasian,Male,[80-90),,1,13,7,5,,,59,0,9,0,0,1,38,518,276,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 170164914,38671362,Caucasian,Female,[50-60),,5,2,1,1,MC,,25,0,11,2,2,3,996,511,599,9,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,>30
 170303022,49860252,Caucasian,Female,[50-60),,1,1,7,3,MD,Emergency/Trauma,23,1,13,0,0,3,535,558,276,8,None,>8,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,>30
 170312964,85762116,Caucasian,Female,[30-40),,1,6,7,9,,,45,1,12,0,0,0,250.81,403,276,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 170316438,63323856,Caucasian,Male,[70-80),,1,1,7,5,,,61,3,21,2,0,1,584,428,427,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
-170317980,70779708,Caucasian,Male,[70-80),,2,13,1,4,,InternalMedicine,44,0,13,0,0,0,780,515,496,9,None,None,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
 170328306,65634327,Caucasian,Male,[50-60),,1,1,1,1,HM,,20,0,7,0,0,0,780,427,E941,8,None,None,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,NO
 170329326,108713781,Caucasian,Female,[60-70),,1,1,7,3,CP,,43,0,5,0,0,0,414,411,250,7,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,NO
 170357016,105461046,Caucasian,Female,[70-80),,1,2,7,1,MC,,25,0,13,0,0,0,428,411,492,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
@@ -3087,7 +3067,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 177063060,42575517,Caucasian,Male,[80-90),,3,3,1,3,MC,,36,0,19,0,0,2,491,250.02,294,6,None,None,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,<30
 177081828,43499772,Caucasian,Female,[90-100),,1,3,7,2,MC,,42,0,9,0,0,0,786,789,250,3,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
 177123804,108185931,Caucasian,Male,[60-70),,1,1,7,2,MC,,28,0,9,0,0,0,560,403,250,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
-177220152,63068355,Caucasian,Female,[70-80),,6,14,7,6,,InternalMedicine,75,0,5,0,0,2,415,453,780,6,>200,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,<30
 177221256,24272586,AfricanAmerican,Male,[60-70),,3,1,1,6,MC,InternalMedicine,43,0,11,0,0,1,584,402,428,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 177282408,85032261,Caucasian,Female,[80-90),,1,6,7,4,MC,,40,0,9,0,0,0,427,284,401,6,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 177401316,63395136,Caucasian,Male,[60-70),,1,1,7,1,BC,Emergency/Trauma,1,0,9,0,0,0,786,250,272,4,None,None,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,Steady,No,No,No,No,Ch,Yes,>30
@@ -3178,7 +3157,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 182050224,40723704,Caucasian,Male,[70-80),,3,1,1,3,MC,,49,0,12,0,0,0,112,427,585,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,<30
 182061906,38357937,Caucasian,Female,[60-70),,5,6,1,2,MC,,52,0,28,0,0,1,482,491,428,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
 182180502,86011983,Caucasian,Male,[70-80),,2,3,4,8,MC,,42,1,20,0,0,1,578,496,428,9,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,NO
-182210520,29472912,AfricanAmerican,Female,[60-70),,1,13,7,9,CM,,69,0,14,0,0,2,275,197,276,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,NO
 182341446,78427809,Caucasian,Male,[70-80),,3,2,1,1,MC,Radiologist,20,3,5,0,0,0,414,411,250,9,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,NO
 182456070,41028039,Hispanic,Female,[50-60),,3,3,1,5,SP,Neurology,20,5,27,0,0,0,722,V45,250,6,None,None,No,No,Steady,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
 182506146,43556454,Caucasian,Female,[50-60),,3,1,1,3,CP,,62,0,23,6,0,0,415,786,414,8,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,Steady,No,No,No,No,Ch,Yes,NO
@@ -3502,7 +3480,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 211152204,93554685,AfricanAmerican,Female,[60-70),,1,1,7,2,,InternalMedicine,61,1,10,0,0,0,8,578,425,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 211332084,40900023,Caucasian,Male,[70-80),,3,3,1,13,MC,Psychiatry,38,0,20,0,0,1,294,312,311,7,None,>8,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
 211377360,41546025,Caucasian,Female,[60-70),,1,22,7,2,MD,,43,0,16,0,0,1,434,338,E888,8,None,None,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,<30
-211391682,84332097,Caucasian,Female,[60-70),,1,13,7,14,MC,,53,2,25,0,0,0,507,340,263,9,None,Norm,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,NO
 211556436,90544590,Caucasian,Male,[70-80),,1,1,7,5,HM,,43,1,15,0,1,3,491,162,198,6,None,None,Steady,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,<30
 211570206,107627940,Caucasian,Female,[80-90),,1,3,7,1,MC,,33,1,16,2,1,1,518,428,511,9,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,>30
 211627716,63966591,Caucasian,Male,[60-70),,1,1,7,5,MC,Emergency/Trauma,51,0,16,0,0,0,250.8,707,428,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,>30
@@ -3684,7 +3661,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 229290690,97412220,Caucasian,Female,[60-70),,2,3,7,6,SP,Emergency/Trauma,1,3,16,0,0,0,428,428,491,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,>30
 229456548,36718821,Asian,Female,[70-80),,2,22,7,10,MD,Emergency/Trauma,58,2,23,1,0,0,812,814,285,8,None,Norm,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,NO
 229483878,35342928,Caucasian,Female,[50-60),,2,1,7,4,SP,Emergency/Trauma,36,3,16,0,0,0,427,427,401,6,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Yes,NO
-229518624,80111286,Caucasian,Male,[80-90),,2,13,1,5,MC,Gastroenterology,42,1,13,0,1,3,162,478,496,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 229527156,28545327,Caucasian,Female,[90-100),,3,22,1,5,SP,InternalMedicine,48,2,12,0,0,2,250.8,578,276,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
 229583310,26101026,Caucasian,Male,[60-70),[100-125),1,6,7,6,MC,,72,0,31,0,0,0,434,342,410,9,None,>7,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,>30
 229640964,91761750,AfricanAmerican,Female,[60-70),,1,1,7,4,MC,Emergency/Trauma,39,0,14,0,0,0,428,414,401,6,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
@@ -4053,7 +4029,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 260740566,89900433,Caucasian,Male,[60-70),,3,1,1,8,CM,Family/GeneralPractice,53,1,18,0,0,0,681,682,707,9,None,>7,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
 260747016,87415002,Caucasian,Female,[60-70),,1,1,7,3,HM,,32,2,17,4,1,0,786,585,403,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
 260917320,90655497,Caucasian,Female,[80-90),,1,6,7,7,MC,,51,1,36,0,0,1,552,496,428,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
-260974446,39490083,Caucasian,Female,[60-70),,3,13,1,8,MC,,57,0,23,3,0,0,197,197,276,9,None,None,No,No,No,No,No,No,No,Down,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,NO
 260977812,37755162,AfricanAmerican,Female,[70-80),,1,6,7,3,CP,,49,0,13,0,0,1,790,584,428,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,>30
 260988450,89481438,Caucasian,Male,[60-70),,6,1,17,2,,Orthopedics-Reconstructive,28,1,22,0,0,0,715,427,840,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 261087204,32134149,Caucasian,Male,[50-60),,1,1,7,9,,,56,1,32,0,0,0,575,788,414,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
@@ -4078,13 +4053,11 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 262459986,32979240,Caucasian,Male,[70-80),,1,1,7,2,,,59,0,15,0,0,0,560,518,250,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 262557036,84428613,AfricanAmerican,Female,[40-50),,1,6,7,8,MC,,73,1,23,0,2,7,250.12,599,112,9,>300,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
 262560384,112269303,Caucasian,Female,[40-50),,3,7,1,1,BC,InternalMedicine,48,0,22,0,3,3,493,466,461,9,None,None,Steady,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
-262754376,41429232,Caucasian,Female,[80-90),,1,14,7,1,MC,,58,0,6,0,0,0,486,599,496,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 262928076,50158341,Caucasian,Female,[60-70),,1,1,7,9,,Surgery-General,58,4,27,0,1,0,562,569,250,5,None,None,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
 263032050,60492663,,Male,[70-80),,1,3,7,3,MC,,39,2,19,0,0,0,578,280,276,9,None,None,No,No,No,No,No,No,Steady,No,No,Steady,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
 263099154,65316573,Hispanic,Female,[70-80),,6,6,17,2,,,72,1,15,0,0,0,8,786,272,9,None,>7,Steady,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,>30
 263177082,69537717,Caucasian,Female,[70-80),,3,1,1,2,MC,Psychiatry,1,0,10,0,0,0,296,V62,250,9,None,None,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,NO
 263506770,41707872,Other,Male,[50-60),,1,2,7,3,BC,Emergency/Trauma,41,6,17,0,0,0,410,414,438,7,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
-263608194,41422644,Caucasian,Female,[70-80),,1,13,7,2,MC,,60,0,10,0,0,2,572,599,571,5,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 263657880,37687518,Caucasian,Female,[60-70),,1,2,7,3,MC,Emergency/Trauma,59,0,12,0,0,0,276,295,250.02,9,None,None,No,No,Steady,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,>30
 263807070,37567188,Caucasian,Female,[70-80),,3,1,1,3,MC,Surgery-Vascular,35,2,12,0,0,0,153,196,250,3,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,>30
 263900202,59984739,Caucasian,Female,[80-90),,1,3,7,3,MC,,33,0,9,3,0,0,276,585,278,8,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
@@ -4114,7 +4087,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 267480882,39177171,Caucasian,Female,[70-80),,1,1,7,9,,,71,2,34,0,0,2,428,578,585,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,<30
 267682818,38278341,Asian,Male,[40-50),,1,1,7,3,SP,Emergency/Trauma,60,1,18,0,0,0,401,723,782,9,None,>7,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
 267682824,85068225,Caucasian,Male,[50-60),,1,1,7,13,MC,,67,3,22,5,2,0,584,560,404,9,Norm,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
-267691356,58802535,Other,Male,[40-50),,3,13,7,2,HM,,36,0,11,0,1,1,345,191,453,4,None,None,No,No,No,No,No,No,Steady,No,No,Steady,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,NO
 267770844,110370393,Caucasian,Male,[80-90),,3,1,1,1,MC,Gastroenterology,64,0,16,0,0,0,434,368,780,6,None,None,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
 267773184,92775096,Caucasian,Male,[80-90),,2,1,7,1,MC,Emergency/Trauma,64,0,10,0,2,0,250.02,276,427,6,None,None,No,No,No,No,No,No,Down,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,>30
 267778548,40715676,Caucasian,Male,[80-90),,3,3,1,3,MC,,47,0,7,0,0,0,458,276,272,9,None,None,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,NO
@@ -4132,14 +4104,12 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 268763496,89048466,AfricanAmerican,Female,[50-60),,1,1,7,3,DM,,14,0,12,1,0,1,402,496,413,9,None,Norm,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,>30
 268829226,39602736,Caucasian,Male,[60-70),,3,1,1,3,BC,,21,0,15,0,0,0,428,427,250,6,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
 268895490,63924651,Caucasian,Female,[60-70),,6,1,17,4,,Family/GeneralPractice,68,1,15,0,0,0,785,427,585,9,None,None,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,>30
-269096094,33105717,Caucasian,Female,[70-80),,1,13,7,2,MC,InternalMedicine,47,0,17,0,1,4,345,496,250.92,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,>30
 269150940,88656651,Caucasian,Female,[60-70),,1,6,7,3,CP,,46,0,28,2,3,0,682,707,250.02,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 269314782,32631093,Caucasian,Female,[80-90),,1,1,7,2,,,59,0,23,0,0,2,250.6,599,536,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,>30
 269364768,54459549,Caucasian,Female,[70-80),,3,3,1,8,MC,Orthopedics,42,1,25,0,0,1,730,250.6,250.82,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,NO
 269374272,59643027,Caucasian,Female,[40-50),,3,1,1,3,OG,,49,0,16,0,0,0,998,682,493,9,None,Norm,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 269462244,112797333,Caucasian,Female,[80-90),,1,6,7,1,CM,,16,0,13,2,0,0,250.8,496,413,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
 269737830,103736943,Caucasian,Male,[60-70),,1,6,7,4,BC,Emergency/Trauma,62,0,15,0,0,3,996,38,995,9,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,>30
-269859594,39817350,AfricanAmerican,Male,[70-80),,1,13,7,5,,,66,2,19,0,0,0,157,281,414,9,None,None,Steady,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
 269864580,41109057,Caucasian,Female,[40-50),,3,6,1,4,SP,Cardiology,48,6,34,0,0,0,414,996,424,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
 269914950,35522775,Caucasian,Male,[60-70),,3,1,1,2,MC,,37,1,26,0,0,0,574,787,530,9,None,None,Steady,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
 269932560,45358866,Caucasian,Female,[70-80),,2,5,7,3,MC,Emergency/Trauma,62,0,14,0,0,0,253,599,296,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
@@ -4173,7 +4143,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 271881486,50722146,,Male,[60-70),,1,6,7,3,SP,,46,0,24,0,0,0,786,250.02,585,9,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,>30
 271966248,32693922,Caucasian,Female,[70-80),,3,22,1,6,MC,,8,1,28,0,0,0,715,401,782,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,>30
 272067240,75881070,Caucasian,Female,[70-80),,6,3,7,7,,Surgery-General,47,0,11,0,0,3,348,294,402,6,Norm,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,>30
-272076666,38516562,,Male,[80-90),,1,13,7,6,MC,,70,0,22,0,0,1,491,428,276,7,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 272099658,45167499,Caucasian,Female,[50-60),,1,1,7,1,CP,,2,1,15,0,0,0,881,E821,250,3,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
 272173932,88804773,Caucasian,Male,[40-50),,1,1,7,2,MC,,1,0,16,1,0,1,780,496,276,9,None,None,Steady,No,No,No,No,No,Steady,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
 272191584,48410460,AfricanAmerican,Female,[30-40),,3,1,1,3,HM,,37,1,17,0,1,0,654,648,278,6,None,None,Steady,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
@@ -4455,7 +4424,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 314820038,67547916,AfricanAmerican,Female,[40-50),,1,6,7,5,DM,,48,1,29,0,0,1,599,112,276,9,None,None,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,NO
 314829434,83692899,Caucasian,Male,[40-50),,1,1,7,1,BC,,10,0,3,0,0,0,427,250,E947,4,None,Norm,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 315503660,44577234,Caucasian,Male,[90-100),,3,1,1,3,SP,Surgery-General,41,1,26,0,0,0,441,442,401,9,None,None,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,>30
-315503744,43193763,Caucasian,Female,[70-80),,1,14,7,11,MC,,72,4,25,0,0,0,197,174,512,9,None,None,No,No,No,No,No,No,No,Steady,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
 316026968,55948014,AfricanAmerican,Male,[70-80),,1,1,7,1,CM,,35,0,12,0,1,0,599,348,438,5,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,>30
 316063178,43048881,Caucasian,Female,[30-40),,1,1,7,3,SP,,30,0,8,2,0,1,250.13,276,786,3,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 316084796,113009661,Caucasian,Male,[50-60),,3,1,1,2,BC,Orthopedics,25,3,27,0,0,0,996,250,401,6,None,None,Steady,No,No,No,Steady,No,No,No,No,Steady,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
@@ -4477,7 +4445,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 319624496,187042703,Caucasian,Male,[30-40),,1,1,1,3,SP,Emergency/Trauma,32,2,9,0,0,0,682,250.02,70,7,None,None,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
 319642994,107066781,,Female,[80-90),,6,3,7,7,,,70,0,19,0,0,0,38,995,250.8,6,Norm,>8,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
 319669910,97835805,Caucasian,Female,[70-80),,1,3,7,4,MC,,67,0,17,4,0,0,434,428,784,9,None,Norm,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,>30
-320189216,43869339,Caucasian,Male,[80-90),,1,14,7,5,BC,,58,1,19,0,0,0,584,438,599,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 320693240,85879170,Caucasian,Female,[60-70),,1,1,7,3,HM,,42,0,21,1,1,0,590,599,401,7,None,None,Steady,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
 320753630,91875762,Caucasian,Female,[80-90),,1,3,7,3,MC,,44,0,19,1,0,0,584,599,276,8,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
 320795516,44572122,Caucasian,Male,[30-40),,1,1,7,2,OG,,1,2,9,0,0,0,569,285,211,5,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
@@ -4701,7 +4668,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 386765906,118552244,,Male,[70-80),,3,1,1,1,SP,,30,6,14,0,0,0,414,250,401,5,None,None,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
 387233372,52771536,Caucasian,Female,[80-90),,1,1,7,1,MC,,57,0,11,0,0,2,781,403,585,9,None,Norm,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 387239450,41572638,Caucasian,Female,[90-100),,1,3,7,3,MC,,58,0,9,0,0,2,518,428,428,5,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Down,No,No,No,No,No,Ch,Yes,<30
-388460888,42033861,AfricanAmerican,Female,[70-80),,1,14,7,4,MC,,55,0,10,0,0,1,434,599,428,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 389028392,127762772,Caucasian,Male,[40-50),,1,1,7,5,,InternalMedicine,88,6,29,0,0,0,410,427,427,9,None,>7,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,Ch,Yes,NO
 389559644,85225293,Caucasian,Male,[80-90),,1,1,7,3,MC,,34,0,9,0,0,1,250.8,V12,285,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO
 389576744,34255791,Caucasian,Female,[60-70),,3,1,1,3,MC,,26,1,27,0,0,0,715,244,401,8,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Up,No,No,No,No,No,Ch,Yes,NO
@@ -4796,7 +4762,6 @@ encounter_id,patient_nbr,race,gender,age,weight,admission_type_id,discharge_disp
 413171162,77439555,Caucasian,Female,[50-60),,1,1,7,4,CP,,47,6,25,0,0,0,410,785,428,9,None,>7,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 413210510,106023420,Caucasian,Female,[80-90),,2,3,7,5,SP,Emergency/Trauma,3,1,8,0,0,1,853,920,780,9,None,None,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,NO
 413257316,94037994,Caucasian,Female,[60-70),[75-100),3,6,1,3,MC,Surgery-General,32,2,20,1,0,0,715,401,250,6,None,>7,Steady,No,No,No,No,No,No,Steady,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,NO
-413690654,63306999,Caucasian,Female,[70-80),,3,14,1,9,MC,Radiologist,53,0,24,0,0,3,428,250.13,518,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,NO
 413708030,85202748,Caucasian,Female,[60-70),,1,6,7,6,HM,,61,0,35,7,1,3,584,428,250.6,9,None,None,Steady,No,No,No,No,No,No,Steady,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Ch,Yes,>30
 413810678,88115967,Caucasian,Female,[90-100),,1,1,7,1,MC,,22,0,15,6,0,0,403,585,250.82,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Steady,No,No,No,No,No,No,Yes,>30
 414308462,85828014,Caucasian,Male,[70-80),[100-125),3,3,1,4,CM,,50,6,43,0,0,0,414,414,518,9,None,None,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,NO

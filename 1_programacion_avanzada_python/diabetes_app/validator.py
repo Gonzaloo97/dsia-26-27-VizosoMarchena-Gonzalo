@@ -53,6 +53,11 @@ VALORES_PERMITIDOS = {
 # quedan fuera del análisis de reingresos
 CODIGOS_ALTA_FALLECIMIENTO = {11, 19, 20, 21}
 
+# Alta a hospicio (cuidados paliativos, según IDS_mapping.csv). No implica fallecimiento,
+# pero es un contexto clínico muy distinto al resto; se excluye por coherencia con la
+# literatura del dataset (Strack et al., 2014).
+CODIGOS_ALTA_HOSPICIO = {13, 14}
+
 # Códigos que en IDS_mapping.csv significan "desconocido" (NULL, Not Available,
 # Not Mapped, Unknown/Invalid). pandas los lee como números normales, así que no
 # cuentan como nulos: son nulos encubiertos. No invalidan la fila porque estas
@@ -106,6 +111,7 @@ def construir_reglas(df: pd.DataFrame) -> dict[str, pd.Series]:
 
     alta = pd.to_numeric(df["discharge_disposition_id"], errors="coerce")
     reglas["paciente fallecido (fuera del análisis de reingresos)"] = alta.isin(CODIGOS_ALTA_FALLECIMIENTO)
+    reglas["alta a hospicio (fuera del análisis de reingresos)"] = alta.isin(CODIGOS_ALTA_HOSPICIO)
 
     return reglas
 

@@ -10,8 +10,8 @@ from diabetes_app.loader import DataLoadError, load
 from diabetes_app.validator import ValidationError, validar_encuentros
 
 RUTA_MUESTRA = Path(__file__).parent.parent / "Datos" / "diabetic_data_muestra.csv"
-VALIDOS_MUESTRA = 4902
-INVALIDOS_MUESTRA = 98
+VALIDOS_MUESTRA = 4867
+INVALIDOS_MUESTRA = 133
 
 
 def crear_encuentro(**cambios) -> dict:
@@ -65,6 +65,17 @@ def test_errores_incluyen_motivo(encuentros_mini):
 ])
 def test_time_in_hospital_limites(dias, validos_esperados):
     validos, _ = validar_encuentros(pd.DataFrame([crear_encuentro(time_in_hospital=dias)]))
+    assert len(validos) == validos_esperados
+
+
+@pytest.mark.parametrize("codigo_alta, validos_esperados", [
+    (1, 1),    # alta a casa: válido
+    (11, 0),   # fallecido
+    (13, 0),   # hospicio en casa
+    (14, 0),   # hospicio en centro médico
+])
+def test_alta_fallecimiento_y_hospicio_se_excluyen(codigo_alta, validos_esperados):
+    validos, _ = validar_encuentros(pd.DataFrame([crear_encuentro(discharge_disposition_id=codigo_alta)]))
     assert len(validos) == validos_esperados
 
 

@@ -93,6 +93,7 @@ El mismo comando funciona con el fichero completo (`--input Datos/diabetic_data.
 | Valores permitidos | `gender` ∈ {Female, Male}; `age` en los 10 tramos de edad; `readmitted` ∈ {NO, >30, <30}; `A1Cresult` y `max_glu_serum` en sus categorías |
 | Duplicados | `encounter_id` debe ser único |
 | Pacientes fallecidos | Códigos de alta 11, 19, 20 y 21: se excluyen porque no pueden reingresar |
+| Alta a hospicio | Códigos de alta 13 y 14: se excluyen por ser un contexto de cuidados paliativos (coherente con la literatura del dataset) |
 
 Los valores `?` del dataset se leen como nulos; `None` en `A1Cresult` / `max_glu_serum` se conserva, porque significa "prueba no realizada".
 

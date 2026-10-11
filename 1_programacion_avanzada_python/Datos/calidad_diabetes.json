@@ -1,11 +1,12 @@
 {
     "filas_totales": 5000,
-    "filas_validas": 4902,
-    "filas_invalidas": 98,
+    "filas_validas": 4867,
+    "filas_invalidas": 133,
     "incumplimientos_por_regla": {
         "diag_1 vacío": 1,
         "gender con valor no permitido": 1,
-        "paciente fallecido (fuera del análisis de reingresos)": 96
+        "paciente fallecido (fuera del análisis de reingresos)": 96,
+        "alta a hospicio (fuera del análisis de reingresos)": 35
     },
     "porcentaje_nulos_por_columna": {
         "weight": 96.6,
@@ -19,6 +20,11 @@
     "columnas_casi_vacias": [
         "weight"
     ],
-    "pacientes_unicos": 4764,
-    "tasa_reingreso_30_global": 11.63
+    "porcentaje_nulos_encubiertos": {
+        "admission_type_id": 10.24,
+        "discharge_disposition_id": 4.64,
+        "admission_source_id": 7.18
+    },
+    "pacientes_unicos": 4729,
+    "tasa_reingreso_30_global": 11.65
 }
