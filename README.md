@@ -20,7 +20,7 @@ Inicio rápido desde esta raíz, con el entorno ya creado:
 .venv\Scripts\python.exe -m pytest --cov=ventas_app --cov=diabetes_app --cov=readmission_app --cov-fail-under=60
 ```
 
-El workflow único de ambos proyectos está en `.github/workflows/ci.yml`. [Actions del repositorio](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml). La ejecución remota se comprobará después de subir los cambios; la evidencia actual es local.
+El workflow único de ambos proyectos está en `.github/workflows/ci.yml`. [Run verde verificado de b4217ad](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43041031910): 106 tests y cobertura 95,06 %. La validación final de las correcciones pasa **145 tests y cobertura 95,95 % en local**, incluidas 35 pruebas específicas de auditoría/APIs. El estado remoto del commit publicado se consulta en [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml). Consulta el [cierre de auditoría](proyecto_ii/CIERRE_AUDITORIA.md) y la [práctica E5 de APIs abiertas](proyecto_ii/E5_APIS_ABIERTAS.md).
 
 Las secciones siguientes conservan la explicación del **Proyecto I**.
 

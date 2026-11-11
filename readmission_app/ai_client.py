@@ -34,6 +34,19 @@ class CompletionClient(Protocol):
     def complete(self, prompt: str) -> AIResponse: ...
 
 
+class DeferredClient:
+    """Crea el proveedor al usarlo, dentro del ciclo de vida del job."""
+
+    def __init__(self, factory):
+        self.factory = factory
+        self.client = None
+
+    def complete(self, prompt: str) -> AIResponse:
+        if self.client is None:
+            self.client = self.factory()
+        return self.client.complete(prompt)
+
+
 class MockClient:
     """Respuesta determinista y explicitamente simulada, sin enviar datos."""
 

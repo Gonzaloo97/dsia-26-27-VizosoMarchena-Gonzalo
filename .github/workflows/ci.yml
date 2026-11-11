@@ -41,3 +41,5 @@ jobs:
             proyecto_ii/artifacts/quality.json
             proyecto_ii/output/metrics.json
             proyecto_ii/output/summary.md
+            proyecto_ii/output/respuestas.jsonl
+            proyecto_ii/output/status.json

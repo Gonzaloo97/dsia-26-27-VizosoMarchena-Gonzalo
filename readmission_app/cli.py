@@ -8,7 +8,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from readmission_app.ai_client import create_client
+from readmission_app.ai_client import DeferredClient, create_client
 from readmission_app.config import AIConfig
 from readmission_app.errors import AppError, DataError
 from readmission_app.pipeline import run_job, train_job
@@ -48,6 +48,13 @@ def ai_job(args, client) -> int:
             raise DataError("--batch requiere --output para el JSONL.")
         if args.batch.resolve() == args.output.resolve():
             raise DataError("El JSONL de salida no puede sobrescribir los prompts.")
+    if args.output:
+        env_path = args.env_file or Path(".env")
+        if args.output.resolve() == env_path.resolve():
+            raise DataError("La salida no puede sobrescribir el archivo de entorno.")
+        # El destino representa este intento, no el ultimo batch que tuvo exito.
+        args.output.unlink(missing_ok=True)
+    if args.batch:
         prompts = [line.strip() for line in args.batch.read_text(encoding="utf-8-sig").splitlines() if line.strip()]
         if not prompts:
             raise DataError("El batch no contiene prompts.")
@@ -62,17 +69,21 @@ def ai_job(args, client) -> int:
     return 0
 
 
+def configured_client(args):
+    env_path = args.env_file or Path(".env")
+    if args.env_file and not env_path.is_file():
+        raise DataError("No existe el --env-file indicado.")
+    load_dotenv(env_path, override=False)
+    return create_client(AIConfig.from_env(args.provider, args.model), fail_once=args.fail_once)
+
+
 def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     try:
         if args.command == "train":
             train_job(args.input, args.output_dir, seed=args.seed, test_size=args.test_size, max_error_rate=args.max_error_rate)
         else:
-            env_path = args.env_file or Path(".env")
-            if args.env_file and not env_path.is_file():
-                raise DataError("No existe el --env-file indicado.")
-            load_dotenv(env_path, override=False)
-            client = create_client(AIConfig.from_env(args.provider, args.model), fail_once=args.fail_once)
+            client = DeferredClient(lambda: configured_client(args))
             if args.command == "run":
                 run_job(args.input, args.model_path, args.output_dir, client, max_error_rate=args.max_error_rate)
             else:

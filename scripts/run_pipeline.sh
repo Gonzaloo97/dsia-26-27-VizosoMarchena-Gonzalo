@@ -3,12 +3,17 @@
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO"
+PYTHON="$REPO/.venv/bin/python"
+# Permite verificar el mismo wrapper con Git Bash en Windows.
+if [[ ! -x "$PYTHON" ]]; then
+  PYTHON="$REPO/.venv/Scripts/python.exe"
+fi
 DAY="$(date +%F)"
 OUT="$REPO/proyecto_ii/output_daily/$DAY"
 mkdir -p "$OUT"
 rm -f "$OUT/LAST_OK.txt"
 exec >> "$OUT/cron.log" 2>&1
-"$REPO/.venv/bin/python" -m readmission_app run \
+"$PYTHON" -m readmission_app run \
   --input proyecto_ii/artifacts/holdout.csv --provider mock --output-dir "$OUT"
-"$REPO/.venv/bin/python" scripts/check_metrics.py --metrics "$OUT/metrics.json" --min-rows-out 100
+"$PYTHON" scripts/check_metrics.py --metrics "$OUT/metrics.json" --min-rows-out 100
 printf 'PIPELINE_OK %s\n' "$DAY" > "$OUT/LAST_OK.txt"

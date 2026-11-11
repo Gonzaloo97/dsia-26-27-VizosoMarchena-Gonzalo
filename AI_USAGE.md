@@ -78,3 +78,45 @@ python -m pytest --cov=ventas_app --cov=diabetes_app --cov=readmission_app --cov
 - Partición por grupos: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupShuffleSplit.html
 - API OpenAI: https://platform.openai.com/docs/api-reference/chat/create
 - Dataset UCI: https://doi.org/10.24432/C5230J
+
+## Cierre posterior a la auditoría — 11/11/2026
+
+El alumno autorizó corregir y completar lo pendiente tras la auditoría de `b4217ad`. ChatGPT/Codex implementó los cambios, escribió las regresiones, ejecutó la suite y la demo y contrastó el material vigente del profesor en `1c2906e`. Esta intervención sigue siendo asistencia sustancial; no se atribuye a una revisión humana no observada.
+
+| Hallazgo / decisión | Cambio aceptado y comprobación |
+| --- | --- |
+| Configuración IA fallaba antes de invalidar resultados | Inicialización diferida del cliente dentro de inferencia; tests de éxito seguido por clave ausente, entorno ausente y timeout mal configurado |
+| Batch fallido conservaba JSONL anterior | Invalidación previa del destino; tests de fallo de configuración, input y fallo a mitad del batch; protección de prompts y entorno |
+| Enteros fuera del rango int64 | Rechazo antes de convertir; casos de límite máximo válido, valores 2**63 y 10**20 |
+| Ventas aceptaba inf y desbordamientos | Finitud en entradas, importe calculado y agregado; fallos controlados con estado failed |
+| E5 de HTTP abierto sin evidencia | `APIResult`, cliente HTTPX, weather/country/fx/github, tabla de errores y cinco smokes reales (incluido país inexistente) |
+| Wrappers sin ejecutar | PowerShell y Git Bash ejecutados; cadena de ventas positiva y negativa comprobada; no se afirma ejecución en Linux |
+| CI documentada como pendiente | Se enlaza el run verde real de b4217ad y se distingue del trabajo posterior todavía local |
+
+Se tomó del ejemplo del profesor el contrato didáctico `APIResult(source, data)`, los endpoints y la normalización básica; se adaptaron a HTTPX con errores tipados, reintentos acotados y tests sin red. Referencia exacta: [open_api_client.py del profesor](https://github.com/dmartincc/dsia-26-27/blob/1c2906e77c5235a04f820f4252dcb0760e240728/3_automatizacion_e_ia/ejemplos/open_api_client.py).
+
+Se descartó introducir las llamadas públicas reales en pytest/CI, exigir Hugging Face como único proveedor o presentar como actuales resultados antiguos de un batch. No se añadieron predictores meteorológicos ni de divisas al dominio de salud. `HF_TOKEN=` se incluyó como reserva de la plantilla: no activa un adaptador HF implementado. La tarea del proveedor de modelos sigue siendo generación de texto sobre agregados, con OpenAI `gpt-4o-mini` o mock; sin llamada de pago.
+
+Comandos de evidencia adicionales:
+
+```powershell
+python scripts/verify_open_apis.py
+python scripts/open_api_client.py weather --lat 40.4168 --lon -3.7038
+python scripts/open_api_client.py country --code ES
+python scripts/open_api_client.py fx --base EUR --symbols USD,GBP
+python scripts/open_api_client.py github --owner dmartincc --repo dsia-26-27
+python scripts/open_api_client.py country --code ZZ
+python -m pytest --cov=ventas_app --cov=diabetes_app --cov=readmission_app --cov-fail-under=60
+python scripts/run_demo.py
+./scripts/run_pipeline.ps1
+```
+
+En Git Bash se ejecutaron además `bash scripts/run_pipeline.sh` y la cadena `bash scripts/run_cadena_ventas.sh` con éxito, con gate 0.05 y con mínimo de filas 999999. Se comprobó localmente el gate de cobertura con umbral 100 (exit 2) y después con 60 (exit 0), usando la cobertura realmente medida. No se afirma que exista un run remoto rojo de ese ensayo.
+
+Resultados: **145 passed, cobertura 95,95 %**, entrenamiento coincidente con la evidencia histórica, cuatro APIs abiertas correctas y error de país controlado. [Detalle E5](proyecto_ii/E5_APIS_ABIERTAS.md), [evidencia nueva](proyecto_ii/evidence/verification_followup.json) y [cierre y pendientes](proyecto_ii/CIERRE_AUDITORIA.md).
+
+No se han cambiado políticas de ejecución ni instalado tareas, hecho commits, push ni publicado servicios durante este cierre. Siguen pendientes la lectura y comprensión personal del alumno, la publicación de las correcciones y su nuevo run de Actions. El historial de octubre se conserva con sus fechas auténticas.
+
+## Validación y publicación final — 11/11/2026
+
+Por autorización expresa del alumno, Codex repitió las 35 pruebas específicas de auditoría/APIs y la suite completa (145 passed, cobertura 95,95 %), revisó los cambios y comprobó patrones de secretos y exclusión de modelos/salidas generadas. La publicación a origin/main está condicionada a la validación local y su resultado remoto se comprueba en Actions. Las menciones anteriores a cambios sin commit/push conservan el estado de la auditoría previa. La revisión personal del alumno sigue sin certificarse.

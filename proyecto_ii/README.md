@@ -90,6 +90,7 @@ python -m readmission_app run --input proyecto_ii/artifacts/holdout.csv --provid
 | `AI_PROVIDER` | `mock`; también `openai` |
 | `OPENAI_API_KEY` | Vacía; obligatoria solo para OpenAI |
 | `OPENAI_MODEL` | `gpt-4o-mini`; ajustable con `--model` a un modelo disponible para tu cuenta |
+| `HF_TOKEN` | Vacía y reservada conforme a la plantilla vigente; no se utiliza ni activa un adaptador HF |
 | `AI_TIMEOUT_SECONDS` | 20 segundos por intento, máximo configurable 120 |
 | `AI_MAX_RETRIES` | 2 reintentos: hasta 3 intentos; configurable 0–5 |
 | `--env-file` | Ruta explícita opcional; por defecto `.env` del directorio actual |
@@ -106,6 +107,10 @@ python -m readmission_app ai --provider mock --prompt "Explica recall" --fail-on
 ```
 
 Cinco prompts producen cinco registros JSONL con `prompt`, `provider`, `text` y `model`. El comando de prompts genéricos envía exactamente lo que se le pasa si se elige un proveedor real; úsalo con contenido de práctica sin datos personales. La restricción a agregados está implementada en el pipeline de reingresos.
+
+Un destino JSONL representa el intento actual: se elimina el resultado anterior antes de leer los prompts y configurar el proveedor. Si falla el batch no queda un JSONL antiguo ni un batch parcial. Se protegen el archivo de prompts y el archivo de entorno frente a su sobrescritura. La configuración del proveedor se evalúa dentro del job de inferencia: una clave o configuración inválida deja `status=failed`, sin predicciones anteriores.
+
+El enunciado vigente recomienda Hugging Face pero admite otro proveedor documentado, incluido OpenAI. Aquí la tarea es generación de texto (`Chat Completions`) y el modelo por defecto es `gpt-4o-mini`. No se afirma haber implementado HF. Las llamadas públicas independientes del E5, su contrato y la tabla de errores están en [E5_APIS_ABIERTAS.md](E5_APIS_ABIERTAS.md).
 
 ## 5. Automatización y códigos de salida
 
@@ -127,7 +132,7 @@ Lanzador portable, sin instalar tareas en el equipo:
 python scripts/run_pipeline.py
 ```
 
-También se incluyen `scripts/run_pipeline.ps1` y, para Linux, `bash scripts/run_pipeline.sh`. Ejecutan inferencia → comprueban métricas → escriben un marcador local `LAST_OK.txt` solo si todo pasa. Salida por fecha en `proyecto_ii/output_daily/`. La política de ejecución local bloqueó el wrapper PowerShell durante la verificación; el lanzador Python evita depender de ejecutar `.ps1`, sin cambiar esa política. El wrapper Bash queda como adaptación para Linux, no ejecutada en Windows. Ejemplo didáctico de cron, **no instalado**:
+También se incluyen `scripts/run_pipeline.ps1` y `bash scripts/run_pipeline.sh`. Ejecutan inferencia → comprueban métricas → escriben un marcador local `LAST_OK.txt` solo si todo pasa. Salida por fecha en `proyecto_ii/output_daily/`. Ambos wrappers se ejecutaron correctamente durante el cierre del 11/11/2026, el segundo con Git Bash en Windows. El Bash busca `.venv/bin/python` y admite `.venv/Scripts/python.exe`; no se ha ensayado aún en Linux. No se cambiaron políticas de ejecución. Ejemplo didáctico de cron, **no instalado**:
 
 ```cron
 15 2 * * * /bin/bash /ruta/al/repo/scripts/run_pipeline.sh
@@ -143,6 +148,16 @@ python scripts/pipeline_ventas.py --input 1_programacion_avanzada_python/Datos/v
 
 El primer comando produce **140 válidas / 10 rechazadas**; el último termina con exit 1. En PowerShell consulta `$LASTEXITCODE` inmediatamente después. No hay que cambiar código para endurecer la política.
 
+La cadena literal de Bash del E4 está en `scripts/run_cadena_ventas.sh`: limpiar → comprobar métricas → copiar a `publicado/` y escribir `LAST_OK.txt`. Se verificaron éxito, gate rojo y fallo del segundo paso, sin conservar publicación ni marcador antiguos. Desde Git Bash/Linux:
+
+```bash
+bash scripts/run_cadena_ventas.sh
+bash scripts/run_cadena_ventas.sh proyecto_ii/output_ventas_gate 0.05
+bash scripts/run_cadena_ventas.sh proyecto_ii/output_ventas_min 0.1 999999
+```
+
+Los dos últimos comandos deben terminar con código 1. Los destinos de ejemplo están ignorados por Git. Las entradas no finitas y los importes que desbordan se rechazan; un agregado total no representable produce error de datos controlado.
+
 ## 6. Tests y CI
 
 ```powershell
@@ -155,7 +170,7 @@ Los tests cubren el Proyecto I y el II: validación, CLI, contrato de datos, ais
 
 Workflow: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml). Instala Python 3.12, ejecuta toda la suite con cobertura ≥60 %, corre la demo y conserva informes como artefactos. Se dispara con push a main/master y con PR. [Abrir Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml).
 
-**El workflow está preparado y los comandos se comprueban localmente; un run verde remoto solo puede acreditarse después de subir estos cambios a GitHub.** No se fabrica un badge verde ni un historial de octubre.
+**CI remoto observado:** [run 43041031910](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43041031910), `b4217ad`, 106 passed y cobertura 95,06 %. **Validación final de las correcciones:** 145 passed y cobertura 95,95 % en local, con 35 pruebas específicas de auditoría/APIs. El resultado remoto de cada commit se consulta en el enlace de Actions anterior. El run antiguo no acredita estos cambios nuevos. El [cierre de auditoría](CIERRE_AUDITORIA.md) distingue las dos evidencias y los pendientes de revisión personal/historial.
 
 ## 7. Organización y continuidad
 

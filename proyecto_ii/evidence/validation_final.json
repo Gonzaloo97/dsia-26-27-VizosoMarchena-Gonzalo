@@ -1,0 +1,33 @@
+{
+  "checked_at_utc": "2026-11-11T19:27:00.336211+00:00",
+  "base_commit": "b4217ad231b11543a046180b404ac13aa5cebf09",
+  "audit_and_open_api_tests": {
+    "passed": 35,
+    "exit_code": 0
+  },
+  "full_suite": {
+    "passed": 145,
+    "exit_code": 0,
+    "coverage_percent": 95.94755661501787,
+    "minimum_coverage_percent": 60
+  },
+  "pip_check": "passed",
+  "demo_train_run_batch_mock": "passed",
+  "secret_pattern_scan": {
+    "files_scanned": 93,
+    "findings": 0,
+    "scope": "tracked and nonignored untracked files before final documentation update"
+  },
+  "generated_models_predictions_and_coverage": "excluded by gitignore",
+  "real_ai_provider_called": false,
+  "live_open_api_smokes": "historical snapshot preserved in open_api_smoke.json; not repeated during final test validation",
+  "remote_ci": "Verify Actions for the published commit; the historical base run does not validate these changes.",
+  "bash_wrappers": {
+    "platform": "Git Bash / Windows",
+    "inference_success": true,
+    "sales_success": true,
+    "quality_failure_exit_code": 1,
+    "metrics_failure_exit_code": 1,
+    "failed_runs_leave_no_published_sales_or_success_marker": true
+  }
+}

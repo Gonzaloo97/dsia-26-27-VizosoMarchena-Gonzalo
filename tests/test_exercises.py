@@ -61,3 +61,21 @@ def test_chain_stops_and_only_marks_success(codes, expected_calls, expected_exit
     assert wrapper.main(["--output-dir", str(tmp_path)]) == expected_exit
     assert runner.call_count == expected_calls
     assert marker.exists() == (expected_exit == 0)
+
+
+@pytest.mark.parametrize("units,price", [(float("inf"), 10), (1e308, 10), (10, float("inf"))])
+def test_sales_nonfinite_amount_is_rejected(units, price, tmp_path):
+    source, output = tmp_path / "sales.csv", tmp_path / "output"
+    source.write_text("fecha,region,producto,unidades,precio_unitario,cliente_id\n"
+                      f"2026-01-01,Norte,A,{units},{price},C1\n", encoding="utf-8")
+    assert script("pipeline_ventas").main(["--input", str(source), "--output-dir", str(output)]) == 1
+    assert json.loads((output / "status.json").read_text())["status"] == "failed"
+    assert json.loads((output / "metrics.json").read_text())["rows_dropped"] == 1
+
+
+def test_sales_aggregate_overflow_is_data_error(tmp_path):
+    source, output = tmp_path / "sales.csv", tmp_path / "output"
+    source.write_text("fecha,region,producto,unidades,precio_unitario,cliente_id\n"
+                      + "2026-01-01,Norte,A,1e308,1,C1\n" * 2, encoding="utf-8")
+    assert script("pipeline_ventas").main(["--input", str(source), "--output-dir", str(output)]) == 2
+    assert json.loads((output / "status.json").read_text())["status"] == "failed"

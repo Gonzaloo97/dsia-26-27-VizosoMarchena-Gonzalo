@@ -1,0 +1,77 @@
+{
+  "checked_at_utc": "2026-11-11T15:02:22.837820+00:00",
+  "live_network": true,
+  "all_checks_passed": true,
+  "checks": [
+    {
+      "command": "python -m readmission_app.open_api_client weather --lat 40.4168 --lon -3.7038",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "response": {
+        "source": "open-meteo",
+        "data": {
+          "lat": 40.4168,
+          "lon": -3.7038,
+          "time": "2026-11-11T16:00",
+          "temperature_c": 13.8,
+          "wind_kmh": 12.3
+        }
+      },
+      "error": null
+    },
+    {
+      "command": "python -m readmission_app.open_api_client country --code ES",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "response": {
+        "source": "worldbank",
+        "data": {
+          "id": "ESP",
+          "iso2": "ES",
+          "name": "Spain",
+          "capital": "Madrid"
+        }
+      },
+      "error": null
+    },
+    {
+      "command": "python -m readmission_app.open_api_client fx --base EUR --symbols USD,GBP",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "response": {
+        "source": "frankfurter",
+        "data": {
+          "base": "EUR",
+          "date": "2026-11-11",
+          "rates": {
+            "GBP": 0.83618,
+            "USD": 1.1127
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "command": "python -m readmission_app.open_api_client github --owner dmartincc --repo dsia-26-27",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "response": {
+        "source": "github",
+        "data": {
+          "full_name": "dmartincc/dsia-26-27",
+          "html_url": "https://github.com/dmartincc/dsia-26-27",
+          "language": "Jupyter Notebook",
+          "stars": 4
+        }
+      },
+      "error": null
+    },
+    {
+      "command": "python -m readmission_app.open_api_client country --code ZZ",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "response": null,
+      "error": "ERROR: Pais sin resultados o formato inesperado de World Bank."
+    }
+  ]
+}

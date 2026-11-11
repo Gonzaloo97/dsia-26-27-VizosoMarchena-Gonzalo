@@ -1,5 +1,9 @@
 # Evidencia local de ejecución
 
+> **Validación final (11/11/2026):** se repitieron las 35 pruebas de auditoría/APIs y la suite completa: 145 passed, cobertura 95,95 %, mínimo 60 % superado. El texto siguiente conserva la fotografía histórica anterior a la publicación; las referencias a cambios locales o publicación pendiente pertenecen a ese momento. Para el estado remoto del commit entregado, consultar [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml).
+
+> **Foto histórica inicial:** las secciones siguientes y `evidence/verification.json` describen la preparación anterior al push de `b4217ad`. Posteriormente se verificó [su run verde remoto](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43041031910). Las correcciones nuevas se registran en [CIERRE_AUDITORIA.md](CIERRE_AUDITORIA.md), [verification_followup.json](evidence/verification_followup.json) y [open_api_smoke.json](evidence/open_api_smoke.json): 145 tests y cobertura 95,95 % local. Estas correcciones aún no tienen un run remoto propio. Se preserva la evidencia inicial sin atribuirle comprobaciones posteriores.
+
 **Fecha:** 11/11/2026. **Entorno:** Windows, Python 3.12.5. **Proveedor de IA ejecutado:** mock. Esta evidencia corresponde al código preparado en la carpeta personal; no acredita todavía un run de GitHub Actions.
 
 ## Verificación automatizada

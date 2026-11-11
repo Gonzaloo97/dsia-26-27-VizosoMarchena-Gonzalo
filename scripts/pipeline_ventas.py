@@ -1,8 +1,10 @@
 """E4 de data flows sobre ventas, reutilizando los modulos del Proyecto I."""
 
 import argparse
+import math
 from pathlib import Path
 
+import numpy as np
 from ventas_app.loader import DataLoadError, load
 from ventas_app.validator import ValidationError, validar_ventas
 from readmission_app.data import check_quality
@@ -19,9 +21,13 @@ def transform(frame):
         clean, errors = validar_ventas(frame)
     except ValidationError as exc:
         raise DataError(str(exc)) from exc
+    with np.errstate(over="ignore"):
+        total = float(clean["importe"].sum())
+    if not math.isfinite(total):
+        raise DataError("El importe total supera el rango numerico soportado.")
     return clean, {
         "rows_in": len(frame), "rows_out": len(clean), "rows_dropped": len(errors),
-        "error_rate": len(errors) / len(frame), "importe_total": float(clean["importe"].sum()),
+        "error_rate": len(errors) / len(frame), "importe_total": total,
     }
 
 

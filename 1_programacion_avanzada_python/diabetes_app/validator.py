@@ -71,6 +71,12 @@ CODIGOS_DESCONOCIDOS = {
 }
 
 
+def fuera_de_int64(valores: pd.Series) -> pd.Series:
+    """Compara como enteros Python para evitar redondear el limite de int64."""
+    limite = int(np.iinfo(np.int64).max)
+    return valores.map(lambda valor: pd.notna(valor) and np.isfinite(valor) and int(valor) > limite)
+
+
 def comprobar_columnas(frame: pd.DataFrame) -> None:
     """
     Comprueba que el DataFrame contiene todas las columnas obligatorias.
@@ -99,7 +105,8 @@ def construir_reglas(df: pd.DataFrame) -> dict[str, pd.Series]:
     for columna, (minimo, maximo) in RANGOS_NUMERICOS.items():
         # El texto pasa a NaN y cuenta como fuera de rango.
         valores = pd.to_numeric(df[columna], errors="coerce")
-        fuera_de_rango = valores.isna() | ~np.isfinite(valores) | (valores < minimo) | (valores % 1 != 0)
+        fuera_de_rango = (valores.isna() | ~np.isfinite(valores) | (valores < minimo)
+                          | (valores % 1 != 0) | fuera_de_int64(valores))
         if maximo is not None:
             fuera_de_rango = fuera_de_rango | (valores > maximo)
         reglas[f"{columna} no numérico o fuera de rango"] = fuera_de_rango
@@ -114,7 +121,8 @@ def construir_reglas(df: pd.DataFrame) -> dict[str, pd.Series]:
     for columna in ("encounter_id", "patient_nbr", "discharge_disposition_id"):
         valores = pd.to_numeric(df[columna], errors="coerce")
         reglas[f"{columna} no es un identificador entero positivo"] = (
-            valores.isna() | ~np.isfinite(valores) | (valores <= 0) | (valores % 1 != 0)
+            valores.isna() | ~np.isfinite(valores) | (valores <= 0)
+            | (valores % 1 != 0) | fuera_de_int64(valores)
         )
     encounter_ids = pd.to_numeric(df["encounter_id"], errors="coerce")
     reglas["encounter_id duplicado"] = encounter_ids.duplicated(keep="first")
@@ -156,7 +164,7 @@ def validar_encuentros(frame: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]
 
     # En las filas válidas ya no hay textos ni nulos en estas columnas: se pueden pasar a entero.
     for columna in [*RANGOS_NUMERICOS, "encounter_id", "patient_nbr", "discharge_disposition_id"]:
-        validos[columna] = pd.to_numeric(validos[columna]).astype(int)
+        validos[columna] = pd.to_numeric(validos[columna]).astype("int64")
 
     return validos, errores
 

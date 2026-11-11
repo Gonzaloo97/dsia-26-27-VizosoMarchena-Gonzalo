@@ -1,5 +1,9 @@
 # Auditoría de la entrega por temas
 
+> **Validación final (11/11/2026):** se repitieron las 35 pruebas de auditoría/APIs y la suite completa: 145 passed, cobertura 95,95 %, mínimo 60 % superado. El texto siguiente conserva la fotografía histórica anterior a la publicación; las referencias a cambios locales o publicación pendiente pertenecen a ese momento. Para el estado remoto del commit entregado, consultar [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml).
+
+> **Actualización posterior del 11/11/2026:** este documento conserva la revisión inicial basada en el clon `a9ccfd3`, previa al push. El [cierre de auditoría](CIERRE_AUDITORIA.md) contrasta el enunciado vigente `1c2906e`, documenta la corrección de los cuatro defectos, las 145 pruebas locales y los smokes reales del E5. Actions de `b4217ad` ya fue verificado en verde; las correcciones posteriores siguen locales. Las menciones de push/CI pendientes de abajo describen el momento inicial, no el estado actual.
+
 **Fecha:** 11/11/2026. **Alcance:** Proyecto II y los huecos del Proyecto I que condicionan su continuidad. Revisión basada en los archivos locales entregados, no en supuestas instrucciones adicionales del aula.
 
 ## Fuentes y estado inicial
