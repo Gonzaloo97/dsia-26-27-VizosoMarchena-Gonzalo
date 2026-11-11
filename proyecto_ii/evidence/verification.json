@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-11",
+  "environment": "Windows, Python 3.12.5",
+  "tests_passed": 106,
+  "coverage_lines": 709,
+  "coverage_lines_hit": 674,
+  "coverage_percent": 95.06,
+  "coverage_gate_percent": 60,
+  "remote_ci_verified": false,
+  "real_provider_called": false,
+  "portable_pipeline_wrapper_verified": true,
+  "powershell_wrapper_verified": false,
+  "bash_wrapper_verified": false,
+  "packages": {
+    "1_programacion_avanzada_python.diabetes_app": 89.35,
+    "1_programacion_avanzada_python.ventas_app": 98.98,
+    ".": 96.38
+  }
+}

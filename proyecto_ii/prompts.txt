@@ -1,0 +1,5 @@
+Explica por que separar pacientes entre train y test evita fuga de informacion.
+Explica que significa recall en un clasificador de reingreso.
+Explica por que accuracy puede ser enganosa en datos desequilibrados.
+Explica la diferencia entre un score sin calibrar y una probabilidad calibrada.
+Resume por que una demostracion academica no demuestra utilidad clinica.

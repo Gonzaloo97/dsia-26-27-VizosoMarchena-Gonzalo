@@ -1,0 +1,63 @@
+{
+  "provider": "mock",
+  "text": "[mock] Resumen simulado, sin llamada a un LLM. Revisa los agregados adjuntos y la evaluacion holdout. El score no esta calibrado y este prototipo no tiene uso clinico.\n{\"purpose\": \"demostracion academica; no uso clinico\", \"data_quality\": {\"rows_in\": 968, \"rows_out\": 968, \"rows_dropped\": 0, \"error_rate\": 0.0}, \"predictions\": {\"mean_score_uncalibrated\": 0.458975940355912, \"predicted_positive_count\": 397, \"threshold\": 0.5}, \"training_holdout_metrics\": {\"rows\": 968, \"positive_rate\": 0.12706611570247933, \"threshold\": 0.5, \"accuracy\": 0.5991735537190083, \"balanced_accuracy\": 0.5724346947611488, \"precision\": 0.16624685138539042, \"recall\": 0.5365853658536586, \"f1\": 0.25384615384615383, \"roc_auc\": 0.6119978832924424, \"average_precision\": 0.2481420520997366, \"confusion_matrix\": [[514, 331], [57, 66]]}, \"baseline_holdout_metrics\": {\"rows\": 968, \"positive_rate\": 0.12706611570247933, \"threshold\": 0.5, \"accuracy\": 0.8729338842975206, \"balanced_accuracy\": 0.5, \"precision\": 0.0, \"recall\": 0.0, \"f1\": 0.0, \"roc_auc\": 0.5, \"average_precision\": 0.12706611570247933, \"confusion_matrix\": [[845, 0], [123, 0]]}}",
+  "model": "offline",
+  "input_aggregates": {
+    "purpose": "demostracion academica; no uso clinico",
+    "data_quality": {
+      "rows_in": 968,
+      "rows_out": 968,
+      "rows_dropped": 0,
+      "error_rate": 0.0
+    },
+    "predictions": {
+      "mean_score_uncalibrated": 0.458975940355912,
+      "predicted_positive_count": 397,
+      "threshold": 0.5
+    },
+    "training_holdout_metrics": {
+      "rows": 968,
+      "positive_rate": 0.12706611570247933,
+      "threshold": 0.5,
+      "accuracy": 0.5991735537190083,
+      "balanced_accuracy": 0.5724346947611488,
+      "precision": 0.16624685138539042,
+      "recall": 0.5365853658536586,
+      "f1": 0.25384615384615383,
+      "roc_auc": 0.6119978832924424,
+      "average_precision": 0.2481420520997366,
+      "confusion_matrix": [
+        [
+          514,
+          331
+        ],
+        [
+          57,
+          66
+        ]
+      ]
+    },
+    "baseline_holdout_metrics": {
+      "rows": 968,
+      "positive_rate": 0.12706611570247933,
+      "threshold": 0.5,
+      "accuracy": 0.8729338842975206,
+      "balanced_accuracy": 0.5,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "roc_auc": 0.5,
+      "average_precision": 0.12706611570247933,
+      "confusion_matrix": [
+        [
+          845,
+          0
+        ],
+        [
+          123,
+          0
+        ]
+      ]
+    }
+  }
+}

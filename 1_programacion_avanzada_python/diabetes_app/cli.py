@@ -56,6 +56,7 @@ def main() -> None:
     logger.info("Pacientes con más de un encuentro: %d (top %d):\n%s",
                 len(recurrentes), NUM_PACIENTES_MOSTRADOS, recurrentes.head(NUM_PACIENTES_MOSTRADOS))
 
+    ruta_salida.parent.mkdir(parents=True, exist_ok=True)
     validos.to_csv(ruta_salida, index=False)
     logger.info("CSV limpio guardado en %s", ruta_salida)
 

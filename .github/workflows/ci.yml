@@ -1,0 +1,43 @@
+name: Tests DSIA
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Instalar dependencias y paquetes
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pip install --no-deps -e .
+      - name: Tests de Proyectos I y II con cobertura minima
+        env:
+          AI_PROVIDER: mock
+        run: python -m pytest --cov=ventas_app --cov=diabetes_app --cov=readmission_app --cov-report=term-missing --cov-report=xml --cov-fail-under=60
+      - name: Demo reproducible sin claves
+        run: |
+          python -m readmission_app train --input 1_programacion_avanzada_python/Datos/diabetic_data_muestra.csv
+          python -m readmission_app run --input proyecto_ii/artifacts/holdout.csv --provider mock
+          python -m readmission_app ai --provider mock --batch proyecto_ii/prompts.txt --output proyecto_ii/output/respuestas.jsonl --fail-once
+      - name: Conservar evidencia
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidencia-proyecto-ii
+          path: |
+            coverage.xml
+            proyecto_ii/artifacts/training_metrics.json
+            proyecto_ii/artifacts/quality.json
+            proyecto_ii/output/metrics.json
+            proyecto_ii/output/summary.md

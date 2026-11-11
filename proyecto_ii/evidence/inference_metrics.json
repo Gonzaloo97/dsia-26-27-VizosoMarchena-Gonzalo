@@ -1,0 +1,38 @@
+{
+  "rows_in": 968,
+  "rows_out": 968,
+  "rows_dropped": 0,
+  "error_rate": 0.0,
+  "rejection_reasons": {},
+  "target_available": true,
+  "model_sha256": "32b4edf251a802bad36349eca8f1a02de75274abdfc9ec3e18944cdac512fe20",
+  "input_sha256": "2b1e47564c9e710c119cda2b352020bd3f8381e98960875b682758a249915b62",
+  "training_patient_overlap_rows": 0,
+  "mean_score_uncalibrated": 0.458975940355912,
+  "predicted_positive_count": 397,
+  "threshold": 0.5,
+  "evaluation_scope": "batch_descriptive_not_new_holdout",
+  "batch_metrics": {
+    "rows": 968,
+    "positive_rate": 0.12706611570247933,
+    "threshold": 0.5,
+    "accuracy": 0.5991735537190083,
+    "balanced_accuracy": 0.5724346947611488,
+    "precision": 0.16624685138539042,
+    "recall": 0.5365853658536586,
+    "f1": 0.25384615384615383,
+    "roc_auc": 0.6119978832924424,
+    "average_precision": 0.2481420520997366,
+    "confusion_matrix": [
+      [
+        514,
+        331
+      ],
+      [
+        57,
+        66
+      ]
+    ]
+  },
+  "ai_provider": "mock"
+}

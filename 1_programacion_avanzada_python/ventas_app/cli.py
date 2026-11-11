@@ -48,6 +48,7 @@ def main() -> None:
     logger.info("Top productos por importe:\n%s", metrics.top_productos(validos))
     logger.info("Clientes con más de una compra:\n%s", metrics.clientes_recurrentes(validos))
 
+    ruta_salida.parent.mkdir(parents=True, exist_ok=True)
     validos.to_csv(ruta_salida, index=False)
     logger.info("CSV limpio guardado en %s", ruta_salida)
 

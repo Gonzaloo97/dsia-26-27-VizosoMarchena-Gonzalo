@@ -2,6 +2,28 @@
 
 Repositorio personal de prácticas de la asignatura **Desarrollo de Soluciones de IA** (DSIA, curso 2026-2027), del Máster Universitario en IA Aplicada (ICAI, Universidad Pontificia Comillas).
 
+## Proyecto II — empezar aquí
+
+El Proyecto II continúa el pipeline de diabetes del Proyecto I: añade entrenamiento **scikit-learn**, partición por paciente, persistencia e inferencia, resumen con **IA mock/OpenAI**, automatización, pruebas y CI.
+
+- [Guía de instalación y ejecución del Proyecto II](proyecto_ii/README.md)
+- [Auditoría de requisitos por tema](proyecto_ii/AUDITORIA_TEMAS.md)
+- [Resultados y evidencia de validación local](proyecto_ii/EVIDENCIA.md)
+- [Guía para comprender y defender el proyecto](proyecto_ii/GUIA_ESTUDIO.md)
+
+Inicio rápido desde esta raíz, con el entorno ya creado:
+
+```powershell
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m pip install --no-deps -e .
+.venv\Scripts\python.exe scripts/run_demo.py
+.venv\Scripts\python.exe -m pytest --cov=ventas_app --cov=diabetes_app --cov=readmission_app --cov-fail-under=60
+```
+
+El workflow único de ambos proyectos está en `.github/workflows/ci.yml`. [Actions del repositorio](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml). La ejecución remota se comprobará después de subir los cambios; la evidencia actual es local.
+
+Las secciones siguientes conservan la explicación del **Proyecto I**.
+
 ## Estructura
 
 | Carpeta / fichero | Contenido |
@@ -20,7 +42,8 @@ Repositorio personal de prácticas de la asignatura **Desarrollo de Soluciones d
 ```bash
 python -m venv .venv
 source .venv/Scripts/activate     # Git Bash en Windows (Linux/Mac: source .venv/bin/activate)
-python -m pip install pandas pytest
+python -m pip install -r requirements.txt
+python -m pip install --no-deps -e .
 ```
 
 Los comandos siguientes se ejecutan **desde la carpeta `1_programacion_avanzada_python`**.
@@ -57,7 +80,7 @@ Pipeline de calidad de datos sobre registros de ingresos (encuentros) de pacient
 | DOI | 10.24432/C5230J |
 | Licencia | Creative Commons Attribution 4.0 International (CC BY 4.0) |
 | Cita | Clore, J., Cios, K., DeShazo, J. y Strack, B. (2014). *Diabetes 130-US Hospitals for Years 1999-2008* [Dataset]. UCI Machine Learning Repository. |
-| Fecha de descarga | DD/MM/2026 *(completar)* |
+| Fecha de descarga | No registrada en la entrega original. Muestra reutilizada y verificada el 11/11/2026; su hash queda en los informes del Proyecto II. |
 | Tamaño original | 101 766 encuentros × 50 columnas (~18 MB) |
 
 **Datos en el repositorio:** solo se versiona una **muestra de 5 000 filas** (`Datos/diabetic_data_muestra.csv`). El fichero completo no se sube (está en `.gitignore`). Para regenerar la muestra, se descarga `diabetic_data.csv` de la URL anterior, se guarda en `Datos/` y se ejecuta:
@@ -114,6 +137,7 @@ Los valores `?` del dataset se leen como nulos; `None` en `A1Cresult` / `max_glu
 ```bash
 pytest -q                        # todos los tests
 pytest -q -m "not integration"   # solo unitarios (sin leer los datasets reales)
+pytest --cov=ventas_app --cov=diabetes_app --cov-report=term-missing --cov-fail-under=60
 ```
 
 ## Uso de IA

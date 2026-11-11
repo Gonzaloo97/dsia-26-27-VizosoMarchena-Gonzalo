@@ -21,6 +21,13 @@ node_modules/
 .serverless/
 *.log
 
+# Proyecto II: se reentrenan con los comandos del README.
+proyecto_ii/artifacts/
+proyecto_ii/output/
+proyecto_ii/output_*/
+coverage.xml
+.coverage.*
+
 
 sesiones/1_programacion_avanzada_python/Datos/diabetic_data.csv
 1_programacion_avanzada_python/Datos/diabetic_data.csv

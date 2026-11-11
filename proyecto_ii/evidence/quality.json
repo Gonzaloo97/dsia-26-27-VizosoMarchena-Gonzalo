@@ -1,0 +1,13 @@
+{
+  "rows_in": 5000,
+  "rows_out": 4867,
+  "rows_dropped": 133,
+  "error_rate": 0.0266,
+  "rejection_reasons": {
+    "paciente fallecido (fuera del análisis de reingresos)": 96,
+    "alta a hospicio (fuera del análisis de reingresos)": 35,
+    "gender con valor no permitido": 1,
+    "diag_1 vacío": 1
+  },
+  "target_available": true
+}

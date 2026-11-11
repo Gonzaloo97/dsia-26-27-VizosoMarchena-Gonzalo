@@ -6,6 +6,7 @@ Una fila es válida para el análisis de reingresos si cumple todas las reglas
 definidas en este módulo. Las filas inválidas se devuelven aparte con el motivo.
 """
 
+import numpy as np
 import pandas as pd
 
 
@@ -93,12 +94,12 @@ def construir_reglas(df: pd.DataFrame) -> dict[str, pd.Series]:
     reglas = {}
 
     for columna in COLUMNAS_SIN_NULOS:
-        reglas[f"{columna} vacío"] = df[columna].isna()
+        reglas[f"{columna} vacío"] = df[columna].isna() | df[columna].astype("string").str.strip().eq("").fillna(False)
 
     for columna, (minimo, maximo) in RANGOS_NUMERICOS.items():
         # El texto pasa a NaN y cuenta como fuera de rango.
         valores = pd.to_numeric(df[columna], errors="coerce")
-        fuera_de_rango = valores.isna() | (valores < minimo)
+        fuera_de_rango = valores.isna() | ~np.isfinite(valores) | (valores < minimo) | (valores % 1 != 0)
         if maximo is not None:
             fuera_de_rango = fuera_de_rango | (valores > maximo)
         reglas[f"{columna} no numérico o fuera de rango"] = fuera_de_rango
@@ -108,6 +109,15 @@ def construir_reglas(df: pd.DataFrame) -> dict[str, pd.Series]:
         reglas[f"{columna} con valor no permitido"] = df[columna].notna() & ~df[columna].isin(permitidos)
 
     reglas["encounter_id duplicado"] = df["encounter_id"].duplicated(keep="first")
+
+    # Los IDs deben ser enteros: impide grupos distintos por variantes '1' / '01'.
+    for columna in ("encounter_id", "patient_nbr", "discharge_disposition_id"):
+        valores = pd.to_numeric(df[columna], errors="coerce")
+        reglas[f"{columna} no es un identificador entero positivo"] = (
+            valores.isna() | ~np.isfinite(valores) | (valores <= 0) | (valores % 1 != 0)
+        )
+    encounter_ids = pd.to_numeric(df["encounter_id"], errors="coerce")
+    reglas["encounter_id duplicado"] = encounter_ids.duplicated(keep="first")
 
     alta = pd.to_numeric(df["discharge_disposition_id"], errors="coerce")
     reglas["paciente fallecido (fuera del análisis de reingresos)"] = alta.isin(CODIGOS_ALTA_FALLECIMIENTO)
@@ -145,7 +155,7 @@ def validar_encuentros(frame: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]
     errores["motivo"] = motivo[~es_valida]
 
     # En las filas válidas ya no hay textos ni nulos en estas columnas: se pueden pasar a entero.
-    for columna in RANGOS_NUMERICOS:
+    for columna in [*RANGOS_NUMERICOS, "encounter_id", "patient_nbr", "discharge_disposition_id"]:
         validos[columna] = pd.to_numeric(validos[columna]).astype(int)
 
     return validos, errores

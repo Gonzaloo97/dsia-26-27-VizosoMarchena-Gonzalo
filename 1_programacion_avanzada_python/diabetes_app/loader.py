@@ -8,8 +8,8 @@ import pandas as pd
 # En el dataset original los valores desconocidos se marcan con "?".
 # Además, "None" NO es un nulo: en max_glu_serum y A1Cresult significa
 # "prueba no realizada". Por eso se desactivan los nulos por defecto de pandas
-# (que convertirían "None" en NaN) y solo se trata "?" como valor ausente.
-MARCADORES_NULO = ["?"]
+# (que convertirían "None" en NaN); "?" y las celdas vacías sí son ausentes.
+MARCADORES_NULO = ["?", ""]
 
 
 class DataLoadError(Exception):
@@ -68,4 +68,7 @@ def load(path: str | Path) -> pd.DataFrame:
     Lanza:
       DataLoadError si el fichero no existe o su formato no está soportado.
     """
-    return crear_repositorio(path).load()
+    try:
+        return crear_repositorio(path).load()
+    except (OSError, ValueError, pd.errors.ParserError) as exc:
+        raise DataLoadError("No se pudo leer el CSV de encuentros.") from exc

@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "features": [
+    "time_in_hospital",
+    "num_lab_procedures",
+    "num_procedures",
+    "num_medications",
+    "number_outpatient",
+    "number_emergency",
+    "number_inpatient",
+    "number_diagnoses",
+    "age",
+    "gender",
+    "diag_1",
+    "A1Cresult",
+    "max_glu_serum"
+  ],
+  "seed": 42,
+  "threshold": 0.5,
+  "target": "readmitted == '<30'",
+  "prediction_time": "al alta",
+  "estimator": "LogisticRegression(class_weight='balanced', solver='liblinear')",
+  "python_version": "3.12.5",
+  "sklearn_version": "1.9.1",
+  "pandas_version": "3.0.6",
+  "numpy_version": "2.5.3",
+  "joblib_version": "1.6.0",
+  "input_sha256": "68160fe3f2835ee56eeb357b595de5723b8ad3be3dd42b599e5e6b37530c46e5",
+  "split": {
+    "strategy": "GroupShuffleSplit",
+    "test_size_groups": 0.2,
+    "train_rows": 3899,
+    "test_rows": 968,
+    "train_patients": 3783,
+    "test_patients": 946,
+    "overlap_patients": 0
+  },
+  "holdout": {
+    "rows": 968,
+    "positive_rate": 0.12706611570247933,
+    "threshold": 0.5,
+    "accuracy": 0.5991735537190083,
+    "balanced_accuracy": 0.5724346947611488,
+    "precision": 0.16624685138539042,
+    "recall": 0.5365853658536586,
+    "f1": 0.25384615384615383,
+    "roc_auc": 0.6119978832924424,
+    "average_precision": 0.2481420520997366,
+    "confusion_matrix": [
+      [
+        514,
+        331
+      ],
+      [
+        57,
+        66
+      ]
+    ]
+  },
+  "baseline": {
+    "rows": 968,
+    "positive_rate": 0.12706611570247933,
+    "threshold": 0.5,
+    "accuracy": 0.8729338842975206,
+    "balanced_accuracy": 0.5,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "roc_auc": 0.5,
+    "average_precision": 0.12706611570247933,
+    "confusion_matrix": [
+      [
+        845,
+        0
+      ],
+      [
+        123,
+        0
+      ]
+    ]
+  },
+  "limitations": [
+    "Demostracion academica, sin validacion clinica externa.",
+    "Datos historicos de EE. UU.; no representan un hospital actual.",
+    "Scores no calibrados por usar pesos de clase; umbral 0.5 didactico.",
+    "No se ha realizado seleccion de hiperparametros ni ajuste del umbral en test."
+  ]
+}
