@@ -1,15 +1,16 @@
 # Evidencia de ejecución
 
-Mi versión publicada `d3ff586` superó [145 pruebas y 95,95 % de cobertura en GitHub Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514) el 11/11/2026. El job también completó la demo y conservó los artefactos. Los registros remotos fueron consultados por Codex durante la revisión documental del 12/11.
+El código simplificado se publicó el 12/11/2026 en `cebdb27` y [superó GitHub Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498) con 145 pruebas; el workflow también ejecutó la demo y guardó artefactos. La cobertura local documentada para esa revisión es del 96,02 %. La versión anterior `d3ff586` había superado [145 pruebas y 95,95 %](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514) el 11/11/2026.
 
-La revisión local de simplicidad del 12/11 es posterior: sus resultados están en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md). No se le atribuye el run remoto de la versión anterior.
+La revisión de simplicidad del 12/11 está documentada en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md) y su código ya está publicado. Los registros anteriores se conservan como evidencia histórica, sin atribuirles las pruebas del commit nuevo.
 
 | Registro | Qué acredita |
 | --- | --- |
 | [verification.json](evidence/verification.json) | Primera ejecución local: 106 tests, 95,06 % |
 | [verification_followup.json](evidence/verification_followup.json) | Correcciones posteriores: 145 tests, 95,95 %, wrappers y APIs |
 | [validation_final.json](evidence/validation_final.json) | Última comprobación local antes de publicar `d3ff586` |
-| [Run 43087452514](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514) | Ejecución remota de `d3ff586`: 145 tests, 95,95 % |
+| [Run 43087452514](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514) | Ejecución histórica de `d3ff586`: 145 tests, 95,95 % |
+| [Run 43268309498](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498) | Validación remota de `cebdb27`: tests, demo y artefactos correctos; revisión local 145 tests y 96,02 % |
 | [open_api_smoke.json](evidence/open_api_smoke.json) | Instantánea de APIs reales; su campo `checked_at_utc` indica cuándo se regeneró |
 
 Los JSON se conservan con sus resultados y fechas. La instantánea de APIs puede cambiar al ejecutar explícitamente `verify_open_apis.py`; no es una salida fija del modelo ni de pytest.
@@ -103,4 +104,4 @@ Estas copias pequeñas documentan la ejecución del 11/11/2026. La demo regenera
 
 ## Límites y estado actual
 
-La publicación de `d3ff586` y su CI ya están verificadas. La revisión del 12/11 permanece local. No se ha ejecutado OpenAI real ni desplegado API/dashboard. Los scripts no instalan tareas periódicas. No consta la fecha exacta de descarga ni trabajo de ML/IA durante octubre; no se reconstruye retrospectivamente. Las comprobaciones técnicas realizadas por Codex no acreditan mi lectura y comprensión personal.
+La publicación de `cebdb27` y su GitHub Actions están verificados. La revisión de simplicidad del 12/11 ya no está pendiente de publicar. No se ha ejecutado OpenAI real ni desplegado API/dashboard. Los scripts no instalan tareas periódicas. No consta la fecha exacta de descarga ni trabajo de ML/IA durante octubre; no se reconstruye retrospectivamente. Las comprobaciones técnicas realizadas por Codex no acreditan mi lectura y comprensión personal.

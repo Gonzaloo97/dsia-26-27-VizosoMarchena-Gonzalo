@@ -55,7 +55,7 @@ El pipeline solo envía agregados; el CLI de prompts genéricos envía el texto 
 
 ## Evidencia y procedencia
 
-La versión publicada `d3ff586` superó [145 pruebas y 95,95 % de cobertura en Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514). Las modificaciones del 12/11 están pendientes de publicación y de un nuevo run remoto. Los JSON de `proyecto_ii/evidence/` conservan los resultados históricos del 11/11, salvo cualquier instantánea regenerada explícitamente.
+La revisión de simplificación y documentación del 12/11 se publicó en `cebdb27`, con [GitHub Actions correcto](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498). La revisión local registró 145 pruebas y un 96,02 % de cobertura; la versión anterior `d3ff586` también había superado [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514) con 145 pruebas y 95,95 %. Los JSON de `proyecto_ii/evidence/` conservan los resultados históricos del 11/11, salvo las instantáneas regeneradas explícitamente. Para futuras ejecuciones, consultar [el historial de Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml).
 
 Los contratos `APIResult(source, data)`, endpoints y normalización de las APIs abiertas se adaptaron del [ejemplo del profesor](https://github.com/dmartincc/dsia-26-27/blob/1c2906e77c5235a04f820f4252dcb0760e240728/3_automatizacion_e_ia/ejemplos/open_api_client.py) a HTTPX, con errores tipados y tests sin red. El enunciado y el E5 se contrastaron en `1c2906e`; la primera revisión local había usado `a9ccfd3`.
 

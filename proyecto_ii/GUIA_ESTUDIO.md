@@ -77,7 +77,7 @@ Un timeout o un 503 puede desaparecer al repetir; un 401 por clave incorrecta no
 - Contratos externos: cuerpo HTTP, timeout, formatos inválidos y códigos de error, todos simulados.
 - Integración: CSV público → validación → entrenamiento → joblib → inferencia → resumen mock → archivos.
 
-El commit publicado `d3ff586` superó **145 tests y 95,95 % de cobertura en [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514)**. La cobertura mide líneas ejecutadas de los paquetes incluidos; no es la precisión del modelo ni una garantía de ausencia de errores. Las modificaciones locales del 12/11 tienen su propia validación en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md).
+El código simplificado del commit `cebdb27` superó **145 pruebas en [GitHub Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498)**; la revisión local registró **96,02 % de cobertura**. La cobertura mide líneas ejecutadas de los paquetes incluidos; no es la precisión del modelo ni una garantía de ausencia de errores. La revisión del 12/11 está documentada en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md).
 
 ## Demo de 4–5 minutos
 
@@ -106,7 +106,7 @@ El tiempo de arranque de Python/sklearn puede variar en Windows. No confundas es
 | ¿Por qué un fallo de calidad termina con 1? | Para detener la cadena automática y evitar publicar resultados de un lote que no cumple la política. |
 | ¿Qué es idempotencia en esta entrega? | Repetir no duplica registros ni nombres de salida; el último estado identifica si el job terminó correctamente. |
 | ¿Qué añade CI respecto a pytest local? | Ejecuta los checks en otro entorno al subir cambios o abrir un PR y aplica el gate de cobertura. |
-| ¿Ya hay un run verde en GitHub? | Sí: d3ff586, run 43087452514, 145 pruebas y 95,95 %. Las simplificaciones locales posteriores necesitarán otro run al publicarse. |
+| ¿Ya hay un run verde en GitHub? | Sí: `cebdb27`, [run 43268309498](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498), con tests y demo correctos. La revisión local de esa versión obtuvo 145 pruebas y 96,02 % de cobertura. |
 | ¿Qué falta para el III? | API, web/dashboard conectado, despliegue, monitorización y exposición. |
 
 Esta guía es material de estudio preparado con ayuda de IA. Antes de entregar me queda leer las piezas principales, ejecutar la demo y comprobar que puedo explicar estas respuestas con mis propias palabras. Tenerlas escritas no acredita que ya las comprenda.

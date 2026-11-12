@@ -176,7 +176,7 @@ Los tests cubren el Proyecto I y el II: validación, CLI, contrato de datos, ais
 
 Workflow: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml). Instala Python 3.12, ejecuta toda la suite con cobertura ≥60 %, corre la demo y conserva informes como artefactos. Se dispara con push a main/master y con PR. [Abrir Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml).
 
-**Versión publicada comprobada:** [run 43087452514](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514), commit `d3ff586`, **145 pruebas y 95,95 % de cobertura**. El run anterior de `b4217ad` tenía 106 pruebas y 95,06 %. Las simplificaciones del 12/11/2026 aún son locales; sus comprobaciones están en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md). El [cierre de auditoría](CIERRE_AUDITORIA.md) recoge los defectos corregidos y las limitaciones pendientes.
+**Validación del código simplificado:** el commit `cebdb27` del 12/11/2026 [superó GitHub Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498) (145 pruebas y demo correctas). La revisión local registró un 96,02 % de cobertura, documentado en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md). Como historial, `d3ff586` tuvo [145 pruebas y 95,95 %](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514) y `b4217ad` tuvo 106 pruebas y 95,06 %. Para ver el último workflow, consultar [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml). El [cierre de auditoría](CIERRE_AUDITORIA.md) recoge los defectos corregidos y las limitaciones pendientes.
 
 ## 7. Organización y continuidad
 

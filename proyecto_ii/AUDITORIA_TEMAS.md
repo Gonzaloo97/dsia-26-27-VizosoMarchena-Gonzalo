@@ -4,7 +4,7 @@ Mi proyecto continúa la base de diabetes del I y prepara el mismo núcleo para 
 
 **Fuentes:** [Proyecto II](https://github.com/dmartincc/dsia-26-27/blob/1c2906e77c5235a04f820f4252dcb0760e240728/proyectos/proyecto_ii/README.md) y [E5](https://github.com/dmartincc/dsia-26-27/blob/1c2906e77c5235a04f820f4252dcb0760e240728/3_automatizacion_e_ia/ejercicios/E5_apis_ia.md), commit `1c2906e`. La primera auditoría del 11/11 usó el clon local `a9ccfd3`; posteriormente se contrastó la versión vigente.
 
-**Estado:** `d3ff586` está publicado y tiene [CI verde: 145 pruebas, 95,95 %](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514). La revisión de documentación y simplicidad del 12/11 es posterior y queda local, con su comprobación en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md).
+**Estado:** la revisión de código y documentación del 12/11 está publicada en `cebdb27` y tiene [GitHub Actions correcto](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498). La revisión local obtuvo 145 pruebas y 96,02 % de cobertura; el detalle está en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md). El commit anterior `d3ff586` queda como evidencia histórica ([run del 11/11](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514)).
 
 ## Ocho mínimos del enunciado
 

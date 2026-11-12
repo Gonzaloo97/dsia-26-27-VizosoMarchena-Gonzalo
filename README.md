@@ -22,7 +22,7 @@ Inicio rápido desde esta raíz, con el entorno ya creado:
 .venv\Scripts\python.exe -m pytest --cov=ventas_app --cov=diabetes_app --cov=readmission_app --cov-fail-under=60
 ```
 
-El workflow de ambos proyectos está en `.github/workflows/ci.yml`. La versión publicada `d3ff586` superó **145 pruebas y 95,95 % de cobertura** en [GitHub Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514). Las simplificaciones posteriores del 12/11/2026 se comprueban en local y se detallan en [REVISION_SIMPLICIDAD.md](proyecto_ii/REVISION_SIMPLICIDAD.md); ese run remoto acredita la versión publicada anterior. La evidencia de ejecución está en [EVIDENCIA.md](proyecto_ii/EVIDENCIA.md) y el ejercicio de APIs en [E5_APIS_ABIERTAS.md](proyecto_ii/E5_APIS_ABIERTAS.md).
+El workflow de ambos proyectos está en `.github/workflows/ci.yml`. La simplificación y documentación del 12/11/2026 se publicaron en el commit `cebdb27` y [superaron GitHub Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498) con 145 pruebas. La revisión local registró un 96,02 % de cobertura y sus cambios están explicados en [REVISION_SIMPLICIDAD.md](proyecto_ii/REVISION_SIMPLICIDAD.md). Para consultar la ejecución más reciente, ver [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml). Las evidencias de las versiones anteriores se conservan en [EVIDENCIA.md](proyecto_ii/EVIDENCIA.md), y el ejercicio de APIs en [E5_APIS_ABIERTAS.md](proyecto_ii/E5_APIS_ABIERTAS.md).
 
 Las secciones siguientes conservan la explicación del **Proyecto I**.
 

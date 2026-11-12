@@ -144,6 +144,6 @@ Esta revisión añade dos archivos de apoyo: `REVISION_SIMPLICIDAD.md` (este inf
 
 ## Estado de publicación y lectura
 
-La versión publicada `d3ff586` tiene [run verde de 145 pruebas y 95,95 %](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514). Los cambios de esta revisión **son locales, sin commit ni push y sin un nuevo run remoto**. No se realizó una llamada real a OpenAI ni se repitieron las APIs públicas. La modificación local de `open_api_smoke.json` que existía al empezar se mantiene intacta.
+El trabajo de simplificación y documentación del 12/11/2026 se publicó en `cebdb27` y [superó GitHub Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498). La verificación local de esta revisión tuvo 145 pruebas y 96,02 % de cobertura; `d3ff586` conserva su [run histórico del 11/11](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514). No se realizó una llamada real a OpenAI ni se repitieron las APIs públicas durante la simplificación. La instantánea de `open_api_smoke.json` que ya se había regenerado se conservó.
 
 Para estudiar el código, recomiendo leer `data.py` → `model.py` → `ai_client.py` → `pipeline.py` → `cli.py`. `config.py`, `errors.py` y `storage.py` son los apoyos de ese recorrido. [GUIA_ESTUDIO.md](GUIA_ESTUDIO.md) explica las métricas. Esta guía y la revisión de Codex no sustituyen la lectura personal antes de defender el trabajo.
