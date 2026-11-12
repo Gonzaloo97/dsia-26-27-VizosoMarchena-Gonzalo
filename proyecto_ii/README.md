@@ -61,7 +61,18 @@ Se utiliza regresión logística con pesos de clase equilibrados y un umbral did
 - **Configuración fija:** el código no incluye búsqueda de hiperparámetros, semillas ni umbrales. Si train o test no contienen ambas clases, detiene el entrenamiento y pide más datos. Esto describe la implementación; el código por sí solo no demuestra cuándo se tomó cada decisión.
 - **Scores:** al utilizar pesos de clase, el score no se presenta como probabilidad clínica calibrada.
 
-Resultados concretos y versiones verificadas: [EVIDENCIA.md](EVIDENCIA.md). La evaluación puede variar ligeramente entre versiones/plataformas; el informe registra versiones, semilla y hash de entrada. Para reproducir el entorno observado, se incluye `requirements-verified.txt` en la raíz.
+Resultados de la muestra: **4.867 encuentros válidos, 133 rechazados, 3.899 de entrenamiento y 968 de evaluación**. Se separaron por paciente, con **cero pacientes compartidos**. En el conjunto reservado:
+
+| Métrica | Regresión logística | DummyClassifier |
+| --- | ---: | ---: |
+| Accuracy | 0,5992 | 0,8729 |
+| Precision (reingreso antes de 30 días) | 0,1662 | 0 |
+| Recall | 0,5366 | 0 |
+| F1 | 0,2538 | 0 |
+| ROC-AUC | 0,6120 | 0,5000 |
+| Average precision | 0,2481 | 0,1271 |
+
+La matriz de confusión de la regresión logística es `[[514, 331], [57, 66]]` (filas reales 0/1, columnas predichas 0/1). El modelo detecta algunos reingresos, pero genera numerosos falsos positivos y no está validado para uso clínico. El baseline tiene alta accuracy al predecir negativos, pero no detecta positivos. Métricas completas, versiones, semilla, partición y hash de los datos: [evidence/training_metrics.json](evidence/training_metrics.json); rechazo de filas: [evidence/quality.json](evidence/quality.json). Para reproducir el entorno observado se incluye `requirements-verified.txt` en la raíz.
 
 | Salida de entrenamiento | Contenido |
 | --- | --- |
@@ -116,7 +127,41 @@ Cinco prompts producen cinco registros JSONL con `prompt`, `provider`, `text` y 
 
 Un destino JSONL representa el intento actual: se elimina el resultado anterior antes de leer los prompts y configurar el proveedor. Si falla el batch no queda un JSONL antiguo ni un batch parcial. Se protegen el archivo de prompts y el archivo de entorno frente a su sobrescritura. La configuración del proveedor se evalúa dentro del job de inferencia: una clave o configuración inválida deja `status=failed`, sin predicciones anteriores.
 
-El enunciado vigente recomienda Hugging Face pero admite otro proveedor documentado, incluido OpenAI. Aquí la tarea es generación de texto (`Chat Completions`) y el modelo por defecto es `gpt-4o-mini`. No se afirma haber implementado HF. Las llamadas públicas independientes del E5, su contrato y la tabla de errores están en [E5_APIS_ABIERTAS.md](E5_APIS_ABIERTAS.md).
+El enunciado recomienda Hugging Face, pero admite otro proveedor de modelos documentado. Aquí se utiliza un cliente de OpenAI Chat Completions (`gpt-4o-mini` por defecto) con un modo mock para las pruebas; no se ha hecho una llamada real de pago ni se ha implementado HF.
+
+### E5: APIs abiertas
+
+Como parte del E5, he adaptado el contrato `APIResult(source, data)` del [ejemplo del profesor](https://github.com/dmartincc/dsia-26-27/blob/1c2906e77c5235a04f820f4252dcb0760e240728/3_automatizacion_e_ia/ejemplos/open_api_client.py). `source` identifica al proveedor y `data` contiene los campos normalizados, para no acoplar el resto del código al JSON original de cada API. Comandos ejecutados:
+
+```bash
+python scripts/open_api_client.py weather --lat 40.4168 --lon -3.7038
+python scripts/open_api_client.py country --code ES
+python scripts/open_api_client.py fx --base EUR --symbols USD,GBP
+python scripts/open_api_client.py github --owner dmartincc --repo dsia-26-27
+python scripts/open_api_client.py country --code ZZ
+```
+
+| API | `source` | Campos de `data` |
+| --- | --- | --- |
+| Open-Meteo | `open-meteo` | Coordenadas, hora, temperatura, viento |
+| World Bank | `worldbank` | Código y nombre de país, capital |
+| Frankfurter | `frankfurter` | Moneda base, fecha, tipos de cambio |
+| GitHub | `github` | Repositorio, URL, lenguaje, estrellas |
+
+Las primeras cuatro consultas terminaron con código 0; el país inexistente `ZZ` devolvió un error controlado (código 1). Se conserva [una instantánea de los resultados](evidence/open_api_smoke.json). El contrato `APIResult(source, data)` es análogo al `AIResponse(provider, text, model)` del cliente de IA.
+
+| Error HTTP / respuesta | Tratamiento |
+| --- | --- |
+| Timeout, conexión, 408, 429 o 5xx | Reintento con espera, como máximo dos veces |
+| 401/403, 404, JSON inválido o país sin datos | Error controlado sin reintentos |
+
+No incorporo datos meteorológicos, de divisas ni de países al modelo hospitalario: no existe una unión justificada con los encuentros. En un proyecto futuro valoraría una API sanitaria con datos relacionables con el dataset. Para el caso actual, la API de modelos se usa exclusivamente para resumir métricas agregadas. El modo mock, el batch de cinco prompts y `--fail-once` se prueban sin red. Las llamadas reales a las APIs abiertas se repiten solo de forma explícita:
+
+```bash
+python scripts/verify_open_apis.py
+```
+
+La ayuda recibida de IA está declarada en [AI_USAGE.md](../AI_USAGE.md).
 
 ## 5. Automatización y códigos de salida
 
@@ -176,7 +221,7 @@ Los tests cubren el Proyecto I y el II: validación, CLI, contrato de datos, ais
 
 Workflow: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml). Instala Python 3.12, ejecuta toda la suite con cobertura ≥60 %, corre la demo y conserva informes como artefactos. Se dispara con push a main/master y con PR. [Abrir Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml).
 
-**Validación del código simplificado:** el commit `cebdb27` del 12/11/2026 [superó GitHub Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498) (145 pruebas y demo correctas). La revisión local registró un 96,02 % de cobertura, documentado en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md). Como historial, `d3ff586` tuvo [145 pruebas y 95,95 %](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514) y `b4217ad` tuvo 106 pruebas y 95,06 %. Para ver el último workflow, consultar [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml). El [cierre de auditoría](CIERRE_AUDITORIA.md) recoge los defectos corregidos y las limitaciones pendientes.
+**Validación:** la revisión local del código simplificado superó **145 pruebas, con 96,02 % de cobertura**. El [run del 12/11/2026](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498) verificó que el commit `cebdb27` pasaba las pruebas y la demo en GitHub Actions. Para el estado del último push, consulta el [workflow](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml). El porcentaje de cobertura no garantiza ausencia de errores.
 
 ## 7. Organización y continuidad
 
@@ -190,10 +235,8 @@ Workflow: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml). Instala Pyt
 | `readmission_app/config.py`, `errors.py`, `storage.py` | Configuración, fallos, logs y escritura |
 | `readmission_app/cli.py` | Entrada por terminal |
 | `tests/`, `scripts/` | Pruebas nuevas, demo y automatización |
-| `proyecto_ii/AUDITORIA_TEMAS.md` | Qué faltaba en cada tema y evidencia que lo resuelve |
-| `proyecto_ii/GUIA_ESTUDIO.md` | Explicación del funcionamiento y preguntas para defenderlo |
 | `AI_USAGE.md` | Ayuda recibida de IA y revisión personal pendiente |
 
 En el Proyecto III se añadirá una API con `/health`, predicción y análisis, una web/dashboard que consuma ese backend, despliegue verificable, monitorización por petición y demo de 5–7 minutos. `predict`, `run_job` y `CompletionClient` se reutilizan; la API no tendrá que copiar la lógica a un endpoint. La web, el servidor y el despliegue **todavía no forman parte de esta entrega II**.
 
-Diseño detallado: [DESIGN.md](DESIGN.md). Revisión por temas: [AUDITORIA_TEMAS.md](AUDITORIA_TEMAS.md).
+El diseño separa validación, modelo, cliente de IA, orquestación, CLI y almacenamiento. `CompletionClient` permite cambiar entre mock y OpenAI; `RetryingClient` reintenta errores temporales y `DeferredClient` crea el proveedor dentro del job. La escritura temporal protege los archivos y `status.json` distingue entre `running`, `success` y `failed`. La API y el despliegue siguen siendo una ampliación del Proyecto III.

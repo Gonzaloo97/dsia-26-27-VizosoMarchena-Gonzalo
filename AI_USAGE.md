@@ -36,9 +36,9 @@ Codex examinó el material del profesor y el repositorio, implementó una parte 
 
 Se descartó introducir llamadas públicas reales en pytest/CI, añadir predictores meteorológicos sin una unión de datos justificada o exigir HF como único proveedor. La implementación no incluye búsqueda de semillas, hiperparámetros o umbrales. No se han añadido API web, dashboard ni despliegue: quedan para el III.
 
-El refactor del 11/11 añadió la creación de directorios en las CLI del I y corrigió validaciones de vacíos, IDs, decimales, infinitos y desbordamientos. La auditoría posterior corrigió estados antiguos de inferencia y JSONL conservados tras un fallo. El cierre está en [CIERRE_AUDITORIA.md](proyecto_ii/CIERRE_AUDITORIA.md).
+El refactor del 11/11 añadió la creación de directorios en las CLI del I y corrigió validaciones de vacíos, IDs, decimales, infinitos y desbordamientos. La auditoría posterior corrigió estados antiguos de inferencia y JSONL conservados tras un fallo. Los cambios y sus comprobaciones se conservan en el historial de Git.
 
-El 12/11 pedí una revisión de cada archivo incorporado al II y una simplificación del código. Codex unificó los lanzadores, eliminó una clase de simulación innecesaria, sustituyó cargas dinámicas en tests por imports normales y aclaró pasos densos. [Alcance y validación](proyecto_ii/REVISION_SIMPLICIDAD.md). Esta revisión sigue siendo asistencia de IA; no equivale a mi revisión personal.
+El 12/11 pedí una revisión de cada archivo incorporado al II y una simplificación del código. Codex unificó los lanzadores, eliminó una clase de simulación innecesaria, sustituyó cargas dinámicas en tests por imports normales y aclaró pasos densos. Esa revisión superó 145 pruebas en local y el código simplificado pasó GitHub Actions. Esta revisión sigue siendo asistencia de IA; no equivale a mi revisión personal.
 
 ## IA durante la ejecución del programa
 
@@ -55,7 +55,7 @@ El pipeline solo envía agregados; el CLI de prompts genéricos envía el texto 
 
 ## Evidencia y procedencia
 
-La revisión de simplificación y documentación del 12/11 se publicó en `cebdb27`, con [GitHub Actions correcto](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498). La revisión local registró 145 pruebas y un 96,02 % de cobertura; la versión anterior `d3ff586` también había superado [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514) con 145 pruebas y 95,95 %. Los JSON de `proyecto_ii/evidence/` conservan los resultados históricos del 11/11, salvo las instantáneas regeneradas explícitamente. Para futuras ejecuciones, consultar [el historial de Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml).
+La revisión de simplificación y documentación del 12/11 se publicó en `cebdb27`, con [GitHub Actions correcto](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498). La revisión local registró 145 pruebas y un 96,02 % de cobertura; la versión anterior `d3ff586` también había superado [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514) con 145 pruebas y 95,95 %. La carpeta `proyecto_ii/evidence/` conserva métricas, ejemplos de inferencia e IA y resultados de las APIs. Los registros internos de auditoría se pueden consultar en el historial de Git. Para futuras ejecuciones, consultar [el historial de Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml).
 
 Los contratos `APIResult(source, data)`, endpoints y normalización de las APIs abiertas se adaptaron del [ejemplo del profesor](https://github.com/dmartincc/dsia-26-27/blob/1c2906e77c5235a04f820f4252dcb0760e240728/3_automatizacion_e_ia/ejemplos/open_api_client.py) a HTTPX, con errores tipados y tests sin red. El enunciado y el E5 se contrastaron en `1c2906e`; la primera revisión local había usado `a9ccfd3`.
 
@@ -69,7 +69,7 @@ python scripts/open_api_client.py weather --lat 40.4168 --lon -3.7038
 python -m pytest --cov=ventas_app --cov=diabetes_app --cov=readmission_app --cov-fail-under=60
 ```
 
-La tabla de APIs y los comandos restantes están en [E5_APIS_ABIERTAS.md](proyecto_ii/E5_APIS_ABIERTAS.md). `python scripts/verify_open_apis.py` ejecuta red real y actualiza su instantánea; no forma parte de pytest/CI.
+La tabla de APIs, los comandos y las reflexiones del E5 están en el [README del Proyecto II](proyecto_ii/README.md). `python scripts/verify_open_apis.py` ejecuta red real y actualiza su instantánea; no forma parte de pytest/CI.
 
 Referencias: [UCI](https://doi.org/10.24432/C5230J), [prevención de fuga](https://scikit-learn.org/stable/common_pitfalls.html), [GroupShuffleSplit](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupShuffleSplit.html) y [contrato de chat](https://developers.openai.com/api/reference/resources/chat).
 

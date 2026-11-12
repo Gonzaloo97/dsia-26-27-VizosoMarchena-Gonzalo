@@ -7,11 +7,7 @@ Repositorio personal de prácticas de la asignatura **Desarrollo de Soluciones d
 El Proyecto II continúa el pipeline de diabetes del Proyecto I: añade entrenamiento **scikit-learn**, partición por paciente, persistencia e inferencia, resumen con **IA mock/OpenAI**, automatización, pruebas y CI.
 
 - [Guía de instalación y ejecución del Proyecto II](proyecto_ii/README.md)
-- [Auditoría de requisitos por tema](proyecto_ii/AUDITORIA_TEMAS.md)
-- [Resultados y evidencia de validación local](proyecto_ii/EVIDENCIA.md)
-- [Guía para comprender y defender el proyecto](proyecto_ii/GUIA_ESTUDIO.md)
 - [Uso de IA y alcance de la ayuda recibida](AI_USAGE.md)
-- [Revisión de simplicidad del código](proyecto_ii/REVISION_SIMPLICIDAD.md)
 
 Inicio rápido desde esta raíz, con el entorno ya creado:
 
@@ -22,7 +18,7 @@ Inicio rápido desde esta raíz, con el entorno ya creado:
 .venv\Scripts\python.exe -m pytest --cov=ventas_app --cov=diabetes_app --cov=readmission_app --cov-fail-under=60
 ```
 
-El workflow de ambos proyectos está en `.github/workflows/ci.yml`. La simplificación y documentación del 12/11/2026 se publicaron en el commit `cebdb27` y [superaron GitHub Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498) con 145 pruebas. La revisión local registró un 96,02 % de cobertura y sus cambios están explicados en [REVISION_SIMPLICIDAD.md](proyecto_ii/REVISION_SIMPLICIDAD.md). Para consultar la ejecución más reciente, ver [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml). Las evidencias de las versiones anteriores se conservan en [EVIDENCIA.md](proyecto_ii/EVIDENCIA.md), y el ejercicio de APIs en [E5_APIS_ABIERTAS.md](proyecto_ii/E5_APIS_ABIERTAS.md).
+El workflow de ambos proyectos está en `.github/workflows/ci.yml` y ejecuta pruebas y una demo con cada push. La revisión local del código simplificado pasó **145 tests y 96,02 % de cobertura**; el [run de GitHub Actions del 12/11/2026](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43268309498) terminó correctamente. El estado más reciente se consulta en [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml). Las métricas y el ejercicio de APIs se detallan en el [README del Proyecto II](proyecto_ii/README.md).
 
 Las secciones siguientes conservan la explicación del **Proyecto I**.
 
