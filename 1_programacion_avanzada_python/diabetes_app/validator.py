@@ -74,7 +74,12 @@ CODIGOS_DESCONOCIDOS = {
 def fuera_de_int64(valores: pd.Series) -> pd.Series:
     """Compara como enteros Python para evitar redondear el limite de int64."""
     limite = int(np.iinfo(np.int64).max)
-    return valores.map(lambda valor: pd.notna(valor) and np.isfinite(valor) and int(valor) > limite)
+    def supera_limite(valor):
+        if pd.isna(valor) or not np.isfinite(valor):
+            return False  # Estas filas se rechazan por la regla de nulos/finitud.
+        return int(valor) > limite
+
+    return valores.map(supera_limite)
 
 
 def comprobar_columnas(frame: pd.DataFrame) -> None:
@@ -100,13 +105,19 @@ def construir_reglas(df: pd.DataFrame) -> dict[str, pd.Series]:
     reglas = {}
 
     for columna in COLUMNAS_SIN_NULOS:
-        reglas[f"{columna} vacío"] = df[columna].isna() | df[columna].astype("string").str.strip().eq("").fillna(False)
+        texto = df[columna].astype("string").str.strip()
+        reglas[f"{columna} vacío"] = df[columna].isna() | texto.eq("").fillna(False)
 
     for columna, (minimo, maximo) in RANGOS_NUMERICOS.items():
         # El texto pasa a NaN y cuenta como fuera de rango.
         valores = pd.to_numeric(df[columna], errors="coerce")
-        fuera_de_rango = (valores.isna() | ~np.isfinite(valores) | (valores < minimo)
-                          | (valores % 1 != 0) | fuera_de_int64(valores))
+        fuera_de_rango = (
+            valores.isna()
+            | ~np.isfinite(valores)
+            | (valores < minimo)
+            | (valores % 1 != 0)
+            | fuera_de_int64(valores)
+        )
         if maximo is not None:
             fuera_de_rango = fuera_de_rango | (valores > maximo)
         reglas[f"{columna} no numérico o fuera de rango"] = fuera_de_rango
@@ -115,17 +126,19 @@ def construir_reglas(df: pd.DataFrame) -> dict[str, pd.Series]:
     for columna, permitidos in VALORES_PERMITIDOS.items():
         reglas[f"{columna} con valor no permitido"] = df[columna].notna() & ~df[columna].isin(permitidos)
 
-    reglas["encounter_id duplicado"] = df["encounter_id"].duplicated(keep="first")
+    encounter_ids = pd.to_numeric(df["encounter_id"], errors="coerce")
+    reglas["encounter_id duplicado"] = encounter_ids.duplicated(keep="first")
 
     # Los IDs deben ser enteros: impide grupos distintos por variantes '1' / '01'.
     for columna in ("encounter_id", "patient_nbr", "discharge_disposition_id"):
         valores = pd.to_numeric(df[columna], errors="coerce")
         reglas[f"{columna} no es un identificador entero positivo"] = (
-            valores.isna() | ~np.isfinite(valores) | (valores <= 0)
-            | (valores % 1 != 0) | fuera_de_int64(valores)
+            valores.isna()
+            | ~np.isfinite(valores)
+            | (valores <= 0)
+            | (valores % 1 != 0)
+            | fuera_de_int64(valores)
         )
-    encounter_ids = pd.to_numeric(df["encounter_id"], errors="coerce")
-    reglas["encounter_id duplicado"] = encounter_ids.duplicated(keep="first")
 
     alta = pd.to_numeric(df["discharge_disposition_id"], errors="coerce")
     reglas["paciente fallecido (fuera del análisis de reingresos)"] = alta.isin(CODIGOS_ALTA_FALLECIMIENTO)

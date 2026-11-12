@@ -1,105 +1,57 @@
-# Auditoría de la entrega por temas
+# Revisión de requisitos del Proyecto II
 
-> **Validación final (11/11/2026):** se repitieron las 35 pruebas de auditoría/APIs y la suite completa: 145 passed, cobertura 95,95 %, mínimo 60 % superado. El texto siguiente conserva la fotografía histórica anterior a la publicación; las referencias a cambios locales o publicación pendiente pertenecen a ese momento. Para el estado remoto del commit entregado, consultar [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml).
+Mi proyecto continúa la base de diabetes del I y prepara el mismo núcleo para el III. Esta revisión distingue los requisitos de entrega de los ejercicios y mejoras adicionales.
 
-> **Actualización posterior del 11/11/2026:** este documento conserva la revisión inicial basada en el clon `a9ccfd3`, previa al push. El [cierre de auditoría](CIERRE_AUDITORIA.md) contrasta el enunciado vigente `1c2906e`, documenta la corrección de los cuatro defectos, las 145 pruebas locales y los smokes reales del E5. Actions de `b4217ad` ya fue verificado en verde; las correcciones posteriores siguen locales. Las menciones de push/CI pendientes de abajo describen el momento inicial, no el estado actual.
+**Fuentes:** [Proyecto II](https://github.com/dmartincc/dsia-26-27/blob/1c2906e77c5235a04f820f4252dcb0760e240728/proyectos/proyecto_ii/README.md) y [E5](https://github.com/dmartincc/dsia-26-27/blob/1c2906e77c5235a04f820f4252dcb0760e240728/3_automatizacion_e_ia/ejercicios/E5_apis_ia.md), commit `1c2906e`. La primera auditoría del 11/11 usó el clon local `a9ccfd3`; posteriormente se contrastó la versión vigente.
 
-**Fecha:** 11/11/2026. **Alcance:** Proyecto II y los huecos del Proyecto I que condicionan su continuidad. Revisión basada en los archivos locales entregados, no en supuestas instrucciones adicionales del aula.
+**Estado:** `d3ff586` está publicado y tiene [CI verde: 145 pruebas, 95,95 %](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514). La revisión de documentación y simplicidad del 12/11 es posterior y queda local, con su comprobación en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md).
 
-## Fuentes y estado inicial
+## Ocho mínimos del enunciado
 
-Clon del profesor: `dsia-26-27`, HEAD `a9ccfd3`. Repositorio personal: `dsia-26-27-VizosoMarchena-Gonzalo`, HEAD previo `f8edcff`. Ambos estaban sin cambios locales al iniciar la revisión.
-
-Se contrastaron los enunciados de I, II y III; guías/ejercicios de pytest y CI; data flows, E4 y ejemplos; clientes API y E5; uso de asistentes, catálogo de prompts y E6/E7; arquitectura, robustez, despliegue y E8/E8b/E9. En tu repo se revisaron los módulos y tests de ventas/diabetes, configuración, datos de muestra, diseño y documentación principal.
-
-El punto de partida tenía **42 tests pasando**, las dos aplicaciones del Proyecto I y la muestra pública de diabetes. No contenía entrenamiento/inferencia sklearn, cliente generativo, workflow de CI, requirements global ni tests de las dos CLI. No equivalía todavía a un Proyecto II.
-
-## Tema 1 — programación y datos
-
-| Requisito / observación | Antes | Solución / evidencia |
+| Mínimo obligatorio | Dónde se encuentra | Estado |
 | --- | --- | --- |
-| Dos pipelines, ventas y dominio propio | Implementados | Se conservan ambos paquetes y sus entradas |
-| Diseño modular y contratos | Repository/Protocol, loader/validator/metrics/CLI | Reutilización como paquetes instalables en `pyproject.toml` |
-| Validación | Reglas específicas de dominio, pero aceptaba algunos vacíos/conteos incorrectos | Espacios, celdas vacías, IDs inválidos, decimales e infinitos rechazados; tests parametrizados |
-| Exportación a un directorio nuevo | CLI fallaba si no existía | `mkdir(parents=True, exist_ok=True)` y smoke tests |
-| Trazabilidad de datos | Fuente/licencia, pero fecha de descarga en blanco | Se elimina el placeholder; se declara honestamente que no consta y se registra hash del input |
-| Continuidad | Solo métricas descriptivas | Nuevo pipeline reutiliza las mismas reglas; no copia el validador |
+| 1. Dominio, datos, origen, licencia y motivación | README §2 | Documentado |
+| 2. Pipeline reproducible con logs | CLI train/run, demo y `run.log` | Implementado y probado |
+| 3. sklearn: train, persistencia, inferencia y métricas | `model.py`, `pipeline.py`, README §3–4 | Implementado y probado |
+| 4. Tests unitarios, integración y carga/inferencia | `tests/`, especialmente modelo/jobs | Implementado y probado |
+| 5. Cliente tipado, mock y proveedor real documentado | `ai_client.py`, README §4 | Mock y OpenAI; contrato HTTP simulado, sin llamada real |
+| 6. `.env.example` y dependencias | Raíz; incluye `HF_TOKEN=` y sklearn | Presente; HF no implementado |
+| 7. Uso y citación de IA | `../AI_USAGE.md` | Declara aportación sustancial y revisión personal pendiente |
+| 8. Modularidad para continuar en el III | Datos/modelo/IA/jobs/CLI separados | Conservada |
 
-Las exclusiones de fallecimiento/hospicio son criterios de elegibilidad del objetivo, no solo suciedad de datos. Por simplicidad docente, el gate cuenta todas las filas rechazadas; el JSON desglosa sus motivos. En un producto podría separarse elegibilidad de errores de calidad.
+El enunciado recomienda HF y admite otro proveedor documentado. OpenAI es la alternativa de texto utilizada en el diseño; el proveedor ejecutado en demo/tests es mock. No se exige subir el modelo si hay instrucciones claras de reentrenamiento.
 
-## Tema 2 — tests, entornos y CI
+## Entrega y limitaciones
 
-| Requisito / ejercicio | Qué faltaba | Entregado |
-| --- | --- | --- |
-| E3: fixtures, assert/AAA, raises y parametrize | Existían en el I | Se amplían a datos, modelo, clientes y jobs |
-| Tests loader/validator/metrics/CLI en ambas apps | Faltaban CLI | `1_programacion_avanzada_python/tests/test_cli.py` |
-| Integración real de datos | Existía validación de CSV | Se añade entrenamiento → joblib → inferencia → mock sobre la muestra real |
-| Test de carga/inferencia del modelo | No existía modelo | Roundtrip joblib, clases/categorías nuevas, ausencia de etiqueta y versiones incompatibles |
-| Dependencias y entorno | Instalación manual de pandas/pytest | `requirements.txt`, `requirements-verified.txt`, `pyproject.toml`, `.env.example` |
-| CI con gate ≥60 % | No había workflow | `.github/workflows/ci.yml`, cobertura y demo de ambos proyectos |
-| Actions verde | Sin evidencia para los cambios nuevos | Pendiente de push y ejecución remota; no se sustituye por el resultado local |
-
-El gate mide código de ventas, diabetes y readmission conjuntamente, sin excluir líneas difíciles para inflar la cifra. Los scripts de ejercicio tienen pruebas funcionales aunque no se incluyen en ese denominador. El porcentaje y el resultado medidos se detallan en `EVIDENCIA.md`.
-
-## Tema 3 — automatización, sklearn y APIs
-
-| Bloque | Qué faltaba | Entregado / cómo comprobarlo |
-| --- | --- | --- |
-| E4: flags y control de calidad | CLI I sin umbral operativo | `scripts/pipeline_ventas.py`: 140/10, gate 0.05 → exit 1 |
-| Señales del job | Logging básico | `metrics/quality.json`, `run.log`, `status.json`, códigos 0–4 |
-| Idempotencia | No demostrada | Rerun con nombres estables, sin duplicados; un fallo invalida salidas antiguas; test automático |
-| Cadena de scripts | Ausente | `check_metrics.py`, lanzador Python y wrappers PowerShell/Bash; marcador local de éxito |
-| Programación periódica | Ausente | Wrappers preparados y ejemplo de cron documentado; no se instala una tarea real |
-| Modelo sklearn | Ausente | LogisticRegression + Pipeline, semilla, split por grupos y baseline |
-| Persistencia e inferencia | Ausente | joblib con contrato/versiones; `run` carga y predice sin reentrenar |
-| Métricas ML | Ausentes | F1, recall, precision, ROC-AUC, AP, balanced accuracy, accuracy y confusión |
-| Cliente generativo unificado | Ausente | `CompletionClient`, `AIResponse`, MockClient y OpenAIClient |
-| E5: batch de 5 prompts | Ausente | `proyecto_ii/prompts.txt`, comando `ai --batch`, JSONL de cinco registros |
-| E5: fail-once/retry | Ausente | Fallo simulado, hasta 2 reintentos por defecto, backoff+jitter y tests |
-| Timeout, 401/429/5xx, respuesta vacía | Ausente | Clasificación de errores; no reintentar autorización ni ocultar fallos |
-| Secretos y datos | Sin integración real | Clave desde entorno, repr sin clave, mensajes de error saneados, payload agregado |
-
-La llamada real es opcional según el enunciado. El adaptador está implementado; la verificación real depende de una clave válida y cuota. La entrega no afirma haberlo probado contra OpenAI.
-
-## Tema 4 — desarrollo asistido y documentación
-
-| Requisito | Entregado | Límite honesto |
-| --- | --- | --- |
-| Citación del asistente | Ampliación detallada de `AI_USAGE.md` | Se declara aportación sustancial de ChatGPT/Codex |
-| Explicar código existente | Resumen del flujo de la CLI y guía de estudio | El alumno debe leer y comprobar que lo entiende |
-| Refactor pequeño con tests (E6) | Crear directorios de salida, tests y registro del motivo | No se inventa un commit/PR ni la asistencia a un taller |
-| Revisión de riesgos | Fallos concretos de validación, fuga por paciente y gestión de API | Tests y decisiones explícitas, no garantías generales de producción |
-| README reproducible | Instalación, entrenamiento, inferencia, IA, pruebas y automatización | Los comandos de API/web de E7 corresponden al III |
-| Release Candidate (E7) | Plan de continuidad identificado | Tag RC, web, endpoints y demo final pendientes del III |
-
-## Tema 5 — lo que pertenece al Proyecto III
-
-No se debe confundir “Proyecto II completo en local” con “Trabajo Final completo”. La continuidad exige **el mismo repo, dominio, datos y núcleo ML/IA**. Queda por añadir:
-
-1. API de servicio (`/health`, predicción y análisis) con contratos de entrada/salida.
-2. Web o dashboard funcional que llame al backend y permita la demo.
-3. Manejo HTTP de validación/dependencias, request_id, latencias y estado degradado.
-4. Empaquetado/despliegue verificable, smoke y plan de rollback.
-5. Evidencia de CI remoto, release candidate y exposición de 5–7 minutos.
-
-E8 pide la primera API; E8b añade robustez; E9 preparación de despliegue. E6/E7 se sitúan en el taller del III aunque el Proyecto II ya exige documentar el uso de IA. Estos entregables futuros no se marcan como realizados.
-
-## Comprobación de los ocho mínimos del Proyecto II
-
-| Mínimo literal del enunciado | Ubicación |
+| Condición | Estado |
 | --- | --- |
-| 1. Dominio/datos para el III documentados | README, sección 2 |
-| 2. Pipeline reproducible con logs | `python -m readmission_app train/run`, `pipeline.py` |
-| 3. sklearn: entrenamiento, persistencia, inferencia y métricas | `model.py`, artefactos locales e informes versionables |
-| 4. pytest unitario/integración y carga/inferencia | `tests/test_model_contract.py`, `test_jobs.py` y resto de suite |
-| 5. Mock y proveedor real documentado | `ai_client.py`, `.env.example`, README |
-| 6. requirements y .env.example | Raíz del repositorio |
-| 7. AI_USAGE | `AI_USAGE.md` actualizado |
-| 8. Modularidad preparada para API | Funciones y Protocol independientes de argparse/web |
+| Mismo repositorio para el Trabajo Final | Se mantiene este repositorio y dominio |
+| Historial a lo largo de octubre | Hay base del I en octubre; ML/IA/CI se incorporan el 11 de noviembre. Limitación temporal real |
+| README con datos → train → inferencia → IA → III | Documentado |
+| Fecha original de descarga | No registrada; se conserva la muestra y se informa su hash |
+| Comprensión y defensa personal | Pendiente de completar; la revisión de Codex no la sustituye |
 
-## Pendientes que no se pueden fabricar con código
+## Ejercicios y comprobaciones por tema
 
-- **Publicación y Actions:** el usuario pidió preparar su carpeta. Los cambios quedan locales para revisión y subida; no hay un nuevo run remoto verificado.
-- **Historial de octubre:** no es posible generar retroactivamente trabajo histórico auténtico. Los commits futuros deben llevar su fecha real.
-- **Fecha de descarga original:** no consta; debe completarse solo si se conoce realmente. La muestra existente y sus hashes hacen reproducible esta ejecución.
-- **Revisión/defensa del alumno:** leer `GUIA_ESTUDIO.md`, ejecutar la demo y saber explicar el diff antes de entregar, conforme a las indicaciones del profesor.
+| Bloque | Evidencia | Clasificación respecto a esta revisión |
+| --- | --- | --- |
+| Tema 1: reutilización de ventas/diabetes | Paquetes del I y tests de sus CLI | Base conservada y reforzada |
+| Tema 2: pytest e integración | Casos de datos, modelo, IA y jobs | Parte del mínimo II.4 |
+| CI y umbral de cobertura del 60 % | Workflow y run publicado | Calidad/ejercicio de CI; el enunciado II no enumera ese porcentaje entre sus ocho mínimos |
+| E4: ventas y gate | 140 válidas/10 rechazadas; gate 0,05 → exit 1 | Ejercicio de automatización |
+| E4: cadena y repetición | Lanzador Python, wrappers y cadena Bash de ventas | Ejercicio y apoyo a la reproducibilidad |
+| Programación periódica | Ejemplo de cron en README | Preparado; no se ha instalado una tarea |
+| E5 partes 1–2 | Cuatro APIs abiertas, contrato, tabla de errores y país ZZ | Núcleo obligatorio del E5 |
+| E5 partes 3–5 | Mock, batch de cinco y fail-once/retry | Núcleo obligatorio del E5 |
+| E5 parte 6 | AI_USAGE con proveedor, tarea, modelo y comandos | Cierre obligatorio del E5 |
+| E5 parte 7.2 | Tests mock sin red | Extensión deseable realizada |
+| HF real | No realizado | Alternativa/extensión recomendada; no requisito exclusivo |
+| Tema 4: explicación y refactor con IA | AI_USAGE y guía de estudio | Ayuda declarada; no acredita mi comprensión personal |
+
+El gate cuenta todas las filas rechazadas, incluidas las exclusiones por fallecimiento/hospicio. `quality.json` desglosa motivos. En un producto podría separarse elegibilidad de calidad; aquí se conserva la política docente existente.
+
+## Qué continúa en el III
+
+API de servicio, web/dashboard conectado, manejo HTTP, monitorización, despliegue verificable, release candidate y exposición. El proyecto no presenta esos elementos como ya entregados. Los ejercicios E6/E7 y los de API/despliegue deben evaluarse según su propio alcance; no se añaden automáticamente a los ocho mínimos del II.
+
+Los documentos DESIGN, EVIDENCIA, cierre, guía de estudio y revisión de simplicidad ayudan a explicar y comprobar el proyecto; el enunciado no exige todos esos nombres de archivo por separado.

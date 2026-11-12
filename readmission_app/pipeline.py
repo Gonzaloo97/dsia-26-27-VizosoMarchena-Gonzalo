@@ -34,7 +34,10 @@ def job(output_dir: Path, name: str, generated_files: list[str]):
             raise
         else:
             elapsed = round(time.perf_counter() - start, 3)
-            write_json(output_dir / "status.json", {"job": name, "status": "success", "exit_code": 0, "duration_seconds": elapsed})
+            write_json(output_dir / "status.json", {
+                "job": name, "status": "success", "exit_code": 0,
+                "duration_seconds": elapsed,
+            })
             logger.info("Finalizado job=%s duration_seconds=%.3f", name, elapsed)
 
 
@@ -46,13 +49,16 @@ def train_job(source: Path, output_dir: Path, *, seed=42, test_size=0.2, max_err
         clean, _, quality = transform(read_data(source))
         write_json(output_dir / "quality.json", quality)
         check_quality(quality, max_error_rate)
-        logger.info("Calidad rows_in=%d rows_out=%d rows_dropped=%d", quality["rows_in"], quality["rows_out"], quality["rows_dropped"])
+        logger.info("Calidad rows_in=%d rows_out=%d rows_dropped=%d",
+                    quality["rows_in"], quality["rows_out"], quality["rows_dropped"])
         bundle, holdout, predictions = fit_model(clean, source, seed=seed, test_size=test_size)
         save_model(bundle, output_dir / "model.joblib")
         write_json(output_dir / "training_metrics.json", bundle["metadata"])
         write_csv(output_dir / "holdout.csv", holdout)
         write_csv(output_dir / "holdout_predictions.csv", predictions)
-        logger.info("Holdout rows=%d f1=%.4f roc_auc=%.4f", len(holdout), bundle["metadata"]["holdout"]["f1"], bundle["metadata"]["holdout"]["roc_auc"])
+        holdout_metrics = bundle["metadata"]["holdout"]
+        logger.info("Holdout rows=%d f1=%.4f roc_auc=%.4f",
+                    len(holdout), holdout_metrics["f1"], holdout_metrics["roc_auc"])
         return bundle["metadata"]
 
 
@@ -102,8 +108,12 @@ def run_job(source: Path, model_path: Path, output_dir: Path, client: Completion
         write_csv(output_dir / "predictions.csv", predictions)
         write_json(output_dir / "metrics.json", report)
         write_json(output_dir / "ai_summary.json", {**asdict(response), "input_aggregates": payload})
-        write_text(output_dir / "summary.md", "# Resumen del lote\n\n"
-                   f"Proveedor: **{response.provider}**. Modelo: `{response.model}`.\n\n"
-                   "Texto de IA no validado clinicamente. Las cifras verificables estan en metrics.json.\n\n" + response.text + "\n")
+        summary = (
+            "# Resumen del lote\n\n"
+            f"Proveedor: **{response.provider}**. Modelo: `{response.model}`.\n\n"
+            "Texto de IA no validado clinicamente. Las cifras verificables estan en metrics.json.\n\n"
+            + response.text + "\n"
+        )
+        write_text(output_dir / "summary.md", summary)
         logger.info("Resumen completado provider=%s", response.provider)
         return report

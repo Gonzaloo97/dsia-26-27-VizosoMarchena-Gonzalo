@@ -10,18 +10,45 @@ from readmission_app.open_api_client import OpenAPIClient, OpenAPIError, Transie
 
 
 @pytest.mark.parametrize("method,args,payload,source,field,expected", [
-    ("weather", [], {"current": {"time": "2026-11-11", "temperature_2m": 15, "wind_speed_10m": 3}}, "open-meteo", "temperature_c", 15),
-    ("country", ["es"], [{}, [{"id": "ESP", "iso2Code": "ES", "name": "Spain", "capitalCity": "Madrid"}]], "worldbank", "capital", "Madrid"),
-    ("fx", [], {"base": "EUR", "date": "2026-11-10", "rates": {"USD": 1.1}}, "frankfurter", "rates", {"USD": 1.1}),
-    ("github", ["dmartincc", "dsia-26-27"], {"full_name": "dmartincc/dsia-26-27", "html_url": "https://github.com/dmartincc/dsia-26-27", "language": "Python", "stargazers_count": 1}, "github", "language", "Python"),
+    (
+        "weather", [],
+        {"current": {"time": "2026-11-11", "temperature_2m": 15, "wind_speed_10m": 3}},
+        "open-meteo", "temperature_c", 15,
+    ),
+    (
+        "country", ["es"],
+        [{}, [{"id": "ESP", "iso2Code": "ES", "name": "Spain", "capitalCity": "Madrid"}]],
+        "worldbank", "capital", "Madrid",
+    ),
+    (
+        "fx", [], {"base": "EUR", "date": "2026-11-10", "rates": {"USD": 1.1}},
+        "frankfurter", "rates", {"USD": 1.1},
+    ),
+    (
+        "github", ["dmartincc", "dsia-26-27"],
+        {"full_name": "dmartincc/dsia-26-27",
+         "html_url": "https://github.com/dmartincc/dsia-26-27",
+         "language": "Python", "stargazers_count": 1},
+        "github", "language", "Python",
+    ),
 ])
-def test_normalized_contract(method, args, payload, source, field, expected):
+def test_normalized_contract(method, args, payload, source, field, expected, capsys):
     get = Mock(return_value=httpx.Response(200, json=payload))
     result = getattr(OpenAPIClient(get=get), method)(*args)
     assert result.source == source
     assert result.data[field] == expected
     assert get.call_args.kwargs["timeout"] == 15
     assert "Authorization" not in get.call_args.kwargs["headers"]
+    # Verifica tambien cada comando publico, incluidos sus argumentos.
+    commands = {
+        "weather": ["weather", "--lat", "40.4168", "--lon", "-3.7038"],
+        "country": ["country", "--code", "es"],
+        "fx": ["fx", "--base", "EUR", "--symbols", "USD,GBP"],
+        "github": ["github", "--owner", "dmartincc", "--repo", "dsia-26-27"],
+    }
+    assert main(commands[method], client=OpenAPIClient(get=get)) == 0
+    printed = json.loads(capsys.readouterr().out)
+    assert printed == {"source": result.source, "data": result.data}
 
 
 @pytest.mark.parametrize("status", [401, 403, 404])
@@ -70,7 +97,8 @@ def test_bad_response_is_typed_error(method, args):
 
 
 def test_cli_json_and_controlled_failure(capsys):
-    client = OpenAPIClient(get=Mock(return_value=httpx.Response(200, json=[{}, [{"id": "ESP", "iso2Code": "ES", "name": "Spain", "capitalCity": "Madrid"}]])))
+    payload = [{}, [{"id": "ESP", "iso2Code": "ES", "name": "Spain", "capitalCity": "Madrid"}]]
+    client = OpenAPIClient(get=Mock(return_value=httpx.Response(200, json=payload)))
     assert main(["country", "--code", "ES"], client=client) == 0
     assert json.loads(capsys.readouterr().out)["source"] == "worldbank"
     client = OpenAPIClient(get=Mock(return_value=httpx.Response(200, json=[{}, None])))

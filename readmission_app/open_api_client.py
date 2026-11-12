@@ -124,10 +124,17 @@ def main(argv=None, *, client=None):
     github = sub.add_parser("github")
     github.add_argument("--owner", required=True)
     github.add_argument("--repo", required=True)
-    args = vars(parser.parse_args(argv))
-    command = args.pop("command")
+    args = parser.parse_args(argv)
+    api = client or OpenAPIClient()
     try:
-        result = getattr(client or OpenAPIClient(), command)(**args)
+        if args.command == "weather":
+            result = api.weather(args.lat, args.lon)
+        elif args.command == "country":
+            result = api.country(args.code)
+        elif args.command == "fx":
+            result = api.fx(args.base, args.symbols)
+        else:
+            result = api.github(args.owner, args.repo)
         print(json.dumps(asdict(result), ensure_ascii=False, indent=2, allow_nan=False))
     except (OpenAPIError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)

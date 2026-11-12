@@ -10,8 +10,22 @@ from ventas_app import cli as ventas_cli
 
 
 @pytest.mark.parametrize("cli,source,report,expected", [
-    (ventas_cli, "fecha,region,producto,unidades,precio_unitario,cliente_id\n2026-01-01,Norte,A,2,10,C1\n", "calidad_datos.json", 1),
-    (diabetes_cli, "encounter_id,patient_nbr,gender,age,time_in_hospital,num_lab_procedures,num_procedures,num_medications,number_outpatient,number_emergency,number_inpatient,number_diagnoses,diag_1,discharge_disposition_id,A1Cresult,max_glu_serum,readmitted\n1,100,Female,[60-70),3,40,1,12,0,0,0,7,428,1,None,None,NO\n", "calidad_diabetes.json", 1),
+    (
+        ventas_cli,
+        "fecha,region,producto,unidades,precio_unitario,cliente_id\n"
+        "2026-01-01,Norte,A,2,10,C1\n",
+        "calidad_datos.json", 1,
+    ),
+    (
+        diabetes_cli,
+        "encounter_id,patient_nbr,gender,age,time_in_hospital,"
+        "num_lab_procedures,num_procedures,num_medications,"
+        "number_outpatient,number_emergency,number_inpatient,"
+        "number_diagnoses,diag_1,discharge_disposition_id,"
+        "A1Cresult,max_glu_serum,readmitted\n"
+        "1,100,Female,[60-70),3,40,1,12,0,0,0,7,428,1,None,None,NO\n",
+        "calidad_diabetes.json", 1,
+    ),
 ])
 def test_cli_writes_outputs(cli, source, report, expected, tmp_path, monkeypatch):
     input_path = tmp_path / "data.csv"

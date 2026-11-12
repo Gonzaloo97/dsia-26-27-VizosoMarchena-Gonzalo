@@ -89,27 +89,17 @@ class OpenAIClient:
         return AIResponse("openai", text.strip(), self.config.model)
 
 
-class FailOnceClient:
-    """Inyeccion didactica de un error temporal para el ejercicio E5."""
-
-    def __init__(self, client: CompletionClient):
-        self.client = client
-        self.failed = False
-
-    def complete(self, prompt: str) -> AIResponse:
-        if not self.failed:
-            self.failed = True
-            raise TransientAIError("Fallo transitorio simulado (--fail-once).")
-        return self.client.complete(prompt)
-
-
 class RetryingClient:
     """Reintenta solo errores temporales, con backoff acotado y jitter."""
 
-    def __init__(self, client: CompletionClient, max_retries=2, sleep=time.sleep, logger=None):
+    def __init__(self, client: CompletionClient, max_retries=2, sleep=time.sleep, logger=None,
+                 *, fail_once=False):
         if not 0 <= max_retries <= 5:
             raise AIClientError("Numero de reintentos fuera de rango.")
-        self.client, self.max_retries, self.sleep = client, max_retries, sleep
+        self.client = client
+        self.max_retries = max_retries
+        self.sleep = sleep
+        self.fail_once = fail_once
         self.logger = logger or logging.getLogger(__name__)
 
     def complete(self, prompt: str) -> AIResponse:
@@ -119,6 +109,10 @@ class RetryingClient:
             raise AIClientError("Prompt demasiado largo: maximo 12000 caracteres.")
         for attempt in range(self.max_retries + 1):
             try:
+                # E5: el fallo ocurre una sola vez, tambien si se usa un batch.
+                if self.fail_once:
+                    self.fail_once = False
+                    raise TransientAIError("Fallo transitorio simulado (--fail-once).")
                 return self.client.complete(prompt)
             except TransientAIError:
                 if attempt == self.max_retries:
@@ -130,6 +124,4 @@ class RetryingClient:
 
 def create_client(config: AIConfig, *, fail_once=False, logger=None) -> CompletionClient:
     client = MockClient() if config.provider == "mock" else OpenAIClient(config)
-    if fail_once:
-        client = FailOnceClient(client)
-    return RetryingClient(client, max_retries=config.max_retries, logger=logger)
+    return RetryingClient(client, max_retries=config.max_retries, logger=logger, fail_once=fail_once)

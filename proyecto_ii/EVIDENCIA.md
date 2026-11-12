@@ -1,12 +1,24 @@
-# Evidencia local de ejecución
+# Evidencia de ejecución
 
-> **Validación final (11/11/2026):** se repitieron las 35 pruebas de auditoría/APIs y la suite completa: 145 passed, cobertura 95,95 %, mínimo 60 % superado. El texto siguiente conserva la fotografía histórica anterior a la publicación; las referencias a cambios locales o publicación pendiente pertenecen a ese momento. Para el estado remoto del commit entregado, consultar [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml).
+Mi versión publicada `d3ff586` superó [145 pruebas y 95,95 % de cobertura en GitHub Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514) el 11/11/2026. El job también completó la demo y conservó los artefactos. Los registros remotos fueron consultados por Codex durante la revisión documental del 12/11.
 
-> **Foto histórica inicial:** las secciones siguientes y `evidence/verification.json` describen la preparación anterior al push de `b4217ad`. Posteriormente se verificó [su run verde remoto](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43041031910). Las correcciones nuevas se registran en [CIERRE_AUDITORIA.md](CIERRE_AUDITORIA.md), [verification_followup.json](evidence/verification_followup.json) y [open_api_smoke.json](evidence/open_api_smoke.json): 145 tests y cobertura 95,95 % local. Estas correcciones aún no tienen un run remoto propio. Se preserva la evidencia inicial sin atribuirle comprobaciones posteriores.
+La revisión local de simplicidad del 12/11 es posterior: sus resultados están en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md). No se le atribuye el run remoto de la versión anterior.
 
-**Fecha:** 11/11/2026. **Entorno:** Windows, Python 3.12.5. **Proveedor de IA ejecutado:** mock. Esta evidencia corresponde al código preparado en la carpeta personal; no acredita todavía un run de GitHub Actions.
+| Registro | Qué acredita |
+| --- | --- |
+| [verification.json](evidence/verification.json) | Primera ejecución local: 106 tests, 95,06 % |
+| [verification_followup.json](evidence/verification_followup.json) | Correcciones posteriores: 145 tests, 95,95 %, wrappers y APIs |
+| [validation_final.json](evidence/validation_final.json) | Última comprobación local antes de publicar `d3ff586` |
+| [Run 43087452514](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514) | Ejecución remota de `d3ff586`: 145 tests, 95,95 % |
+| [open_api_smoke.json](evidence/open_api_smoke.json) | Instantánea de APIs reales; su campo `checked_at_utc` indica cuándo se regeneró |
 
-## Verificación automatizada
+Los JSON se conservan con sus resultados y fechas. La instantánea de APIs puede cambiar al ejecutar explícitamente `verify_open_apis.py`; no es una salida fija del modelo ni de pytest.
+
+## Primera verificación local: registro histórico del 11/11
+
+Entorno: Windows, Python 3.12.5; proveedor ejecutado: mock. El detalle siguiente corresponde a la primera preparación, anterior a las correcciones y al push.
+
+### Comando y resultado inicial
 
 Comando ejecutado desde la raíz:
 
@@ -14,7 +26,7 @@ Comando ejecutado desde la raíz:
 python -m pytest --cov=ventas_app --cov=diabetes_app --cov=readmission_app --cov-report=term-missing --cov-report=xml --cov-fail-under=60 -q
 ```
 
-Resultado final: **106 passed**, **95,06 % de cobertura de líneas**, umbral **60 % superado**. Se midieron 709 sentencias y quedaron 35 sin ejecutar en esta medición. Incluye todos los tests originales y los nuevos. Los paquetes contienen también algunos puntos de entrada y el generador de muestras del I que no fueron ejecutados por esta suite; no se excluyeron para mejorar el porcentaje.
+Resultado de esa primera ejecución: **106 passed**, **95,06 % de cobertura de líneas**, umbral **60 % superado**. Se midieron 709 sentencias y quedaron 35 sin ejecutar en esta medición. Incluye todos los tests originales y los nuevos. La medición incluye el generador de muestras del I aunque no se ejecutara en esa suite; no mide cobertura de ramas.
 
 El comando de instalación editable del paquete se ejecutó correctamente. Para resolver la ausencia de acceso a PyPI en el entorno de trabajo se reutilizaron instalaciones locales disponibles de las herramientas de construcción/cobertura. No se modificaron otros proyectos. La instalación nueva estándar queda descrita en el README; no se afirma haber descargado todas las dependencias en un entorno limpio conectado.
 
@@ -63,7 +75,7 @@ Hash SHA-256 de la muestra empleada:
 | ROC-AUC | 0,6120 | 0,5000 |
 | Average precision | 0,2481 | 0,1271 |
 
-Matriz de confusión del modelo: `[[514, 331], [57, 66]]` (filas reales 0/1; columnas predichas 0/1). El modelo detecta parte de los positivos pero produce numerosos falsos positivos. La referencia tiene accuracy alta porque no detecta ningún positivo al umbral elegido. Los resultados son modestos y se muestran sin seleccionar una semilla favorable ni presentar el sistema como clínicamente validado.
+Matriz de confusión del modelo: `[[514, 331], [57, 66]]` (filas reales 0/1; columnas predichas 0/1). El modelo detecta parte de los positivos pero produce numerosos falsos positivos. La referencia tiene accuracy alta porque no detecta ningún positivo al umbral elegido. Los resultados son modestos. La implementación utiliza una semilla fija y no incluye búsqueda de la mejor semilla; no se presenta el sistema como clínicamente validado.
 
 ## Demo y ejercicios
 
@@ -72,7 +84,7 @@ Matriz de confusión del modelo: `[[514, 331], [57, 66]]` (filas reales 0/1; col
 - La inferencia produjo 968 predicciones y reportó cero filas de pacientes de entrenamiento.
 - Las métricas descriptivas del lote holdout coincidieron con las del entrenamiento.
 - El JSONL contiene cinco registros y declara `provider=mock`.
-- `python scripts/run_pipeline.py` completó la cadena de inferencia, comprobación de métricas y marcador local. Los tests verifican también que el primer o segundo fallo detiene la cadena y elimina un marcador de éxito anterior. La ejecución del wrapper `.ps1` fue bloqueada por la política local; no se cambió esa política. El `.sh` no se ejecutó en Windows.
+- `python scripts/run_pipeline.py` completó la cadena de inferencia, comprobación de métricas y marcador local. Los tests verifican también que el primer o segundo fallo detiene la cadena y elimina un marcador de éxito anterior. En esta primera ejecución no se verificaron los wrappers. El cierre posterior sí registró PowerShell y Git Bash en Windows, como muestra `verification_followup.json`.
 - Los tests verificaron además el checkpoint E4 de ventas (140/10), el gate que termina con exit 1 y la repetición idempotente.
 - La integración HTTP se verificó con stubs, incluidos timeouts, autorización, saturación, fallo del servidor y respuesta vacía; no se utilizó una clave real.
 
@@ -89,6 +101,6 @@ Matriz de confusión del modelo: `[[514, 331], [57, 66]]` (filas reales 0/1; col
 
 Estas copias pequeñas documentan la ejecución del 11/11/2026. La demo regenera los archivos de trabajo de `artifacts/` y `output/`, no sobrescribe automáticamente estas evidencias históricas. Si cambia código/datos y se quiere actualizar la evidencia, se debe volver a ejecutar y copiar los resultados correspondientes.
 
-## Límites de esta verificación
+## Límites y estado actual
 
-No se ha hecho push ni observado Actions para estos cambios. No se ha ejecutado el proveedor real de pago, ni desplegado API/dashboard. Los scripts no instalan una tarea periódica. No se puede acreditar retrospectivamente un historial de commits durante octubre ni la fecha exacta de la descarga original. Estas cuestiones se distinguen de los requisitos técnicos ya implementados y comprobados localmente.
+La publicación de `d3ff586` y su CI ya están verificadas. La revisión del 12/11 permanece local. No se ha ejecutado OpenAI real ni desplegado API/dashboard. Los scripts no instalan tareas periódicas. No consta la fecha exacta de descarga ni trabajo de ML/IA durante octubre; no se reconstruye retrospectivamente. Las comprobaciones técnicas realizadas por Codex no acreditan mi lectura y comprensión personal.

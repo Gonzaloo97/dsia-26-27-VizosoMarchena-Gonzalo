@@ -1,55 +1,53 @@
 # Diseño y decisiones técnicas
 
-## Responsabilidades y dependencias
+Mi proyecto separa cinco tareas: leer y validar datos, entrenar/predecir, llamar a IA, coordinar la ejecución y guardar resultados. Cada módulo tiene una responsabilidad concreta.
 
-La CLI interpreta argumentos y convierte excepciones de dominio en exit codes. `pipeline.py` orquesta jobs; `data.py` adapta la carga y validación del Proyecto I; `model.py` contiene sklearn; `ai_client.py` aísla el proveedor; `storage.py` limita las escrituras y gestiona logs. Ninguna función de validación llama a una API ni decide dónde guardar archivos.
+## Recorrido del código
 
-La dependencia hacia el Proyecto I es explícita en `pyproject.toml`: instala `diabetes_app` y `ventas_app` desde sus ubicaciones originales. Esto conserva sus comandos y permite reutilizar código sin modificaciones manuales de `sys.path` en producción. `pytest.ini` incorpora las rutas para permitir pruebas de desarrollo.
+| Archivo | Qué hace |
+| --- | --- |
+| `cli.py` | Lee argumentos y devuelve el código de salida |
+| `data.py` | Reutiliza la carga y validación del I; permite inferencia sin etiqueta |
+| `model.py` | Define variables, separa pacientes, entrena, evalúa, guarda/carga y predice |
+| `config.py` | Lee y comprueba la configuración IA |
+| `ai_client.py` | Devuelve mock o texto de OpenAI, con reintentos limitados |
+| `pipeline.py` | Ordena train/run y construye los agregados para IA |
+| `storage.py` | Guarda archivos y configura el log |
+| `errors.py` | Relaciona errores esperados con códigos de salida |
+| `open_api_client.py` | Ejercicio E5 independiente: APIs abiertas |
 
-## Contratos públicos
+`pyproject.toml` instala los tres paquetes. No hace falta copiar las reglas del I ni cambiar `sys.path` a mano. Los scripts se usan desde el repositorio; no se incluyen como paquetes de la aplicación instalada.
 
-| Interfaz | Entrada | Salida / fallo |
-| --- | --- | --- |
-| `transform(frame, require_target=...)` | DataFrame con columnas obligatorias del I; etiqueta opcional solo en inferencia | DataFrame limpio, rechazados con motivo e informe; DataError si el schema es inválido |
-| `grouped_split(frame, seed, test_size)` | Encuentros elegibles y etiqueta | Train/test con pacientes disjuntos y ambas clases; ModelError si no es posible |
-| `fit_model(clean, source, ...)` | Datos validados y ruta para hash | Bundle sklearn, holdout, predicciones holdout |
-| `load_model(path)` | joblib de confianza | Bundle con versión/schema comprobados; ModelError |
-| `predict(bundle, clean)` | Modelo y encuentros, sin necesidad de target | IDs, score y predicción binaria |
-| `CompletionClient.complete(prompt)` | Texto limitado | `AIResponse(provider, text, model)`; AIClientError o TransientAIError |
-| `train_job(...)` / `run_job(...)` | Rutas, política y cliente inyectable | Informes y artefactos; fallos de dominio propagados |
+## Modelo
 
-## Decisiones ML
+La unidad de observación es el ingreso, pero train/test se separan por `patient_nbr`. Los IDs y `readmitted` no entran como predictores. Se usan datos disponibles al alta.
 
-La unidad de observación es el encuentro, pero la partición usa el paciente. Solo se usan variables disponibles al alta, y los identificadores sirven para trazabilidad y separación, nunca como predictores. `readmitted` se utiliza exclusivamente como objetivo o para evaluación posterior.
+`build_model` crea imputación, escalado, one-hot y regresión logística. Guardar esta Pipeline completa conserva las transformaciones aprendidas con train. El test modifica el holdout y comprueba que el scaler no vuelve a ajustarse.
 
-La regresión logística ofrece una base rápida y reproducible. Los pesos de clase favorecen detectar la clase minoritaria, a costa de falsos positivos; esto se refleja en las métricas en lugar de ocultarlo con accuracy. No se afirma que el modelo sea adecuado para decisiones asistenciales.
+La configuración es fija; no hay búsqueda de hiperparámetros ni del umbral. Se compara con DummyClassifier y se muestra el coste en falsos positivos. El score no es una probabilidad clínica calibrada. Si el III incorpora optimización, necesitará validación por grupos dentro de train y una evaluación final reservada.
 
-El imputador, scaler y one-hot pertenecen al modelo persistido: inferencia aplica exactamente las transformaciones aprendidas. Las categorías nuevas no rompen la ejecución. El test automático altera deliberadamente el holdout para comprobar que la media del scaler no se ajusta a él.
+## Cliente IA
 
-No se hace selección de modelos ni ajuste de hiperparámetros. Si el III requiere optimización, debe incorporar validación por grupos dentro de train y reservar el test, calibrar los scores y justificar el umbral antes de evaluar el resultado final.
+`CompletionClient` describe una única operación: `complete(prompt) -> AIResponse`. `MockClient` y `OpenAIClient` cumplen ese contrato. El Protocol ayuda a comprobar que ambos pueden usarse en el pipeline; no es un sistema de plugins.
 
-## Diseño del cliente IA
+`RetryingClient` repite solo errores temporales. El flag `fail_once` simula el primer fallo dentro del mismo bucle, sin una clase adicional. El límite de intentos y la espera evitan un bucle infinito. El timeout es por intento, no un plazo total.
 
-El pipeline depende del Protocol `CompletionClient`. `MockClient` y `OpenAIClient` cumplen el mismo contrato. `RetryingClient` es un envoltorio que decide qué errores reintentar; `FailOnceClient` permite demostrar el comportamiento sin red. No se necesita instalar un SDK de proveedor: el adaptador HTTP usa el contrato oficial.
+`DeferredClient` crea el cliente cuando se llama por primera vez. Se conserva porque configurar el proveedor antes de iniciar el job dejaría resultados antiguos si falta una clave o el entorno es inválido. Su función es retrasar ese paso hasta después de invalidar las salidas anteriores.
 
-El prompt del pipeline se construye mediante una lista cerrada de agregados numéricos. Las respuestas externas son texto no confiable: se guardan, no se ejecutan. No se registra la clave ni el prompt en logs operativos. `AIConfig.api_key` se excluye de la representación textual de configuración.
+`summary_payload` envía una lista cerrada de agregados del lote y métricas históricas del holdout/modelo de referencia. Los bloques están identificados; el resumen no constituye una evaluación nueva del lote. No envía filas, IDs ni diagnósticos. La respuesta es texto: se guarda sin ejecutarla. El CLI `ai`, en cambio, permite prompts genéricos y no aplica esa selección de agregados.
 
-El timeout se aplica por intento HTTP. No es un plazo global estricto: la duración total incluye los intentos y sus esperas. Los reintentos pueden generar llamadas adicionales facturables en modo real. El máximo es acotado y los errores de autorización no se reintentan.
+## Guardar resultados y tratar fallos
 
-## Publicación de resultados y fallos
+Los jobs usan el contexto `job`: abrir log → escribir `running` → invalidar salidas anteriores → ejecutar pasos → escribir `success` o `failed`. Compartir este código evita repetirlo en train, run y ventas.
 
-Se protege la entrada/modelo frente a un directorio de salida que los contenga. Las escrituras usan fichero temporal en el mismo directorio y reemplazo final; se evita un CSV/JSON truncado en su ruta definitiva.
+La escritura temporal seguida de reemplazo evita publicar un CSV/JSON truncado. Esto protege cada archivo por separado; no es una transacción de todo el job. Los consumidores deben comprobar `status=success` y exit 0. Un fallo inesperado puede dejar `running` y un traceback, nunca un éxito nuevo.
 
-`status.json` es el marcador para consumidores automáticos. Un job iniciado escribe `running`, elimina únicamente sus salidas regenerables conocidas y al finalizar escribe `success`. Un error esperado escribe `failed` y sale distinto de cero; un fallo inesperado conserva `running` y su traceback, nunca se declara éxito. Puede existir información diagnóstica o parte de las salidas en un fallo, por lo que no deben consumirse sin comprobar el estado.
+Se rechazan destinos que contengan la entrada o el modelo. Un directorio inaccesible puede impedir incluso guardar el estado. No hay bloqueo multiproceso: dos jobs concurrentes necesitan destinos distintos.
 
-Los jobs no ofrecen transacciones multiproceso ni bloqueo del directorio. Dos ejecuciones concurrentes necesitan destinos diferentes. Los wrappers por fecha se diseñan para ejecución secuencial. No se modifica `.git`, no se programan tareas reales ni se publican resultados automáticamente.
+## Automatización y continuidad
 
-## Pruebas relevantes
+`run_pipeline.py` concentra inferencia → comprobación de métricas → marcador local. PowerShell y Bash llaman a esa misma cadena. `run_cadena_ventas.sh` se conserva como ejercicio E4 literal de limpiar, comprobar y copiar resultados.
 
-Los tests verifican resultados conocidos, errores, contratos y propiedades con consecuencias reales: no filtrar pacientes, no incluir el target como feature, no recalibrar transformaciones en test, conservar predicciones tras serialización, no llamar a IA si el gate falla, limitar reintentos y no presentar resultados antiguos como una ejecución correcta.
+La API del III podrá cargar el modelo y llamar a `predict`/`run_job`; el cliente IA se puede sustituir sin copiar la lógica. Autenticación, concurrencia, almacenamiento y despliegue se decidirán en esa etapa.
 
-Las fixtures sintéticas contienen señal sencilla para que las pruebas de infraestructura sean rápidas; **sus métricas no se presentan como rendimiento del dataset real**. La integración real usa la muestra de 5.000 filas y verifica el checkpoint de 4.867 válidas. Los informes publicados corresponden a esta última.
-
-## Puente al III
-
-La API podrá cargar el modelo al arrancar, validar su petición, llamar a `predict` y normalizar excepciones a HTTP. La web consumirá esa API. El cliente IA podrá inyectarse sin cambiar el núcleo. En esa etapa se decidirán el modelo de peticiones concurrentes, autenticación si procede, almacenamiento, monitorización y estrategia de despliegue; no se añaden dependencias web antes de necesitarlas.
+La revisión por archivo y los cambios de legibilidad están en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md). Las comprobaciones de resultados están en [EVIDENCIA.md](EVIDENCIA.md).

@@ -11,9 +11,6 @@ fi
 DAY="$(date +%F)"
 OUT="$REPO/proyecto_ii/output_daily/$DAY"
 mkdir -p "$OUT"
-rm -f "$OUT/LAST_OK.txt"
 exec >> "$OUT/cron.log" 2>&1
-"$PYTHON" -m readmission_app run \
-  --input proyecto_ii/artifacts/holdout.csv --provider mock --output-dir "$OUT"
-"$PYTHON" scripts/check_metrics.py --metrics "$OUT/metrics.json" --min-rows-out 100
-printf 'PIPELINE_OK %s\n' "$DAY" > "$OUT/LAST_OK.txt"
+# Reutiliza la misma cadena que PowerShell y la ejecucion directa en Python.
+"$PYTHON" scripts/run_pipeline.py "$@"

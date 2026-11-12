@@ -75,7 +75,10 @@ def test_do_not_overwrite_input(csv_path):
 def test_cli_exits_and_batch(csv_path, tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     assert main(["train", "--input", "absent.csv", "--output-dir", "fail"]) == 2
-    assert main(["run", "--input", str(csv_path), "--model-path", "absent.joblib", "--output-dir", "output", "--provider", "mock"]) == 3
+    assert main([
+        "run", "--input", str(csv_path), "--model-path", "absent.joblib",
+        "--output-dir", "output", "--provider", "mock",
+    ]) == 3
     assert main(["ai", "--provider", "openai", "--prompt", "test"]) == 4
     assert main(["ai", "--provider", "mock", "--prompt", "test", "--env-file", "absent.env"]) == 2
     prompts = tmp_path / "prompts.txt"

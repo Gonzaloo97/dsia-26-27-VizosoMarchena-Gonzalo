@@ -4,7 +4,7 @@ from unittest.mock import Mock
 import httpx
 import pytest
 
-from readmission_app.ai_client import FailOnceClient, MockClient, OpenAIClient, RetryingClient, create_client
+from readmission_app.ai_client import MockClient, OpenAIClient, RetryingClient, create_client
 from readmission_app.config import AIConfig
 from readmission_app.errors import AIClientError, DataError, TransientAIError
 from readmission_app.pipeline import summary_payload
@@ -12,10 +12,13 @@ from readmission_app.pipeline import summary_payload
 
 def test_mock_and_fail_once_without_sleep():
     sleep = Mock()
-    client = RetryingClient(FailOnceClient(MockClient()), sleep=sleep)
+    client = RetryingClient(MockClient(), sleep=sleep, fail_once=True)
     response = client.complete("hola")
     assert response.provider == "mock"
     assert "[mock]" in response.text
+    sleep.assert_called_once()
+    # Una segunda respuesta no debe volver a simular el primer fallo.
+    assert client.complete("otro prompt").provider == "mock"
     sleep.assert_called_once()
 
 

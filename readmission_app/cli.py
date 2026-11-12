@@ -55,12 +55,17 @@ def ai_job(args, client) -> int:
         # El destino representa este intento, no el ultimo batch que tuvo exito.
         args.output.unlink(missing_ok=True)
     if args.batch:
-        prompts = [line.strip() for line in args.batch.read_text(encoding="utf-8-sig").splitlines() if line.strip()]
+        lines = args.batch.read_text(encoding="utf-8-sig").splitlines()
+        prompts = [line.strip() for line in lines if line.strip()]
         if not prompts:
             raise DataError("El batch no contiene prompts.")
     else:
         prompts = [args.prompt]
-    records = [{"prompt": prompt, **asdict(client.complete(prompt))} for prompt in prompts]
+    # Se completa todo el batch antes de publicar el JSONL.
+    records = []
+    for prompt in prompts:
+        response = client.complete(prompt)
+        records.append({"prompt": prompt, **asdict(response)})
     serialized = "\n".join(json.dumps(record, ensure_ascii=False) for record in records) + "\n"
     if args.output:
         write_text(args.output, serialized)

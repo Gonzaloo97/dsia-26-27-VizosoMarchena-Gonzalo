@@ -1,4 +1,3 @@
-import importlib.util
 import json
 from pathlib import Path
 
@@ -6,21 +5,16 @@ import pandas as pd
 import pytest
 from unittest.mock import Mock
 
+from scripts import check_metrics, pipeline_ventas, run_pipeline
+
 ROOT = Path(__file__).resolve().parents[1]
-
-
-def script(name):
-    spec = importlib.util.spec_from_file_location(name, ROOT / "scripts" / f"{name}.py")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
 
 
 def test_sales_transform_in_memory():
     frame = pd.DataFrame({"fecha": ["2026-01-01"] * 3, "region": ["Norte"] * 3,
                           "producto": ["A"] * 3, "cliente_id": ["C1"] * 3,
                           "unidades": [2, None, 5], "precio_unitario": [10, 20, -1]})
-    clean, report = script("pipeline_ventas").transform(frame)
+    clean, report = pipeline_ventas.transform(frame)
     assert len(clean) == 1
     assert report["rows_dropped"] == 2
     assert report["importe_total"] == 20
@@ -28,7 +22,7 @@ def test_sales_transform_in_memory():
 
 @pytest.mark.integration
 def test_sales_e4_real_checkpoint_gate_and_rerun(tmp_path):
-    main = script("pipeline_ventas").main
+    main = pipeline_ventas.main
     args = ["--input", str(ROOT / "1_programacion_avanzada_python/Datos/ventas.csv"), "--output-dir", str(tmp_path / "output")]
     assert main(args) == 0
     first = (tmp_path / "output/ventas_limpias.csv").read_bytes()
@@ -42,7 +36,7 @@ def test_sales_e4_real_checkpoint_gate_and_rerun(tmp_path):
 
 
 def test_check_metrics_pass_fail_malformed(tmp_path):
-    main = script("check_metrics").main
+    main = check_metrics.main
     path = tmp_path / "metrics.json"
     path.write_text(json.dumps({"rows_out": 140, "error_rate": 10 / 150}))
     assert main(["--metrics", str(path), "--min-rows-out", "100"]) == 0
@@ -53,7 +47,7 @@ def test_check_metrics_pass_fail_malformed(tmp_path):
 
 @pytest.mark.parametrize("codes,expected_calls,expected_exit", [([1], 1, 1), ([0, 1], 2, 1), ([0, 0], 2, 0)])
 def test_chain_stops_and_only_marks_success(codes, expected_calls, expected_exit, tmp_path, monkeypatch):
-    wrapper = script("run_pipeline")
+    wrapper = run_pipeline
     runner = Mock(side_effect=[Mock(returncode=code) for code in codes])
     monkeypatch.setattr(wrapper.subprocess, "run", runner)
     marker = tmp_path / "LAST_OK.txt"
@@ -68,7 +62,7 @@ def test_sales_nonfinite_amount_is_rejected(units, price, tmp_path):
     source, output = tmp_path / "sales.csv", tmp_path / "output"
     source.write_text("fecha,region,producto,unidades,precio_unitario,cliente_id\n"
                       f"2026-01-01,Norte,A,{units},{price},C1\n", encoding="utf-8")
-    assert script("pipeline_ventas").main(["--input", str(source), "--output-dir", str(output)]) == 1
+    assert pipeline_ventas.main(["--input", str(source), "--output-dir", str(output)]) == 1
     assert json.loads((output / "status.json").read_text())["status"] == "failed"
     assert json.loads((output / "metrics.json").read_text())["rows_dropped"] == 1
 
@@ -77,5 +71,5 @@ def test_sales_aggregate_overflow_is_data_error(tmp_path):
     source, output = tmp_path / "sales.csv", tmp_path / "output"
     source.write_text("fecha,region,producto,unidades,precio_unitario,cliente_id\n"
                       + "2026-01-01,Norte,A,1e308,1,C1\n" * 2, encoding="utf-8")
-    assert script("pipeline_ventas").main(["--input", str(source), "--output-dir", str(output)]) == 2
+    assert pipeline_ventas.main(["--input", str(source), "--output-dir", str(output)]) == 2
     assert json.loads((output / "status.json").read_text())["status"] == "failed"

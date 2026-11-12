@@ -69,8 +69,10 @@ def grouped_split(frame: pd.DataFrame, seed: int = 42, test_size: float = 0.2):
     splitter = GroupShuffleSplit(n_splits=1, test_size=test_size, random_state=seed)
     train_indices, test_indices = next(splitter.split(frame, groups=frame["patient_nbr"]))
     train, test = frame.iloc[train_indices].copy(), frame.iloc[test_indices].copy()
-    if any((part["readmitted"] == "<30").nunique() != 2 for part in (train, test)):
-        raise ModelError("Train y test necesitan ambas clases; aporta mas datos. No se busca un split favorable.")
+    for part in (train, test):
+        has_both_classes = (part["readmitted"] == "<30").nunique() == 2
+        if not has_both_classes:
+            raise ModelError("Train y test necesitan ambas clases; aporta mas datos. No se busca un split favorable.")
     return train, test
 
 
@@ -94,10 +96,12 @@ def evaluate(y_true, probabilities, threshold: float = THRESHOLD) -> dict:
 
 
 def fit_model(clean: pd.DataFrame, source: Path, *, seed: int = 42, test_size: float = 0.2):
-    """Entrena una configuracion fijada a priori y la compara con DummyClassifier."""
+    """Entrena la configuracion fija de build_model y la compara con DummyClassifier."""
     train, test = grouped_split(clean, seed, test_size)
-    x_train, x_test = features(train), features(test)
-    y_train, y_test = (train["readmitted"] == "<30").astype(int), (test["readmitted"] == "<30").astype(int)
+    x_train = features(train)
+    x_test = features(test)
+    y_train = (train["readmitted"] == "<30").astype(int)
+    y_test = (test["readmitted"] == "<30").astype(int)
     estimator = build_model(seed)
     estimator.fit(x_train, y_train)
     baseline = DummyClassifier(strategy="prior").fit(x_train, y_train)

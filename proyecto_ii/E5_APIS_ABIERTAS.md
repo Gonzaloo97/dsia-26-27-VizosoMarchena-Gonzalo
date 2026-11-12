@@ -1,6 +1,6 @@
 # E5 — APIs abiertas y borde de IA
 
-Práctica completada el 11/11/2026. Referencia: [E5 del profesor, versión contrastada](https://github.com/dmartincc/dsia-26-27/blob/1c2906e77c5235a04f820f4252dcb0760e240728/3_automatizacion_e_ia/ejercicios/E5_apis_ia.md). El contrato y los endpoints se adaptan del [ejemplo de aula](https://github.com/dmartincc/dsia-26-27/blob/1c2906e77c5235a04f820f4252dcb0760e240728/3_automatizacion_e_ia/ejemplos/open_api_client.py), con HTTPX y pruebas offline propias.
+Ejecución técnica registrada el 11/11/2026. Documento revisado el 12/11/2026. Referencia: [E5 del profesor, versión contrastada](https://github.com/dmartincc/dsia-26-27/blob/1c2906e77c5235a04f820f4252dcb0760e240728/3_automatizacion_e_ia/ejercicios/E5_apis_ia.md). El contrato y los endpoints se adaptan del [ejemplo de aula](https://github.com/dmartincc/dsia-26-27/blob/1c2906e77c5235a04f820f4252dcb0760e240728/3_automatizacion_e_ia/ejemplos/open_api_client.py), con HTTPX y pruebas offline propias.
 
 ## Comandos y evidencia real
 
@@ -25,7 +25,7 @@ Los cuatro primeros terminaron con exit 0. El último produjo `ERROR: Pais sin r
 
 `APIResult(source, data)` identifica la procedencia y evita que el núcleo dependa del JSON particular del proveedor. Cada método traduce el formato externo a campos conocidos; un cambio de API se resuelve en ese borde. `transform` sigue siendo una función de datos, sin HTTP.
 
-En el Proyecto II hospitalario usaría el borde de modelos ya implementado para **resumir métricas agregadas**. No incorporo meteorología, divisas o metadatos de país como predictores sin una justificación y una unión de datos verificable: estas llamadas cumplen el ejercicio de bordes HTTP independiente del caso de salud.
+Como posible ampliación usaría la **API pública de GitHub** para mostrar metadatos del repositorio y facilitar la trazabilidad de la entrega. Sería una función auxiliar, aún no integrada en el pipeline hospitalario. Las APIs practicadas no se usan como predictores de salud. El borde de modelos sí está integrado para resumir métricas agregadas; cumple una función distinta.
 
 ## Estrategias de error
 
@@ -52,7 +52,7 @@ python -m readmission_app ai --provider mock --prompt "test" --fail-once
 python -m pytest tests/test_open_api_client.py tests/test_ai_contract.py -q
 ```
 
-El batch genera cinco registros con prompt/provider/text/model y `--fail-once` recupera el primer error transitorio. Mock es obligatorio en CI para que pruebas y demo no dependan de una cuenta, cuota, red o disponibilidad del proveedor. El HTTP abierto se prueba con respuestas simuladas en pytest. Los smokes reales se ejecutan **solo explícitamente**, fuera de la suite y del workflow offline:
+El smoke devuelve `provider=mock` y texto con prefijo `[mock]`. El batch genera cinco registros con prompt/provider/text/model y `--fail-once` recupera el primer error transitorio. La parte 7.2 deseable está cubierta por los tests del cliente mock sin red. Mock es obligatorio en CI para que pruebas y demo no dependan de una cuenta, cuota, red o disponibilidad del proveedor. El HTTP abierto se prueba con respuestas simuladas en pytest. Los smokes reales se ejecutan **solo explícitamente**, fuera de la suite y del workflow offline:
 
 ```powershell
 python scripts/verify_open_apis.py
@@ -60,4 +60,4 @@ python scripts/verify_open_apis.py
 
 Ese comando actualiza la instantánea de respuestas reales; si una dependencia falla, registra el fallo y termina distinto de cero. No confunde un fallo de red con el caso negativo esperado de `ZZ`. El smoke HF es una extensión deseable no realizada: la alternativa documentada de modelos es OpenAI y no se ha hecho una llamada de pago.
 
-Asistencia y decisiones revisadas automáticamente: [AI_USAGE.md](../AI_USAGE.md). La comprensión y revisión personal del alumno no se da por realizada por escribir este documento.
+La implementación y las comprobaciones contaron con ayuda sustancial de Codex, descrita en [AI_USAGE.md](../AI_USAGE.md). Me queda completar la revisión y comprensión personal antes de defenderlo.

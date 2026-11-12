@@ -15,7 +15,7 @@ TARGET = "readmitted"
 def read_data(path: Path) -> pd.DataFrame:
     try:
         return load(path)
-    except (DataLoadError, OSError, ValueError, pd.errors.ParserError) as exc:
+    except DataLoadError as exc:
         raise DataError("No se pudo leer el CSV de entrada; comprueba ruta y formato.") from exc
 
 

@@ -1,6 +1,6 @@
 # Guía para entender y defender el Proyecto II
 
-## Qué has construido
+## Cómo funciona mi proyecto
 
 En el Proyecto I cargabas encuentros hospitalarios, separabas los que cumplían las reglas y calculabas estadísticas. En el II utilizas esos datos para **entrenar un modelo, guardarlo, volver a cargarlo y obtener predicciones**, además de generar un resumen mediante una interfaz de IA. Todo puede ejecutarse desde terminal y comprobarse con tests.
 
@@ -77,7 +77,7 @@ Un timeout o un 503 puede desaparecer al repetir; un 401 por clave incorrecta no
 - Contratos externos: cuerpo HTTP, timeout, formatos inválidos y códigos de error, todos simulados.
 - Integración: CSV público → validación → entrenamiento → joblib → inferencia → resumen mock → archivos.
 
-**95,95 % de cobertura local tras las correcciones** significa que se ejecutó esa proporción de líneas medibles de los paquetes incluidos (145 tests). No significa precisión del modelo ni ausencia total de errores. El commit anterior publicado tuvo 95,06 % y 106 tests también en Actions. Las pruebas comprueban comportamientos concretos y la métrica de cobertura ayuda a localizar huecos.
+El commit publicado `d3ff586` superó **145 tests y 95,95 % de cobertura en [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514)**. La cobertura mide líneas ejecutadas de los paquetes incluidos; no es la precisión del modelo ni una garantía de ausencia de errores. Las modificaciones locales del 12/11 tienen su propia validación en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md).
 
 ## Demo de 4–5 minutos
 
@@ -106,7 +106,7 @@ El tiempo de arranque de Python/sklearn puede variar en Windows. No confundas es
 | ¿Por qué un fallo de calidad termina con 1? | Para detener la cadena automática y evitar publicar resultados de un lote que no cumple la política. |
 | ¿Qué es idempotencia en esta entrega? | Repetir no duplica registros ni nombres de salida; el último estado identifica si el job terminó correctamente. |
 | ¿Qué añade CI respecto a pytest local? | Ejecuta los checks en otro entorno al subir cambios o abrir un PR y aplica el gate de cobertura. |
-| ¿Ya hay un run verde en GitHub? | La base b4217ad tiene el run verde 43041031910; la versión final pasa 145 tests locales. Consulta Actions para el resultado remoto del commit entregado. |
+| ¿Ya hay un run verde en GitHub? | Sí: d3ff586, run 43087452514, 145 pruebas y 95,95 %. Las simplificaciones locales posteriores necesitarán otro run al publicarse. |
 | ¿Qué falta para el III? | API, web/dashboard conectado, despliegue, monitorización y exposición. |
 
-Antes de entregar: revisa `AI_USAGE.md`, lee el código de las piezas principales y comprueba que puedes explicar estas respuestas con tus propias palabras.
+Esta guía es material de estudio preparado con ayuda de IA. Antes de entregar me queda leer las piezas principales, ejecutar la demo y comprobar que puedo explicar estas respuestas con mis propias palabras. Tenerlas escritas no acredita que ya las comprenda.

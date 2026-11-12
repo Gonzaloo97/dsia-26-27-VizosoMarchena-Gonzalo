@@ -10,6 +10,8 @@ El Proyecto II continúa el pipeline de diabetes del Proyecto I: añade entrenam
 - [Auditoría de requisitos por tema](proyecto_ii/AUDITORIA_TEMAS.md)
 - [Resultados y evidencia de validación local](proyecto_ii/EVIDENCIA.md)
 - [Guía para comprender y defender el proyecto](proyecto_ii/GUIA_ESTUDIO.md)
+- [Uso de IA y alcance de la ayuda recibida](AI_USAGE.md)
+- [Revisión de simplicidad del código](proyecto_ii/REVISION_SIMPLICIDAD.md)
 
 Inicio rápido desde esta raíz, con el entorno ya creado:
 
@@ -20,7 +22,7 @@ Inicio rápido desde esta raíz, con el entorno ya creado:
 .venv\Scripts\python.exe -m pytest --cov=ventas_app --cov=diabetes_app --cov=readmission_app --cov-fail-under=60
 ```
 
-El workflow único de ambos proyectos está en `.github/workflows/ci.yml`. [Run verde verificado de b4217ad](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43041031910): 106 tests y cobertura 95,06 %. La validación final de las correcciones pasa **145 tests y cobertura 95,95 % en local**, incluidas 35 pruebas específicas de auditoría/APIs. El estado remoto del commit publicado se consulta en [Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml). Consulta el [cierre de auditoría](proyecto_ii/CIERRE_AUDITORIA.md) y la [práctica E5 de APIs abiertas](proyecto_ii/E5_APIS_ABIERTAS.md).
+El workflow de ambos proyectos está en `.github/workflows/ci.yml`. La versión publicada `d3ff586` superó **145 pruebas y 95,95 % de cobertura** en [GitHub Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514). Las simplificaciones posteriores del 12/11/2026 se comprueban en local y se detallan en [REVISION_SIMPLICIDAD.md](proyecto_ii/REVISION_SIMPLICIDAD.md); ese run remoto acredita la versión publicada anterior. La evidencia de ejecución está en [EVIDENCIA.md](proyecto_ii/EVIDENCIA.md) y el ejercicio de APIs en [E5_APIS_ABIERTAS.md](proyecto_ii/E5_APIS_ABIERTAS.md).
 
 Las secciones siguientes conservan la explicación del **Proyecto I**.
 

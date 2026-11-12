@@ -2,7 +2,7 @@
 
 **Gonzalo Vizoso Marchena · DSIA 2026–2027 · Continuación del Proyecto I y base del III.**
 
-El proyecto convierte el pipeline de calidad de ingresos hospitalarios del Proyecto I en un proceso reproducible: **CSV → validación → modelo sklearn persistido → inferencia → resumen con IA → CSV/JSON/logs**. Incluye un modo offline completo y un adaptador HTTP real para OpenAI.
+Mi proyecto continúa el pipeline de calidad de ingresos hospitalarios del Proyecto I con un proceso reproducible: **CSV → validación → modelo sklearn persistido → inferencia → resumen con IA → CSV/JSON/logs**. Incluye un modo offline completo y un adaptador HTTP real para OpenAI.
 
 ## 1. Instalación y demo
 
@@ -15,7 +15,13 @@ python -m venv .venv
 .venv\Scripts\python.exe scripts/run_demo.py
 ```
 
-Si `.venv` ya existe, puedes conservarlo y ejecutar los dos comandos de instalación. En Linux/macOS, sustituye `.venv\Scripts\python.exe` por `.venv/bin/python`. Con el entorno activado, usa simplemente `python` en los comandos restantes.
+Si `.venv` ya existe, puedes conservarlo y ejecutar los dos comandos de instalación. Para los comandos siguientes, activa el entorno:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Si PowerShell bloquea la activación, utiliza `.venv\Scripts\python.exe` en lugar de `python`, como en la demo inicial. No hace falta cambiar la política de ejecución. En Git Bash se activa con `source .venv/Scripts/activate`; en Linux/macOS, con `source .venv/bin/activate`.
 
 La demo entrena, ejecuta inferencia sobre pacientes reservados y genera cinco respuestas JSONL en modo mock, incluyendo un fallo transitorio simulado. No necesita cuenta, clave, pago ni descarga de datos. Los ficheros de salida se regeneran en cada ejecución.
 
@@ -52,7 +58,7 @@ Se utiliza regresión logística con pesos de clase equilibrados y un umbral did
 - **Variables:** 8 conteos/duraciones y 5 categóricas: edad, sexo, diagnóstico principal, HbA1c y glucosa. La lista exacta está en `readmission_app/model.py` y en el informe.
 - **Excluidas del modelo:** `readmitted`, `encounter_id`, `patient_nbr` y cualquier columna no incluida en la lista cerrada. `discharge_disposition_id` determina elegibilidad, no es predictor.
 - **Comparación:** `DummyClassifier(strategy='prior')` sirve de referencia. Se reportan accuracy, balanced accuracy, precision, recall, F1, ROC-AUC, average precision y matriz de confusión `[[TN, FP], [FN, TP]]`.
-- **Sin optimizar sobre test:** hiperparámetros, variables y umbral fijados antes de evaluar. No se busca una semilla que dé mejor resultado. Si un conjunto solo contiene una clase se pide más información/datos, no se oculta el problema.
+- **Configuración fija:** el código no incluye búsqueda de hiperparámetros, semillas ni umbrales. Si train o test no contienen ambas clases, detiene el entrenamiento y pide más datos. Esto describe la implementación; el código por sí solo no demuestra cuándo se tomó cada decisión.
 - **Scores:** al utilizar pesos de clase, el score no se presenta como probabilidad clínica calibrada.
 
 Resultados concretos y versiones verificadas: [EVIDENCIA.md](EVIDENCIA.md). La evaluación puede variar ligeramente entre versiones/plataformas; el informe registra versiones, semilla y hash de entrada. Para reproducir el entorno observado, se incluye `requirements-verified.txt` en la raíz.
@@ -65,7 +71,7 @@ Resultados concretos y versiones verificadas: [EVIDENCIA.md](EVIDENCIA.md). La e
 | `holdout_predictions.csv` | Etiqueta real y score/clase predicha del holdout |
 | `quality.json`, `status.json`, `run.log` | Calidad de entrada, estado del job y registro operativo |
 
-El modelo se conserva entrenado en tu carpeta local. Se excluye de Git junto con el resto de artefactos regenerables: el enunciado permite entregar instrucciones claras de reentrenamiento. Solo se deben cargar `joblib` propios o de confianza; su formato puede ejecutar código al deserializar. Si cambia la versión de sklearn, reentrena.
+El modelo entrenado se guarda en la carpeta local. Se excluye de Git junto con el resto de artefactos regenerables: el enunciado permite entregar instrucciones claras de reentrenamiento. Solo se deben cargar `joblib` propios o de confianza; su formato puede ejecutar código al deserializar. Si cambia la versión de sklearn, reentrena.
 
 ## 4. Inferencia integrada e IA
 
@@ -97,7 +103,7 @@ python -m readmission_app run --input proyecto_ii/artifacts/holdout.csv --provid
 
 Los flags prevalecen sobre el entorno; las variables ya definidas en el sistema prevalecen sobre `.env`. El adaptador implementa `POST https://api.openai.com/v1/chat/completions` mediante HTTPX, con límite de salida y `store=false`. Este parámetro no constituye una garantía de retención cero del proveedor. No se ejecutó una llamada real de pago; el contrato HTTP se prueba con respuestas simuladas. El enunciado permite mock + diseño listo cuando no hay clave.
 
-Se reintentan timeout, fallos de conexión, HTTP 408/429 y 5xx con espera creciente y jitter. HTTP 400/401/403 y respuestas inválidas fallan directamente. El cliente nunca pasa silenciosamente de OpenAI a mock. El texto generado se guarda como tal, sin ejecutarlo, y debe contrastarse con `metrics.json`.
+Se reintentan timeout, fallos de conexión, HTTP 408/429 y 5xx con espera creciente y jitter. HTTP 400/401/403 y respuestas inválidas fallan directamente. El cliente nunca pasa silenciosamente de OpenAI a mock. El texto generado se guarda sin ejecutarlo. Recibe agregados del lote y métricas históricas del holdout; cada bloque está identificado en `ai_summary.json`. Las cifras del lote se contrastan con `metrics.json` y las de evaluación con `training_metrics.json`.
 
 ### Batch y retry del E5
 
@@ -132,7 +138,7 @@ Lanzador portable, sin instalar tareas en el equipo:
 python scripts/run_pipeline.py
 ```
 
-También se incluyen `scripts/run_pipeline.ps1` y `bash scripts/run_pipeline.sh`. Ejecutan inferencia → comprueban métricas → escriben un marcador local `LAST_OK.txt` solo si todo pasa. Salida por fecha en `proyecto_ii/output_daily/`. Ambos wrappers se ejecutaron correctamente durante el cierre del 11/11/2026, el segundo con Git Bash en Windows. El Bash busca `.venv/bin/python` y admite `.venv/Scripts/python.exe`; no se ha ensayado aún en Linux. No se cambiaron políticas de ejecución. Ejemplo didáctico de cron, **no instalado**:
+También se incluyen `scripts/run_pipeline.ps1` y `bash scripts/run_pipeline.sh`. Ambos llaman a `run_pipeline.py`, que concentra la cadena: inferencia → comprobar métricas → escribir `LAST_OK.txt` solo si todo pasa. Salida por fecha en `proyecto_ii/output_daily/`. Ambos wrappers se ejecutaron correctamente durante el cierre del 11/11/2026, el segundo con Git Bash en Windows. El Bash busca `.venv/bin/python` y admite `.venv/Scripts/python.exe`; no se ha ensayado aún en Linux. No se cambiaron políticas de ejecución. Ejemplo didáctico de cron, **no instalado**:
 
 ```cron
 15 2 * * * /bin/bash /ruta/al/repo/scripts/run_pipeline.sh
@@ -170,7 +176,7 @@ Los tests cubren el Proyecto I y el II: validación, CLI, contrato de datos, ais
 
 Workflow: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml). Instala Python 3.12, ejecuta toda la suite con cobertura ≥60 %, corre la demo y conserva informes como artefactos. Se dispara con push a main/master y con PR. [Abrir Actions](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/workflows/ci.yml).
 
-**CI remoto observado:** [run 43041031910](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43041031910), `b4217ad`, 106 passed y cobertura 95,06 %. **Validación final de las correcciones:** 145 passed y cobertura 95,95 % en local, con 35 pruebas específicas de auditoría/APIs. El resultado remoto de cada commit se consulta en el enlace de Actions anterior. El run antiguo no acredita estos cambios nuevos. El [cierre de auditoría](CIERRE_AUDITORIA.md) distingue las dos evidencias y los pendientes de revisión personal/historial.
+**Versión publicada comprobada:** [run 43087452514](https://github.com/Gonzaloo97/dsia-26-27-VizosoMarchena-Gonzalo/actions/runs/43087452514), commit `d3ff586`, **145 pruebas y 95,95 % de cobertura**. El run anterior de `b4217ad` tenía 106 pruebas y 95,06 %. Las simplificaciones del 12/11/2026 aún son locales; sus comprobaciones están en [REVISION_SIMPLICIDAD.md](REVISION_SIMPLICIDAD.md). El [cierre de auditoría](CIERRE_AUDITORIA.md) recoge los defectos corregidos y las limitaciones pendientes.
 
 ## 7. Organización y continuidad
 
@@ -186,7 +192,7 @@ Workflow: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml). Instala Pyt
 | `tests/`, `scripts/` | Pruebas nuevas, demo y automatización |
 | `proyecto_ii/AUDITORIA_TEMAS.md` | Qué faltaba en cada tema y evidencia que lo resuelve |
 | `proyecto_ii/GUIA_ESTUDIO.md` | Explicación del funcionamiento y preguntas para defenderlo |
-| `AI_USAGE.md` | Alcance real de la asistencia de IA y revisión pendiente del alumno |
+| `AI_USAGE.md` | Ayuda recibida de IA y revisión personal pendiente |
 
 En el Proyecto III se añadirá una API con `/health`, predicción y análisis, una web/dashboard que consuma ese backend, despliegue verificable, monitorización por petición y demo de 5–7 minutos. `predict`, `run_job` y `CompletionClient` se reutilizan; la API no tendrá que copiar la lógica a un endpoint. La web, el servidor y el despliegue **todavía no forman parte de esta entrega II**.
 
